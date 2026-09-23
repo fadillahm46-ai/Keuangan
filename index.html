@@ -1247,58 +1247,10 @@
     let selectedReceiptFiles = { income: null, expense: null };
     let currentMobileTabIndex = 0;
 
-    // Palet warna otomatis yang selaras dengan tema yang dipilih
-    const THEME_ACCENTS = {
-      putih: { primary: '#0EA5E9', light: '#F0F9FF', dark: '#0284C7', ring: 'rgba(14, 165, 233, 0.25)' },
-      biru_langit: { primary: '#0284C7', light: '#E0F2FE', dark: '#0369A1', ring: 'rgba(2, 132, 199, 0.25)' },
-      pink: { primary: '#EC4899', light: '#FDF2F8', dark: '#BE185D', ring: 'rgba(236, 72, 153, 0.25)' },
-      toska: { primary: '#14B8A6', light: '#CCFBF1', dark: '#0F766E', ring: 'rgba(20, 184, 166, 0.25)' },
-      abu: { primary: '#64748B', light: '#F1F5F9', dark: '#475569', ring: 'rgba(100, 116, 139, 0.25)' },
-      kucing: { primary: '#D97706', light: '#FEF3C7', dark: '#B45309', ring: 'rgba(217, 119, 6, 0.25)' },
-      mint: { primary: '#10B981', light: '#D1FAE5', dark: '#047857', ring: 'rgba(16, 185, 129, 0.25)' },
-      gelap: { primary: '#38BDF8', light: '#1E293B', dark: '#0284C7', ring: 'rgba(56, 189, 248, 0.25)' }
-    };
-
-    // Fungsi atur tema kartu: MURNI HANYA DISIMPAN DI LOKAL STORAGE PERANGKAT
-    function setCardTheme(cardThemeKey, notify = true) {
-      globalCardBg = cardThemeKey;
-      document.body.setAttribute('data-card-theme', cardThemeKey);
-      localStorage.setItem('family_finance_card_theme', cardThemeKey);
-
-      // Aksen warna tombol & sorotan otomatis disesuaikan agar serasi dengan tema kartu
-      const acc = THEME_ACCENTS[cardThemeKey] || THEME_ACCENTS.putih;
-      document.documentElement.style.setProperty('--primary-color', acc.primary);
-      document.documentElement.style.setProperty('--primary-light', acc.light);
-      document.documentElement.style.setProperty('--primary-dark', acc.dark);
-      document.documentElement.style.setProperty('--primary-ring', acc.ring);
-
-      document.querySelectorAll('.theme-card-btn').forEach(btn => {
-        if (btn.getAttribute('data-val') === cardThemeKey) {
-          btn.classList.add('ring-2', 'ring-theme-primary', 'border-theme-primary');
-        } else {
-          btn.classList.remove('ring-2', 'ring-theme-primary', 'border-theme-primary');
-        }
-      });
-
-      const readableName = {
-        putih: 'Putih',
-        biru_langit: 'Biru Langit',
-        pink: 'Pink',
-        toska: 'Toska',
-        abu: 'Abu-abu',
-        kucing: 'Kucing 🐾',
-        mint: 'Mint',
-        gelap: 'Gelap'
-      }[cardThemeKey] || cardThemeKey;
-
-      if (notify) showToast(`Tema "${readableName}" diterapkan di HP ini!`, 'info');
-    }
-
-    // Inisialisasi tema saat aplikasi pertama kali dibuka di HP ini
-    function initLocalTheme() {
-      let savedCard = localStorage.getItem('family_finance_card_theme') || 'putih';
-      if (savedCard === 'navy') savedCard = 'biru_langit'; // Transisi aman dari tema navy yang dihapus
-      setCardTheme(savedCard, false);
+    function toValidUUID(val) {
+      if (!val || typeof val !== 'string') return null;
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+      return uuidRegex.test(val.trim()) ? val.trim() : null;
     }
 
     // Standard RFC4122 UUID generator
@@ -2402,58 +2354,74 @@
       const submitBtn = document.getElementById('btnSubmitIncome');
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerText = 'Mengunggah & Menyimpan...';
+        submitBtn.innerText = 'Menyimpan ke Cloud...';
       }
 
-      const incomeType = document.querySelector('input[name="income_type"]:checked').value;
-      const catId = document.getElementById('incomeCategorySelect').value;
-      const categoryObj = categoriesMaster.find(c => c.id === catId);
-      const amount = parseFloat(document.getElementById('inputIncomeAmount').value);
-      const transDate = document.getElementById('inputIncomeDate').value;
-      const notes = document.getElementById('inputIncomeNotes').value;
+      try {
+        const incomeType = document.querySelector('input[name="income_type"]:checked').value;
+        const catId = document.getElementById('incomeCategorySelect').value;
+        const categoryObj = categoriesMaster.find(c => c.id === catId);
+        const amount = parseFloat(document.getElementById('inputIncomeAmount').value);
+        const transDate = document.getElementById('inputIncomeDate').value;
+        const notes = document.getElementById('inputIncomeNotes').value;
 
-      const user = profiles[activeRole] || profiles['Suami'];
+        const user = profiles[activeRole] || profiles['Suami'];
 
-      // 1. Unggah bukti ke Supabase Storage (bukan Google Drive)
-      let uploadedPhotoUrl = null;
-      if (selectedReceiptFiles.income) {
-        uploadedPhotoUrl = await uploadReceiptFileToSupabase(selectedReceiptFiles.income);
-      }
+        // 1. Unggah bukti ke Supabase Storage jika ada
+        let uploadedPhotoUrl = null;
+        if (selectedReceiptFiles.income) {
+          submitBtn.innerText = 'Mengunggah Bukti Nota...';
+          uploadedPhotoUrl = await uploadReceiptFileToSupabase(selectedReceiptFiles.income);
+        }
 
-      const newRecord = {
-        id: generateUUID(),
-        user_id: user.id,
-        author_name: user.full_name,
-        author_role: user.role,
-        category_id: catId,
-        category_name: categoryObj ? categoryObj.name : 'Pemasukan',
-        income_type: incomeType,
-        amount: amount,
-        transaction_date: transDate,
-        notes: notes,
-        photo_url: uploadedPhotoUrl,
-        created_at: new Date().toISOString()
-      };
+        const validUserId = toValidUUID(user ? user.id : null);
+        const newRecord = {
+          id: generateUUID(),
+          user_id: validUserId,
+          author_name: user ? user.full_name : 'Keluarga',
+          author_role: user ? user.role : 'Suami',
+          category_id: catId || null,
+          category_name: categoryObj ? categoryObj.name : (incomeType === 'gaji' ? 'Gaji Pokok' : 'Pemasukan'),
+          income_type: incomeType,
+          amount: amount,
+          transaction_date: transDate,
+          notes: notes || null,
+          photo_url: uploadedPhotoUrl || null
+        };
 
-      incomes.unshift(newRecord);
-      closeModal('modalAddIncome');
-      e.target.reset();
-      removeSelectedReceiptFile('income');
+        // 2. Simpan ke database Supabase dan verifikasi konfirmasi balasan
+        if (supabaseClient) {
+          submitBtn.innerText = 'Menyinkronkan ke Supabase...';
+          const { error } = await supabaseClient.from('incomes').insert([newRecord]);
+          if (error) {
+            console.error("Gagal simpan pemasukan ke Supabase:", error);
+            showToast(`Gagal simpan: ${error.message}`, 'error');
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerText = 'Simpan';
+            }
+            return;
+          }
+        }
 
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Simpan';
-      }
+        // 3. Tambahkan ke memori lokal
+        if (!incomes.some(x => x.id === newRecord.id)) {
+          incomes.unshift({ ...newRecord, created_at: new Date().toISOString() });
+        }
+        closeModal('modalAddIncome');
+        e.target.reset();
+        removeSelectedReceiptFile('income');
 
-      updateDashboardMetrics();
-      renderIncomeTable();
-      showToast(`Pemasukan ${formatIDR(amount)} berhasil disimpan!`, 'success');
-
-      if (supabaseClient) {
-        try {
-          await supabaseClient.from('incomes').insert(newRecord);
-        } catch (err) {
-          console.warn("Supabase insert income error:", err);
+        updateDashboardMetrics();
+        renderIncomeTable();
+        showToast(`Pemasukan ${formatIDR(amount)} berhasil tersimpan permanen!`, 'success');
+      } catch (err) {
+        console.error("Kesalahan simpan pemasukan:", err);
+        showToast(`Terjadi kesalahan: ${err.message}`, 'error');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Simpan';
         }
       }
     }
@@ -2463,56 +2431,72 @@
       const submitBtn = document.getElementById('btnSubmitExpense');
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerText = 'Mengunggah & Menyimpan...';
+        submitBtn.innerText = 'Menyimpan ke Cloud...';
       }
 
-      const catId = document.getElementById('expenseCategorySelect').value;
-      const categoryObj = categoriesMaster.find(c => c.id === catId);
-      const amount = parseFloat(document.getElementById('inputExpenseAmount').value);
-      const transDate = document.getElementById('inputExpenseDate').value;
-      const notes = document.getElementById('inputExpenseNotes').value;
+      try {
+        const catId = document.getElementById('expenseCategorySelect').value;
+        const categoryObj = categoriesMaster.find(c => c.id === catId);
+        const amount = parseFloat(document.getElementById('inputExpenseAmount').value);
+        const transDate = document.getElementById('inputExpenseDate').value;
+        const notes = document.getElementById('inputExpenseNotes').value;
 
-      const user = profiles[activeRole] || profiles['Suami'];
+        const user = profiles[activeRole] || profiles['Suami'];
 
-      // 1. Unggah bukti ke Supabase Storage (bukan Google Drive)
-      let uploadedPhotoUrl = null;
-      if (selectedReceiptFiles.expense) {
-        uploadedPhotoUrl = await uploadReceiptFileToSupabase(selectedReceiptFiles.expense);
-      }
+        // 1. Unggah bukti ke Supabase Storage jika ada
+        let uploadedPhotoUrl = null;
+        if (selectedReceiptFiles.expense) {
+          submitBtn.innerText = 'Mengunggah Bukti Struk...';
+          uploadedPhotoUrl = await uploadReceiptFileToSupabase(selectedReceiptFiles.expense);
+        }
 
-      const newRecord = {
-        id: generateUUID(),
-        user_id: user.id,
-        author_name: user.full_name,
-        author_role: user.role,
-        category_id: catId,
-        category_name: categoryObj ? categoryObj.name : 'Pengeluaran',
-        amount: amount,
-        transaction_date: transDate,
-        notes: notes,
-        photo_url: uploadedPhotoUrl,
-        created_at: new Date().toISOString()
-      };
+        const validUserId = toValidUUID(user ? user.id : null);
+        const newRecord = {
+          id: generateUUID(),
+          user_id: validUserId,
+          author_name: user ? user.full_name : 'Keluarga',
+          author_role: user ? user.role : 'Suami',
+          category_id: catId || null,
+          category_name: categoryObj ? categoryObj.name : 'Pengeluaran',
+          amount: amount,
+          transaction_date: transDate,
+          notes: notes || null,
+          photo_url: uploadedPhotoUrl || null
+        };
 
-      expenses.unshift(newRecord);
-      closeModal('modalAddExpense');
-      e.target.reset();
-      removeSelectedReceiptFile('expense');
+        // 2. Simpan ke database Supabase dan verifikasi konfirmasi balasan
+        if (supabaseClient) {
+          submitBtn.innerText = 'Menyinkronkan ke Supabase...';
+          const { error } = await supabaseClient.from('expenses').insert([newRecord]);
+          if (error) {
+            console.error("Gagal simpan pengeluaran ke Supabase:", error);
+            showToast(`Gagal simpan: ${error.message}`, 'error');
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerText = 'Simpan';
+            }
+            return;
+          }
+        }
 
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Simpan';
-      }
+        // 3. Tambahkan ke memori lokal
+        if (!expenses.some(x => x.id === newRecord.id)) {
+          expenses.unshift({ ...newRecord, created_at: new Date().toISOString() });
+        }
+        closeModal('modalAddExpense');
+        e.target.reset();
+        removeSelectedReceiptFile('expense');
 
-      updateDashboardMetrics();
-      renderExpenseTable();
-      showToast(`Pengeluaran ${formatIDR(amount)} berhasil dicatat!`, 'success');
-
-      if (supabaseClient) {
-        try {
-          await supabaseClient.from('expenses').insert(newRecord);
-        } catch (err) {
-          console.warn("Supabase insert expense error:", err);
+        updateDashboardMetrics();
+        renderExpenseTable();
+        showToast(`Pengeluaran ${formatIDR(amount)} berhasil dicatat di database!`, 'success');
+      } catch (err) {
+        console.error("Kesalahan simpan pengeluaran:", err);
+        showToast(`Terjadi kesalahan: ${err.message}`, 'error');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Simpan';
         }
       }
     }
@@ -2748,6 +2732,13 @@
           });
         }
 
+        // Ambil Master Kategori Nyata dari Supabase
+        const { data: catData } = await supabaseClient.from('categories_master').select('*').order('name');
+        if (catData && catData.length > 0) {
+          categoriesMaster = catData;
+          populateCategorySelectors();
+        }
+
         // Ambil Data Pemasukan Awal
         const { data: incData, error: incErr } = await supabaseClient.from('incomes').select('*').order('created_at', { ascending: false });
         if (!incErr && incData) incomes = incData;
@@ -2776,7 +2767,10 @@
           realtimeChannel = supabaseClient.channel('realtime_family_finance')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'incomes' }, (payload) => {
               if (payload.eventType === 'INSERT') {
-                if (!incomes.some(x => x.id === payload.new.id)) incomes.unshift(payload.new);
+                if (!incomes.some(x => x.id === payload.new.id)) {
+                  incomes.unshift(payload.new);
+                  showToast(`Pemasukan baru masuk: ${formatIDR(payload.new.amount)}`, 'info');
+                }
               } else if (payload.eventType === 'DELETE') {
                 incomes = incomes.filter(e => e.id !== payload.old.id);
               } else if (payload.eventType === 'UPDATE') {
@@ -2788,7 +2782,10 @@
             })
             .on('postgres_changes', { event: '*', schema: 'public', table: 'expenses' }, (payload) => {
               if (payload.eventType === 'INSERT') {
-                if (!expenses.some(x => x.id === payload.new.id)) expenses.unshift(payload.new);
+                if (!expenses.some(x => x.id === payload.new.id)) {
+                  expenses.unshift(payload.new);
+                  showToast(`Pengeluaran baru dicatat: ${formatIDR(payload.new.amount)}`, 'info');
+                }
               } else if (payload.eventType === 'DELETE') {
                 expenses = expenses.filter(e => e.id !== payload.old.id);
               } else if (payload.eventType === 'UPDATE') {
