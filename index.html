@@ -104,23 +104,37 @@
       color: #451a03 !important;
       border-color: #fed7aa !important;
     }
-    [data-card-theme="navy"] {
-      background-color: #060e1a !important;
+    [data-card-theme="biru_langit"] {
+      background-color: #f0f9ff !important;
     }
-    [data-card-theme="navy"] .app-card {
-      background-color: #0d1b2e !important;
-      color: #f1f5f9 !important;
-      border-color: #1e293b !important;
+    [data-card-theme="biru_langit"] .app-card {
+      background-color: #ffffff !important;
+      color: #0369a1 !important;
+      border-color: #bae6fd !important;
     }
-    [data-card-theme="navy"] .text-slate-900,
-    [data-card-theme="navy"] .text-slate-800,
-    [data-card-theme="navy"] .text-slate-700 {
-      color: #f8fafc !important;
+    [data-card-theme="pink"] {
+      background-color: #fdf2f8 !important;
     }
-    [data-card-theme="navy"] .text-slate-600,
-    [data-card-theme="navy"] .text-slate-500,
-    [data-card-theme="navy"] .text-slate-400 {
-      color: #94a3b8 !important;
+    [data-card-theme="pink"] .app-card {
+      background-color: #ffffff !important;
+      color: #9d174d !important;
+      border-color: #fbcfe8 !important;
+    }
+    [data-card-theme="toska"] {
+      background-color: #f0fdfa !important;
+    }
+    [data-card-theme="toska"] .app-card {
+      background-color: #ffffff !important;
+      color: #0f766e !important;
+      border-color: #99f6e4 !important;
+    }
+    [data-card-theme="abu"] {
+      background-color: #f1f5f9 !important;
+    }
+    [data-card-theme="abu"] .app-card {
+      background-color: #ffffff !important;
+      color: #334155 !important;
+      border-color: #cbd5e1 !important;
     }
     [data-card-theme="gelap"] {
       background-color: #0b1120 !important;
@@ -687,54 +701,41 @@
                 <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-slate-100 text-slate-600">Lokal HP</span>
               </div>
 
-              <!-- Pilihan Warna Latar Kartu -->
+              <!-- Pilihan Warna Tema Kartu -->
               <div>
-                <label class="block font-bold text-slate-700 text-xs mb-1.5">Warna Latar Belakang Kartu</label>
-                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                <label class="block font-bold text-slate-700 text-xs mb-1.5">Pilihan Warna Tema</label>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   <button type="button" onclick="setCardTheme('putih')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="putih">
                     <span class="w-4 h-4 rounded-full bg-white border border-slate-300 shrink-0"></span>
                     <span class="text-[10px] font-bold text-slate-800">Putih</span>
+                  </button>
+                  <button type="button" onclick="setCardTheme('biru_langit')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="biru_langit">
+                    <span class="w-4 h-4 rounded-full bg-[#38bdf8] border border-sky-400 shrink-0"></span>
+                    <span class="text-[10px] font-bold text-sky-900">Biru Langit</span>
+                  </button>
+                  <button type="button" onclick="setCardTheme('pink')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="pink">
+                    <span class="w-4 h-4 rounded-full bg-[#f472b6] border border-pink-400 shrink-0"></span>
+                    <span class="text-[10px] font-bold text-pink-900">Pink</span>
+                  </button>
+                  <button type="button" onclick="setCardTheme('toska')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="toska">
+                    <span class="w-4 h-4 rounded-full bg-[#2dd4bf] border border-teal-400 shrink-0"></span>
+                    <span class="text-[10px] font-bold text-teal-900">Toska</span>
+                  </button>
+                  <button type="button" onclick="setCardTheme('abu')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="abu">
+                    <span class="w-4 h-4 rounded-full bg-[#94a3b8] border border-slate-400 shrink-0"></span>
+                    <span class="text-[10px] font-bold text-slate-800">Abu-abu</span>
                   </button>
                   <button type="button" onclick="setCardTheme('kucing')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="kucing">
                     <span class="w-4 h-4 rounded-full bg-[#faf6f0] border border-amber-300 shrink-0"></span>
                     <span class="text-[10px] font-bold text-amber-900">Kucing 🐾</span>
                   </button>
-                  <button type="button" onclick="setCardTheme('navy')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="navy">
-                    <span class="w-4 h-4 rounded-full bg-[#0d1b2e] border border-sky-400 shrink-0"></span>
-                    <span class="text-[10px] font-bold text-slate-800">Navy</span>
-                  </button>
-                  <button type="button" onclick="setCardTheme('gelap')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="gelap">
-                    <span class="w-4 h-4 rounded-full bg-[#1e293b] border border-slate-500 shrink-0"></span>
-                    <span class="text-[10px] font-bold text-slate-800">Gelap</span>
-                  </button>
                   <button type="button" onclick="setCardTheme('mint')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="mint">
                     <span class="w-4 h-4 rounded-full bg-[#ecfdf5] border border-emerald-300 shrink-0"></span>
                     <span class="text-[10px] font-bold text-emerald-900">Mint</span>
                   </button>
-                </div>
-              </div>
-
-              <!-- Pilihan Warna Aksen Tombol & Sorotan -->
-              <div class="pt-1 border-t border-slate-100">
-                <label class="block font-bold text-slate-700 text-xs mb-1.5">Warna Aksen Tombol & Sorotan</label>
-                <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                  <button type="button" onclick="setAccentTheme('sky')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="sky">
-                    <span class="w-3.5 h-3.5 rounded-full bg-[#0EA5E9] shrink-0"></span> Sky
-                  </button>
-                  <button type="button" onclick="setAccentTheme('royal')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="royal">
-                    <span class="w-3.5 h-3.5 rounded-full bg-[#2563EB] shrink-0"></span> Royal
-                  </button>
-                  <button type="button" onclick="setAccentTheme('emerald')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="emerald">
-                    <span class="w-3.5 h-3.5 rounded-full bg-[#10B981] shrink-0"></span> Hijau
-                  </button>
-                  <button type="button" onclick="setAccentTheme('purple')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="purple">
-                    <span class="w-3.5 h-3.5 rounded-full bg-[#8B5CF6] shrink-0"></span> Violet
-                  </button>
-                  <button type="button" onclick="setAccentTheme('amber')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="amber">
-                    <span class="w-3.5 h-3.5 rounded-full bg-[#F59E0B] shrink-0"></span> Amber
-                  </button>
-                  <button type="button" onclick="setAccentTheme('rose')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="rose">
-                    <span class="w-3.5 h-3.5 rounded-full bg-[#F43F5E] shrink-0"></span> Rose
+                  <button type="button" onclick="setCardTheme('gelap')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="gelap">
+                    <span class="w-4 h-4 rounded-full bg-[#1e293b] border border-slate-500 shrink-0"></span>
+                    <span class="text-[10px] font-bold text-slate-800">Gelap</span>
                   </button>
                 </div>
               </div>
@@ -1246,44 +1247,30 @@
     let selectedReceiptFiles = { income: null, expense: null };
     let currentMobileTabIndex = 0;
 
-    // Konfigurasi Palet Aksen Tombol (Hanya untuk tema lokal)
-    const ACCENT_THEMES = {
-      sky: { primary: '#0EA5E9', light: '#F0F9FF', dark: '#0284C7', ring: 'rgba(14, 165, 233, 0.25)' },
-      royal: { primary: '#2563EB', light: '#EFF6FF', dark: '#1D4ED8', ring: 'rgba(37, 99, 235, 0.25)' },
-      emerald: { primary: '#10B981', light: '#ECFDF5', dark: '#059669', ring: 'rgba(16, 185, 129, 0.25)' },
-      purple: { primary: '#8B5CF6', light: '#F5F3FF', dark: '#7C3AED', ring: 'rgba(139, 92, 246, 0.25)' },
-      amber: { primary: '#F59E0B', light: '#FFFBEB', dark: '#D97706', ring: 'rgba(245, 158, 11, 0.25)' },
-      rose: { primary: '#F43F5E', light: '#FFF1F2', dark: '#E11D48', ring: 'rgba(244, 63, 94, 0.25)' }
+    // Palet warna otomatis yang selaras dengan tema yang dipilih
+    const THEME_ACCENTS = {
+      putih: { primary: '#0EA5E9', light: '#F0F9FF', dark: '#0284C7', ring: 'rgba(14, 165, 233, 0.25)' },
+      biru_langit: { primary: '#0284C7', light: '#E0F2FE', dark: '#0369A1', ring: 'rgba(2, 132, 199, 0.25)' },
+      pink: { primary: '#EC4899', light: '#FDF2F8', dark: '#BE185D', ring: 'rgba(236, 72, 153, 0.25)' },
+      toska: { primary: '#14B8A6', light: '#CCFBF1', dark: '#0F766E', ring: 'rgba(20, 184, 166, 0.25)' },
+      abu: { primary: '#64748B', light: '#F1F5F9', dark: '#475569', ring: 'rgba(100, 116, 139, 0.25)' },
+      kucing: { primary: '#D97706', light: '#FEF3C7', dark: '#B45309', ring: 'rgba(217, 119, 6, 0.25)' },
+      mint: { primary: '#10B981', light: '#D1FAE5', dark: '#047857', ring: 'rgba(16, 185, 129, 0.25)' },
+      gelap: { primary: '#38BDF8', light: '#1E293B', dark: '#0284C7', ring: 'rgba(56, 189, 248, 0.25)' }
     };
 
-    // Fungsi atur aksen tombol: MURNI HANYA DISIMPAN DI LOKAL STORAGE PERANGKAT
-    function setAccentTheme(themeKey, notify = true) {
-      const theme = ACCENT_THEMES[themeKey] || ACCENT_THEMES.sky;
-      currentTheme = themeKey;
-      document.documentElement.style.setProperty('--primary-color', theme.primary);
-      document.documentElement.style.setProperty('--primary-light', theme.light);
-      document.documentElement.style.setProperty('--primary-dark', theme.dark);
-      document.documentElement.style.setProperty('--primary-ring', theme.ring);
-      
-      localStorage.setItem('family_finance_theme', themeKey);
-
-      document.querySelectorAll('.theme-accent-btn').forEach(btn => {
-        if (btn.getAttribute('data-val') === themeKey) {
-          btn.className = "theme-accent-btn p-1.5 rounded-xl border-2 border-theme-primary bg-theme-light flex items-center gap-1.5 text-[10px] font-extrabold text-slate-900";
-        } else {
-          btn.className = "theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700";
-        }
-      });
-
-      if (notify) showToast(`Aksen warna ${themeKey} diterapkan di HP ini!`, 'info');
-    }
-
-    // Fungsi atur latar kartu: MURNI HANYA DISIMPAN DI LOKAL STORAGE PERANGKAT
+    // Fungsi atur tema kartu: MURNI HANYA DISIMPAN DI LOKAL STORAGE PERANGKAT
     function setCardTheme(cardThemeKey, notify = true) {
       globalCardBg = cardThemeKey;
       document.body.setAttribute('data-card-theme', cardThemeKey);
-      
       localStorage.setItem('family_finance_card_theme', cardThemeKey);
+
+      // Aksen warna tombol & sorotan otomatis disesuaikan agar serasi dengan tema kartu
+      const acc = THEME_ACCENTS[cardThemeKey] || THEME_ACCENTS.putih;
+      document.documentElement.style.setProperty('--primary-color', acc.primary);
+      document.documentElement.style.setProperty('--primary-light', acc.light);
+      document.documentElement.style.setProperty('--primary-dark', acc.dark);
+      document.documentElement.style.setProperty('--primary-ring', acc.ring);
 
       document.querySelectorAll('.theme-card-btn').forEach(btn => {
         if (btn.getAttribute('data-val') === cardThemeKey) {
@@ -1293,14 +1280,24 @@
         }
       });
 
-      if (notify) showToast(`Tema kartu "${cardThemeKey}" diterapkan di HP ini!`, 'info');
+      const readableName = {
+        putih: 'Putih',
+        biru_langit: 'Biru Langit',
+        pink: 'Pink',
+        toska: 'Toska',
+        abu: 'Abu-abu',
+        kucing: 'Kucing 🐾',
+        mint: 'Mint',
+        gelap: 'Gelap'
+      }[cardThemeKey] || cardThemeKey;
+
+      if (notify) showToast(`Tema "${readableName}" diterapkan di HP ini!`, 'info');
     }
 
     // Inisialisasi tema saat aplikasi pertama kali dibuka di HP ini
     function initLocalTheme() {
-      const savedTheme = localStorage.getItem('family_finance_theme') || 'sky';
-      const savedCard = localStorage.getItem('family_finance_card_theme') || 'putih';
-      setAccentTheme(savedTheme, false);
+      let savedCard = localStorage.getItem('family_finance_card_theme') || 'putih';
+      if (savedCard === 'navy') savedCard = 'biru_langit'; // Transisi aman dari tema navy yang dihapus
       setCardTheme(savedCard, false);
     }
 
