@@ -227,38 +227,6 @@
   <!-- WIDGET APLIKASI KEUANGAN KELUARGA -->
   <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 min-h-screen flex flex-col">
 
-    <!-- TOP NAVIGATION APP BAR (STATUS SESI & TOMBOL KELUAR CEPAT) -->
-    <header class="app-card bg-white rounded-2xl p-3 md:p-4 border border-slate-200/80 shadow-xs flex items-center justify-between mb-4">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-theme-primary text-white flex items-center justify-center font-black text-base shadow-sm">
-          <i class="fa-solid fa-vault"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-sm md:text-base font-black tracking-tight text-slate-900 leading-none">KEUANGAN KELUARGA</h1>
-            <span id="topBarRealtimeBadge" class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 text-emerald-700">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse"></span> Realtime
-            </span>
-          </div>
-          <p class="text-[10px] text-slate-400 font-medium mt-0.5">Buku Kas & Brankas Kolaboratif</p>
-        </div>
-      </div>
-
-      <!-- Sesi Pengguna Aktif & Tombol Logout Langsung -->
-      <div class="flex items-center gap-2">
-        <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
-          <img id="topBarUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&h=160&fit=crop" class="w-8 h-8 rounded-xl object-cover border border-slate-200 shadow-xs" alt="User">
-          <div class="hidden sm:block text-left">
-            <span id="topBarUserName" class="text-xs font-black text-slate-800 block leading-tight">Suami</span>
-            <span class="text-[9px] text-emerald-600 font-semibold block">Sesi Tersimpan</span>
-          </div>
-        </div>
-        <button onclick="handleLogout()" title="Keluar Akun (Logout)" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-500 hover:text-rose-600 flex items-center justify-center text-xs transition">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        </button>
-      </div>
-    </header>
-
     <div class="flex-1 flex flex-col md:flex-row gap-4">
 
       <!-- SIDEBAR DESKTOP DENGAN INFO AKUN & LOGOUT -->
@@ -2325,9 +2293,6 @@
 
     function updateUserUI() {
       const user = profiles[activeRole] || profiles['Suami'];
-
-      document.getElementById('topBarUserName').innerText = user.role;
-      document.getElementById('topBarUserAvatar').src = user.avatar_url;
 
       const sideName = document.getElementById('sidebarUserName');
       if (sideName) sideName.innerText = user.full_name;
