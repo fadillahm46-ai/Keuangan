@@ -90,59 +90,125 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
 
-    /* Tema Latar Kartu & Penyesuaian Teks Otomatis (Murni Lokal Perangkat) */
+    /* Tema Latar Kartu & Penyesuaian Teks Otomatis (Murni Lokal Perangkat - Lebih Pekat & Berkarakter) */
+    [data-card-theme="putih"] {
+      background-color: #f8fafc !important;
+    }
     [data-card-theme="putih"] .app-card {
       background-color: #ffffff !important;
       color: #1e293b !important;
-      border-color: rgba(226, 232, 240, 0.8) !important;
+      border-color: rgba(203, 213, 225, 0.9) !important;
     }
+
     [data-card-theme="kucing"] {
-      background-color: #faf6f0 !important;
+      background-color: #fed7aa !important; /* Amber-200 pekat lembut */
     }
     [data-card-theme="kucing"] .app-card {
-      background-color: #fffdf9 !important;
-      color: #451a03 !important;
-      border-color: #fed7aa !important;
+      background-color: #fffbeb !important; /* Warm latte cream */
+      color: #78350f !important;
+      border-color: #f59e0b !important; /* Aksen cokelat keemasan pekat */
     }
+    [data-card-theme="kucing"] .text-slate-900,
+    [data-card-theme="kucing"] .text-slate-800 {
+      color: #78350f !important;
+    }
+    [data-card-theme="kucing"] .text-slate-600,
+    [data-card-theme="kucing"] .text-slate-500 {
+      color: #92400e !important;
+    }
+
     [data-card-theme="biru_langit"] {
-      background-color: #f0f9ff !important;
+      background-color: #bae6fd !important; /* Sky-200 pekat */
     }
     [data-card-theme="biru_langit"] .app-card {
-      background-color: #ffffff !important;
+      background-color: #f0f9ff !important;
       color: #0369a1 !important;
-      border-color: #bae6fd !important;
+      border-color: #38bdf8 !important;
     }
+    [data-card-theme="biru_langit"] .text-slate-900,
+    [data-card-theme="biru_langit"] .text-slate-800 {
+      color: #0c4a6e !important;
+    }
+    [data-card-theme="biru_langit"] .text-slate-600,
+    [data-card-theme="biru_langit"] .text-slate-500 {
+      color: #0369a1 !important;
+    }
+
     [data-card-theme="pink"] {
-      background-color: #fdf2f8 !important;
+      background-color: #fbcfe8 !important; /* Pink-200 pekat */
     }
     [data-card-theme="pink"] .app-card {
-      background-color: #ffffff !important;
+      background-color: #fff1f2 !important;
       color: #9d174d !important;
-      border-color: #fbcfe8 !important;
+      border-color: #f472b6 !important;
     }
+    [data-card-theme="pink"] .text-slate-900,
+    [data-card-theme="pink"] .text-slate-800 {
+      color: #831843 !important;
+    }
+    [data-card-theme="pink"] .text-slate-600,
+    [data-card-theme="pink"] .text-slate-500 {
+      color: #9d174d !important;
+    }
+
     [data-card-theme="toska"] {
-      background-color: #f0fdfa !important;
+      background-color: #99f6e4 !important; /* Teal-200 pekat */
     }
     [data-card-theme="toska"] .app-card {
-      background-color: #ffffff !important;
+      background-color: #f0fdfa !important;
       color: #0f766e !important;
-      border-color: #99f6e4 !important;
+      border-color: #2dd4bf !important;
     }
+    [data-card-theme="toska"] .text-slate-900,
+    [data-card-theme="toska"] .text-slate-800 {
+      color: #134e4a !important;
+    }
+    [data-card-theme="toska"] .text-slate-600,
+    [data-card-theme="toska"] .text-slate-500 {
+      color: #0f766e !important;
+    }
+
     [data-card-theme="abu"] {
-      background-color: #f1f5f9 !important;
+      background-color: #cbd5e1 !important; /* Slate-300 pekat */
     }
     [data-card-theme="abu"] .app-card {
-      background-color: #ffffff !important;
-      color: #334155 !important;
-      border-color: #cbd5e1 !important;
+      background-color: #f8fafc !important;
+      color: #1e293b !important;
+      border-color: #64748b !important;
     }
+    [data-card-theme="abu"] .text-slate-900,
+    [data-card-theme="abu"] .text-slate-800 {
+      color: #0f172a !important;
+    }
+    [data-card-theme="abu"] .text-slate-600,
+    [data-card-theme="abu"] .text-slate-500 {
+      color: #475569 !important;
+    }
+
+    [data-card-theme="mint"] {
+      background-color: #bbf7d0 !important; /* Green-200 pekat segar */
+    }
+    [data-card-theme="mint"] .app-card {
+      background-color: #f0fdf4 !important;
+      color: #064e3b !important;
+      border-color: #34d399 !important;
+    }
+    [data-card-theme="mint"] .text-slate-900,
+    [data-card-theme="mint"] .text-slate-800 {
+      color: #064e3b !important;
+    }
+    [data-card-theme="mint"] .text-slate-600,
+    [data-card-theme="mint"] .text-slate-500 {
+      color: #047857 !important;
+    }
+
     [data-card-theme="gelap"] {
-      background-color: #0b1120 !important;
+      background-color: #070d18 !important; /* Midnight black pekat */
     }
     [data-card-theme="gelap"] .app-card {
-      background-color: #1e293b !important;
+      background-color: #111a2e !important;
       color: #f8fafc !important;
-      border-color: #334155 !important;
+      border-color: #2a3a5a !important;
     }
     [data-card-theme="gelap"] .text-slate-900,
     [data-card-theme="gelap"] .text-slate-800,
@@ -153,14 +219,6 @@
     [data-card-theme="gelap"] .text-slate-500,
     [data-card-theme="gelap"] .text-slate-400 {
       color: #94a3b8 !important;
-    }
-    [data-card-theme="mint"] {
-      background-color: #f0fdf4 !important;
-    }
-    [data-card-theme="mint"] .app-card {
-      background-color: #ffffff !important;
-      color: #064e3b !important;
-      border-color: #bbf7d0 !important;
     }
   </style>
 </head>
@@ -1246,6 +1304,53 @@
     // File upload references for Supabase Storage
     let selectedReceiptFiles = { income: null, expense: null };
     let currentMobileTabIndex = 0;
+
+    /* ==========================================================================
+       MANAJEMEN TEMA TAMPILAN LOKAL (MURNI LOKAL PERANGKAT TANPA SUPABASE)
+       ========================================================================== */
+    function setCardTheme(themeName) {
+      if (!themeName) themeName = 'putih';
+      globalCardBg = themeName;
+      localStorage.setItem('family_finance_card_theme', themeName);
+
+      // Set atribut tema pada elemen body
+      document.body.setAttribute('data-card-theme', themeName);
+
+      // Pembaruan palet aksen warna CSS dinamis
+      const themeAccents = {
+        putih: { primary: '#0EA5E9', light: '#F0F9FF', dark: '#0284C7', ring: 'rgba(14, 165, 233, 0.25)' },
+        biru_langit: { primary: '#0284C7', light: '#E0F2FE', dark: '#0369A1', ring: 'rgba(2, 132, 199, 0.25)' },
+        pink: { primary: '#DB2777', light: '#FCE7F3', dark: '#BE185D', ring: 'rgba(219, 39, 119, 0.25)' },
+        toska: { primary: '#0D9488', light: '#CCFBF1', dark: '#0F766E', ring: 'rgba(13, 148, 136, 0.25)' },
+        abu: { primary: '#475569', light: '#E2E8F0', dark: '#334155', ring: 'rgba(71, 85, 105, 0.25)' },
+        kucing: { primary: '#D97706', light: '#FEF3C7', dark: '#B45309', ring: 'rgba(217, 119, 6, 0.25)' },
+        mint: { primary: '#059669', light: '#DCFCE7', dark: '#047857', ring: 'rgba(5, 150, 105, 0.25)' },
+        gelap: { primary: '#38BDF8', light: '#1E293B', dark: '#0EA5E9', ring: 'rgba(56, 189, 248, 0.25)' }
+      };
+
+      const accent = themeAccents[themeName] || themeAccents.putih;
+      document.documentElement.style.setProperty('--primary-color', accent.primary);
+      document.documentElement.style.setProperty('--primary-light', accent.light);
+      document.documentElement.style.setProperty('--primary-dark', accent.dark);
+      document.documentElement.style.setProperty('--primary-ring', accent.ring);
+
+      // Beri indikator aktif yang jelas pada tombol pilihan tema di halaman Profil
+      document.querySelectorAll('.theme-card-btn').forEach(btn => {
+        const val = btn.getAttribute('data-val');
+        if (val === themeName) {
+          btn.classList.add('ring-2', 'ring-theme-primary', 'font-black', 'border-transparent', 'shadow-xs');
+          btn.classList.remove('border-slate-200');
+        } else {
+          btn.classList.remove('ring-2', 'ring-theme-primary', 'font-black', 'border-transparent', 'shadow-xs');
+          btn.classList.add('border-slate-200');
+        }
+      });
+    }
+
+    function initLocalTheme() {
+      const savedTheme = localStorage.getItem('family_finance_card_theme') || 'putih';
+      setCardTheme(savedTheme);
+    }
 
     function toValidUUID(val) {
       if (!val || typeof val !== 'string') return null;
