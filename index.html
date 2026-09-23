@@ -44,7 +44,6 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Utility classes mapping to CSS Variables */
     .bg-theme-primary { background-color: var(--primary-color) !important; }
     .text-theme-primary { color: var(--primary-color) !important; }
     .border-theme-primary { border-color: var(--primary-color) !important; }
@@ -76,7 +75,7 @@
       transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
       filter: drop-shadow(0 -3px 5px rgba(15, 23, 42, 0.04));
     }
-    /* Animasi pop hanya diterapkan pada ikon anak agar tidak menimpa translateX milik pembungkus bubble */
+    
     @keyframes navBubblePop {
       0% { transform: scale(0.6); opacity: 0.6; }
       50% { transform: scale(1.25); opacity: 1; }
@@ -86,71 +85,132 @@
       animation: navBubblePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
 
-    /* Scrollbars */
+    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+
+    /* Tema Latar Kartu & Penyesuaian Teks Otomatis (Murni Lokal Perangkat) */
+    [data-card-theme="putih"] .app-card {
+      background-color: #ffffff !important;
+      color: #1e293b !important;
+      border-color: rgba(226, 232, 240, 0.8) !important;
+    }
+    [data-card-theme="kucing"] {
+      background-color: #faf6f0 !important;
+    }
+    [data-card-theme="kucing"] .app-card {
+      background-color: #fffdf9 !important;
+      color: #451a03 !important;
+      border-color: #fed7aa !important;
+    }
+    [data-card-theme="navy"] {
+      background-color: #060e1a !important;
+    }
+    [data-card-theme="navy"] .app-card {
+      background-color: #0d1b2e !important;
+      color: #f1f5f9 !important;
+      border-color: #1e293b !important;
+    }
+    [data-card-theme="navy"] .text-slate-900,
+    [data-card-theme="navy"] .text-slate-800,
+    [data-card-theme="navy"] .text-slate-700 {
+      color: #f8fafc !important;
+    }
+    [data-card-theme="navy"] .text-slate-600,
+    [data-card-theme="navy"] .text-slate-500,
+    [data-card-theme="navy"] .text-slate-400 {
+      color: #94a3b8 !important;
+    }
+    [data-card-theme="gelap"] {
+      background-color: #0b1120 !important;
+    }
+    [data-card-theme="gelap"] .app-card {
+      background-color: #1e293b !important;
+      color: #f8fafc !important;
+      border-color: #334155 !important;
+    }
+    [data-card-theme="gelap"] .text-slate-900,
+    [data-card-theme="gelap"] .text-slate-800,
+    [data-card-theme="gelap"] .text-slate-700 {
+      color: #f8fafc !important;
+    }
+    [data-card-theme="gelap"] .text-slate-600,
+    [data-card-theme="gelap"] .text-slate-500,
+    [data-card-theme="gelap"] .text-slate-400 {
+      color: #94a3b8 !important;
+    }
+    [data-card-theme="mint"] {
+      background-color: #f0fdf4 !important;
+    }
+    [data-card-theme="mint"] .app-card {
+      background-color: #ffffff !important;
+      color: #064e3b !important;
+      border-color: #bbf7d0 !important;
+    }
   </style>
 </head>
 
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen relative selection:bg-sky-500 selection:text-white pb-24 md:pb-8" data-theme="putih" data-card-theme="putih">
-  <div id="appContainer" class="min-h-screen flex flex-col transition-all duration-300">
-    
-    <!-- Top Global Header -->
-    <header class="w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-30 px-3 py-2.5 md:px-6 md:py-3 flex items-center justify-between shadow-xs">
-      <div class="flex items-center gap-2 md:gap-3">
-        <div class="w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl bg-theme-primary text-white flex items-center justify-center shadow-xs text-sm md:text-lg">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen relative selection:bg-sky-500 selection:text-white pb-24 md:pb-8" data-theme="sky" data-card-theme="putih">
+  <!-- WIDGET APLIKASI KEUANGAN KELUARGA -->
+  <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 min-h-screen flex flex-col">
+
+    <!-- TOP NAVIGATION APP BAR (STATUS SESI & TOMBOL KELUAR CEPAT) -->
+    <header class="app-card bg-white rounded-2xl p-3 md:p-4 border border-slate-200/80 shadow-xs flex items-center justify-between mb-4">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-theme-primary text-white flex items-center justify-center font-black text-base shadow-sm">
           <i class="fa-solid fa-vault"></i>
         </div>
         <div>
-          <div class="flex items-center gap-1.5">
-            <h1 class="text-xs md:text-base font-extrabold tracking-tight text-slate-900 leading-none">KEUANGAN KELUARGA</h1>
-            <span id="topBarRealtimeBadge" class="inline-flex items-center px-1.5 py-0.2 rounded-full text-[9px] md:text-[10px] font-bold bg-emerald-100 text-emerald-700">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-ping"></span>
-              Realtime
+          <div class="flex items-center gap-2">
+            <h1 class="text-sm md:text-base font-black tracking-tight text-slate-900 leading-none">KEUANGAN KELUARGA</h1>
+            <span id="topBarRealtimeBadge" class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 text-emerald-700">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse"></span> Realtime
             </span>
           </div>
-          <p class="text-[10px] text-slate-400 hidden sm:block mt-0.5">Buku Kas Kolaboratif & Disiplin Finansial Bersama</p>
+          <p class="text-[10px] text-slate-400 font-medium mt-0.5">Buku Kas & Brankas Kolaboratif</p>
         </div>
       </div>
 
+      <!-- Sesi Pengguna Aktif & Tombol Logout Langsung -->
       <div class="flex items-center gap-2">
-        <!-- Active User Profile Pill -->
-        <div id="topBarUserProfile" class="flex items-center gap-1.5 bg-slate-100 border border-slate-200 px-2 py-1 md:px-3 md:py-1.5 rounded-xl shadow-xs text-[11px] font-semibold text-slate-700">
-          <img id="topBarUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" class="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover border border-white" alt="Avatar">
-          <span id="topBarUserName">Suami</span>
+        <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
+          <img id="topBarUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&h=160&fit=crop" class="w-8 h-8 rounded-xl object-cover border border-slate-200 shadow-xs" alt="User">
+          <div class="hidden sm:block text-left">
+            <span id="topBarUserName" class="text-xs font-black text-slate-800 block leading-tight">Suami</span>
+            <span class="text-[9px] text-emerald-600 font-semibold block">Sesi Tersimpan</span>
+          </div>
         </div>
-
-        <!-- Logout Action Button -->
-        <button onclick="handleLogout()" title="Keluar dari Sesi" class="w-7 h-7 md:w-8 md:h-8 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 flex items-center justify-center text-xs transition border border-slate-200">
+        <button onclick="handleLogout()" title="Keluar Akun (Logout)" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-500 hover:text-rose-600 flex items-center justify-center text-xs transition">
           <i class="fa-solid fa-arrow-right-from-bracket"></i>
         </button>
       </div>
     </header>
 
-    <div class="flex-1 max-w-7xl w-full mx-auto p-3 md:p-6 lg:p-8 flex flex-col md:flex-row gap-4 md:gap-6">
-      
-      <!-- DESKTOP SIDEBAR -->
-      <aside class="hidden md:flex flex-col w-64 shrink-0 gap-4">
-        <!-- Active User Profile Card -->
-        <div id="sidebarProfileCard" class="app-card bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs relative overflow-hidden">
-          <div class="flex items-center gap-3">
-            <div class="relative">
-              <img id="sidebarUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&h=120&fit=crop&crop=faces" class="w-10 h-10 rounded-xl object-cover border-2 border-theme-primary" alt="Active Avatar">
-              <span class="w-3 h-3 rounded-full bg-emerald-500 border-2 border-white absolute -bottom-1 -right-1"></span>
-            </div>
+    <div class="flex-1 flex flex-col md:flex-row gap-4">
+
+      <!-- SIDEBAR DESKTOP DENGAN INFO AKUN & LOGOUT -->
+      <aside class="hidden md:flex flex-col w-56 lg:w-64 shrink-0 gap-3">
+        <div class="app-card p-3 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center justify-between">
+          <div class="flex items-center gap-2.5 overflow-hidden">
+            <img id="sidebarUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&h=160&fit=crop" class="w-9 h-9 rounded-xl object-cover border border-slate-200 shrink-0" alt="Avatar">
             <div class="overflow-hidden">
-              <span id="sidebarUserRoleBadge" class="text-[9px] font-bold uppercase tracking-wider text-theme-primary px-1.5 py-0.2 rounded bg-theme-light">Suami</span>
-              <h4 id="sidebarUserName" class="text-xs font-black text-slate-900 mt-0.5 truncate">Bagus Pratama</h4>
-              <p id="sidebarUserIdLabel" class="text-[10px] text-slate-400 font-mono truncate">ID: bagus</p>
+              <div class="flex items-center gap-1">
+                <span id="sidebarUserName" class="text-xs font-extrabold text-slate-900 block truncate">Bagus Pratama</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span id="sidebarUserRoleBadge" class="px-1.5 py-0.2 rounded text-[8px] font-extrabold bg-blue-100 text-blue-800">Suami</span>
+                <span id="sidebarUserIdLabel" class="text-[9px] text-slate-400 font-mono truncate">ID: bagus</span>
+              </div>
             </div>
           </div>
+          <button onclick="handleLogout()" title="Keluar Akun (Logout)" class="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition shrink-0">
+            <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+          </button>
         </div>
 
-        <!-- Left Navigation Links (Tanpa Tombol Simulasi) -->
-        <nav class="app-card bg-white rounded-2xl p-2.5 border border-slate-200/80 shadow-xs flex flex-col gap-1">
-          <span class="px-2.5 py-1 text-[9px] font-bold text-slate-400 uppercase tracking-wider">Menu Navigasi</span>
-          
+        <!-- Sidebar Navigation Buttons -->
+        <nav class="app-card bg-white rounded-2xl p-2 border border-slate-200/80 shadow-xs space-y-1">
           <button onclick="switchView('dashboard')" id="navLinkDashboard" class="sidebar-nav-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold transition text-white bg-theme-primary shadow-xs">
             <i class="fa-solid fa-chart-pie w-4 text-center"></i>
             <span>Dashboard</span>
@@ -177,60 +237,51 @@
           </button>
         </nav>
 
-        <!-- Cloud Sync Status Banner -->
+        <!-- Cloud Sync & Supabase Storage Status Banner -->
         <div class="app-card p-3 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-2.5 text-xs">
           <div class="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
             <i class="fa-solid fa-cloud-check"></i>
           </div>
           <div class="overflow-hidden">
-            <span class="text-[10px] font-bold text-slate-800 block">Supabase Realtime</span>
-            <span id="sidebarSyncLabel" class="text-[9px] text-emerald-600 font-semibold block truncate">Tersambung Aktif</span>
+            <span class="text-[10px] font-bold text-slate-800 block">Supabase Realtime & Storage</span>
+            <span id="sidebarSyncLabel" class="text-[9px] text-emerald-600 font-semibold block truncate">Bucket Struk Siap</span>
           </div>
         </div>
       </aside>
 
       <main class="flex-1 w-full flex flex-col gap-4 overflow-hidden">
         
-        <!-- VIEW CONTAINER (Header September dihapus agar langsung menampilkan kartu nominal keuangan tiap menu) -->
         <div id="viewsContainer">
           
           <!-- TAB: DASHBOARD -->
           <section id="viewDashboard" class="space-y-4">
             
-            <!-- 1. KARTU SISA SALDO BERJALAN MANDIRI DI PALING ATAS (Deep Navy Gradient) -->
+            <!-- 1. KARTU SISA SALDO BERJALAN MANDIRI DI PALING ATAS -->
             <div class="sisa-saldo-banner relative overflow-hidden rounded-3xl p-5 md:p-6 text-white">
               <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div class="flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
                     <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-sky-200">SISA SALDO BERJALAN</span>
-                    <span id="badgeBudgetStatus" class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white/10 text-sky-200 border border-white/15">Aktif</span>
+                    <span id="badgeBudgetStatus" class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white/10 text-sky-200 border border-white/15">Siklus Tgl 10 Aktif</span>
                   </div>
                   <!-- Giant Typography Nominal Utama -->
                   <div id="summarySaldo" class="text-3xl sm:text-4xl md:text-5xl font-black font-mono-num text-white tracking-tight mt-1.5 leading-none">
                     Rp 0
                   </div>
-                  <p class="text-[11px] text-slate-300 mt-1.5">Total Pemasukan dikurangi Total Pengeluaran periode ini</p>
+                  <p class="text-[11px] text-slate-300 mt-1.5">Sisa kas periode berjalan (Otomatis ditabung setiap tgl 10 gajian)</p>
                 </div>
 
-                <!-- Tombol Aksi Kas & Status Saldo Terintegrasi -->
-                <div class="flex flex-wrap items-center gap-2 self-start sm:self-center">
+                <!-- Status Saldo Indikator -->
+                <div class="flex items-center gap-2 self-start sm:self-center">
                   <span id="summarySaldoStatus" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 backdrop-blur-sm">
                     <i class="fa-solid fa-shield-check"></i> Aman & Terkendali
                   </span>
-                  <button onclick="openSetGajiModal()" class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-500/80 hover:bg-sky-500 text-white text-[11px] font-bold border border-sky-400/40 backdrop-blur-sm shadow-xs transition">
-                    <i class="fa-solid fa-wallet text-xs"></i>
-                    <span>Alokasi Gaji</span>
-                  </button>
-                  <button onclick="openTutupBukuModal()" class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-900 text-white text-[11px] font-bold border border-slate-700/80 backdrop-blur-sm transition">
-                    <i class="fa-solid fa-piggy-bank text-amber-300 text-xs"></i>
-                    <span>Tutup Bulan</span>
-                  </button>
                 </div>
               </div>
             </div>
 
-            <!-- 2. TIGA KARTU BERBARIS: Gaji Pokok, Non-Gaji, dan Pengeluaran (Format Juta Cerdas) -->
+            <!-- 2. TIGA KARTU BERBARIS: Gaji Pokok, Non-Gaji, dan Pengeluaran -->
             <div class="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
               <!-- Gaji Pokok Card -->
               <div class="app-card bg-white rounded-2xl p-3 md:p-4 border border-slate-200/80 shadow-xs relative overflow-hidden flex flex-col justify-between">
@@ -260,16 +311,14 @@
               </div>
             </div>
 
-            <!-- 3. PENCARIAN & FILTER TANGGAL (Diletakkan di bawah 3 kartu nominal) -->
+            <!-- 3. PENCARIAN & FILTER TANGGAL -->
             <div class="app-card bg-white rounded-2xl p-2.5 md:p-3 border border-slate-200/80 shadow-xs space-y-2">
               <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                <!-- Search Keyword -->
                 <div class="relative flex-1">
                   <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[11px]"></i>
                   <input id="dashSearchText" type="text" oninput="applyDashboardFilter()" placeholder="Cari catatan, pos, atau pengisi..." class="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-[11px] font-medium focus-theme-ring">
                 </div>
 
-                <!-- Date Range: Dari s/d Ke -->
                 <div class="flex items-center gap-1.5">
                   <div class="flex items-center gap-1 bg-slate-50 border border-slate-200 px-2 py-1 rounded-xl text-[10px]">
                     <span class="text-slate-400 font-bold">Dari:</span>
@@ -319,7 +368,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-              <!-- TABLE 1: Pemasukan Terkini (Mini Compact) -->
+              <!-- Mini Income Table -->
               <div class="app-card bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
                 <div class="p-2.5 bg-emerald-50/60 border-b border-slate-100 flex items-center justify-between">
                   <div class="flex items-center gap-1.5 text-xs font-extrabold text-emerald-800">
@@ -343,7 +392,7 @@
                 </div>
               </div>
 
-              <!-- TABLE 2: Pengeluaran Terkini (Mini Compact) -->
+              <!-- Mini Expense Table -->
               <div class="app-card bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
                 <div class="p-2.5 bg-orange-50/60 border-b border-slate-100 flex items-center justify-between">
                   <div class="flex items-center gap-1.5 text-xs font-extrabold text-orange-800">
@@ -370,8 +419,8 @@
 
           </section>
 
+          <!-- TAB: PEMASUKAN -->
           <section id="viewPemasukan" class="space-y-4 hidden">
-            <!-- Header Hero Total Pemasukan: Ukuran Raksasa Sama Persis Sisa Saldo Berjalan -->
             <div class="relative overflow-hidden rounded-3xl p-5 md:p-6 text-white shadow-md border border-emerald-500/30 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#059669]">
               <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -379,11 +428,10 @@
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-300 animate-pulse"></span>
                     <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-emerald-200">TOTAL PEMASUKAN</span>
                   </div>
-                  <!-- Giant Typography (Ukuran Sama dengan Sisa Saldo Berjalan) -->
                   <div id="headerTotalIncome" class="text-3xl sm:text-4xl md:text-5xl font-black font-mono-num text-white tracking-tight mt-1.5 leading-none">
                     Rp 0
                   </div>
-                  <p class="text-[11px] text-emerald-100 mt-1.5">Total dana masuk (Gaji Pokok, Non-Gaji, & Tarik Tabungan)</p>
+                  <p class="text-[11px] text-emerald-100 mt-1.5">Dana masuk (Gaji Pokok, Non-Gaji, & Tarik Tabungan)</p>
                 </div>
 
                 <div class="self-start sm:self-center">
@@ -395,14 +443,13 @@
               </div>
             </div>
 
-            <!-- Filter Bar: Search, Date Range, Type & Author -->
+            <!-- Filter Bar Pemasukan -->
             <div class="app-card bg-white rounded-2xl p-2.5 border border-slate-200/80 shadow-xs space-y-2">
               <div class="flex flex-col sm:flex-row gap-2">
                 <div class="relative flex-1">
                   <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[11px]"></i>
                   <input id="searchIncomeText" type="text" oninput="renderIncomeTable()" placeholder="Cari catatan atau sumber..." class="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-[11px] font-medium focus-theme-ring">
                 </div>
-                <!-- Date range filter -->
                 <div class="flex items-center gap-1.5">
                   <div class="flex items-center gap-1 bg-slate-50 border border-slate-200 px-2 py-1 rounded-xl text-[10px]">
                     <span class="text-slate-400 font-bold">Dari:</span>
@@ -449,7 +496,7 @@
                       <th class="py-2 px-3">Catatan</th>
                       <th class="py-2 px-3">Pengisi</th>
                       <th class="py-2 px-3 text-right">Nominal</th>
-                      <th class="py-2 px-3 text-center">Detail</th>
+                      <th class="py-2 px-3 text-center">Struk</th>
                     </tr>
                   </thead>
                   <tbody id="incomeTableBody" class="divide-y divide-slate-100 text-[11px]"></tbody>
@@ -465,8 +512,8 @@
             </div>
           </section>
 
+          <!-- TAB: PENGELUARAN -->
           <section id="viewPengeluaran" class="space-y-4 hidden">
-            <!-- Header Hero Total Pengeluaran: Ukuran Raksasa Sama Persis Sisa Saldo Berjalan -->
             <div class="relative overflow-hidden rounded-3xl p-5 md:p-6 text-white shadow-md border border-orange-500/30 bg-gradient-to-br from-[#7c2d12] via-[#c2410c] to-[#ea580c]">
               <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -474,11 +521,10 @@
                     <span class="w-2.5 h-2.5 rounded-full bg-orange-300 animate-pulse"></span>
                     <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-orange-200">TOTAL PENGELUARAN</span>
                   </div>
-                  <!-- Giant Typography (Ukuran Sama dengan Sisa Saldo Berjalan) -->
                   <div id="headerTotalExpense" class="text-3xl sm:text-4xl md:text-5xl font-black font-mono-num text-white tracking-tight mt-1.5 leading-none">
                     Rp 0
                   </div>
-                  <p class="text-[11px] text-orange-100 mt-1.5">Akumulasi seluruh pos belanja & kebutuhan operasional keluarga</p>
+                  <p class="text-[11px] text-orange-100 mt-1.5">Seluruh pos belanja operasional kas keluarga</p>
                 </div>
 
                 <div class="self-start sm:self-center">
@@ -490,14 +536,13 @@
               </div>
             </div>
 
-            <!-- Filter Bar: Search, Date Range, Category & Author -->
+            <!-- Filter Bar Pengeluaran -->
             <div class="app-card bg-white rounded-2xl p-2.5 border border-slate-200/80 shadow-xs space-y-2">
               <div class="flex flex-col sm:flex-row gap-2">
                 <div class="relative flex-1">
                   <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[11px]"></i>
                   <input id="searchExpenseText" type="text" oninput="renderExpenseTable()" placeholder="Cari keperluan belanja..." class="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-[11px] font-medium focus-theme-ring">
                 </div>
-                <!-- Date range filter -->
                 <div class="flex items-center gap-1.5">
                   <div class="flex items-center gap-1 bg-slate-50 border border-slate-200 px-2 py-1 rounded-xl text-[10px]">
                     <span class="text-slate-400 font-bold">Dari:</span>
@@ -541,7 +586,7 @@
                       <th class="py-2 px-3">Keterangan</th>
                       <th class="py-2 px-3">Pengisi</th>
                       <th class="py-2 px-3 text-right">Nominal</th>
-                      <th class="py-2 px-3 text-center">Detail</th>
+                      <th class="py-2 px-3 text-center">Struk</th>
                     </tr>
                   </thead>
                   <tbody id="expenseTableBody" class="divide-y divide-slate-100 text-[11px]"></tbody>
@@ -557,8 +602,8 @@
             </div>
           </section>
 
+          <!-- TAB: RIWAYAT & TABUNGAN -->
           <section id="viewRiwayat" class="space-y-4 hidden">
-            <!-- Brankas Bersama Card (Ukuran Sama Persis Sisa Saldo Berjalan) -->
             <div class="relative overflow-hidden rounded-3xl p-5 md:p-6 shadow-md border border-amber-500/30 bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950 text-white">
               <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -566,11 +611,10 @@
                     <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
                     <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-amber-300">TOTAL BRANKAS TABUNGAN KELUARGA</span>
                   </div>
-                  <!-- Giant Typography (Ukuran Sama dengan Sisa Saldo Berjalan) -->
                   <div id="riwayatTabunganBesar" class="text-3xl sm:text-4xl md:text-5xl font-black font-mono-num text-amber-300 tracking-tight mt-1.5 leading-none">
                     Rp 0
                   </div>
-                  <p class="text-[11px] text-slate-300 mt-1.5">Akumulasi surplus penutupan bulan & dana cadangan</p>
+                  <p class="text-[11px] text-slate-300 mt-1.5">Surplus otomatis tiap tanggal 10 & dana darurat keluarga</p>
                 </div>
                 <div class="self-start sm:self-center">
                   <button onclick="openTarikTabunganModal()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 font-black text-slate-950 text-xs shadow-md transition transform hover:-translate-y-0.5">
@@ -583,18 +627,16 @@
 
             <!-- Riwayat Mutasi Tabungan -->
             <div class="app-card bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs space-y-3">
-              <div class="flex items-center justify-between">
-                <div>
-                  <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider">Mutasi Brankas Tabungan</h3>
-                  <p class="text-[10px] text-slate-400">Riwayat surplus penutupan bulan & penarikan dana cadangan</p>
-                </div>
+              <div>
+                <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider">Mutasi Brankas Tabungan</h3>
+                <p class="text-[10px] text-slate-400">Riwayat surplus penutupan gajian & penarikan dana cadangan</p>
               </div>
               <div id="savingsHistoryTable" class="divide-y divide-slate-100 text-xs"></div>
             </div>
           </section>
 
+          <!-- TAB: MASTER & PROFIL -->
           <section id="viewMaster" class="space-y-4 hidden">
-            <!-- Profil Pasangan Suami & Istri Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <!-- Profil Suami Card -->
               <div id="cardProfileSuami" class="app-card bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs flex flex-col justify-between">
@@ -633,6 +675,71 @@
               </div>
             </div>
 
+            <!-- Pengaturan Tema & Warna Kartu (HANYA BERLAKU DI LOKAL PERANGKAT INI) -->
+            <div class="app-card bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fa-solid fa-palette text-theme-primary"></i> Tema Tampilan & Warna Kartu
+                  </h3>
+                  <p class="text-[10px] text-slate-400">Hanya berlaku di perangkat ini (Tersimpan di lokal HP, tidak mempengaruhi HP pasangan)</p>
+                </div>
+                <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-slate-100 text-slate-600">Lokal HP</span>
+              </div>
+
+              <!-- Pilihan Warna Latar Kartu -->
+              <div>
+                <label class="block font-bold text-slate-700 text-xs mb-1.5">Warna Latar Belakang Kartu</label>
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                  <button type="button" onclick="setCardTheme('putih')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="putih">
+                    <span class="w-4 h-4 rounded-full bg-white border border-slate-300 shrink-0"></span>
+                    <span class="text-[10px] font-bold text-slate-800">Putih</span>
+                  </button>
+                  <button type="button" onclick="setCardTheme('kucing')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="kucing">
+                    <span class="w-4 h-4 rounded-full bg-[#faf6f0] border border-amber-300 shrink-0"></span>
+                    <span class="text-[10px] font-bold text-amber-900">Kucing 🐾</span>
+                  </button>
+                  <button type="button" onclick="setCardTheme('navy')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="navy">
+                    <span class="w-4 h-4 rounded-full bg-[#0d1b2e] border border-sky-400 shrink-0"></span>
+                    <span class="text-[10px] font-bold text-slate-800">Navy</span>
+                  </button>
+                  <button type="button" onclick="setCardTheme('gelap')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="gelap">
+                    <span class="w-4 h-4 rounded-full bg-[#1e293b] border border-slate-500 shrink-0"></span>
+                    <span class="text-[10px] font-bold text-slate-800">Gelap</span>
+                  </button>
+                  <button type="button" onclick="setCardTheme('mint')" class="theme-card-btn p-2 rounded-xl border border-slate-200 text-left hover:border-slate-400 transition flex items-center gap-2" data-val="mint">
+                    <span class="w-4 h-4 rounded-full bg-[#ecfdf5] border border-emerald-300 shrink-0"></span>
+                    <span class="text-[10px] font-bold text-emerald-900">Mint</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Pilihan Warna Aksen Tombol & Sorotan -->
+              <div class="pt-1 border-t border-slate-100">
+                <label class="block font-bold text-slate-700 text-xs mb-1.5">Warna Aksen Tombol & Sorotan</label>
+                <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                  <button type="button" onclick="setAccentTheme('sky')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="sky">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#0EA5E9] shrink-0"></span> Sky
+                  </button>
+                  <button type="button" onclick="setAccentTheme('royal')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="royal">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#2563EB] shrink-0"></span> Royal
+                  </button>
+                  <button type="button" onclick="setAccentTheme('emerald')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="emerald">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#10B981] shrink-0"></span> Hijau
+                  </button>
+                  <button type="button" onclick="setAccentTheme('purple')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="purple">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#8B5CF6] shrink-0"></span> Violet
+                  </button>
+                  <button type="button" onclick="setAccentTheme('amber')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="amber">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#F59E0B] shrink-0"></span> Amber
+                  </button>
+                  <button type="button" onclick="setAccentTheme('rose')" class="theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700" data-val="rose">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#F43F5E] shrink-0"></span> Rose
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <!-- Master Data Restricted Section (Khusus Suami) -->
             <div id="masterDataRestrictedSection" class="app-card bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs space-y-3">
               <div class="flex items-center justify-between">
@@ -645,7 +752,7 @@
                 <span id="badgeSuamiAccess" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">Khusus Suami</span>
               </div>
 
-              <!-- Foto Latar Halaman Login (Diatur di sini) -->
+              <!-- Foto Latar Halaman Login -->
               <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-2">
                 <label class="block font-bold text-slate-700 text-xs">URL Foto Latar Belakang Layar Masuk (Login)</label>
                 <div class="flex gap-2">
@@ -655,13 +762,13 @@
                 </div>
               </div>
 
-              <!-- Google Drive Apps Script URL for Receipts -->
-              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-2">
-                <label class="block font-bold text-slate-700 text-xs">Integrasi Google Drive (Apps Script Web App URL)</label>
-                <div class="flex gap-2">
-                  <input id="inputMasterAppscriptUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="flex-1 px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-mono">
-                  <button onclick="saveAppscriptUrlSetting()" class="px-3 py-1.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800">Simpan</button>
+              <!-- Supabase Storage Status Info -->
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between text-xs">
+                <div>
+                  <span class="font-bold text-slate-800 block">Penyimpanan Nota: Supabase Storage Bucket</span>
+                  <span class="text-[10px] text-slate-500 font-mono">Bucket: public/receipts (Hemat Egress Kuota Aktif)</span>
                 </div>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Terhubung</span>
               </div>
 
               <!-- Master Categories List -->
@@ -675,6 +782,20 @@
                 <div id="masterCategoryList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2"></div>
               </div>
             </div>
+
+            <!-- KARTU KELUAR AKUN (LOGOUT) DENGAN INFORMASI SESI PERMANEN -->
+            <div class="app-card bg-white rounded-2xl p-4 border border-rose-100 shadow-xs flex items-center justify-between">
+              <div>
+                <h4 class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                  <i class="fa-solid fa-shield-halved text-emerald-500"></i> Sesi Akun Aktif & Tersimpan
+                </h4>
+                <p class="text-[10px] text-slate-400 mt-0.5">Aplikasi tidak akan meminta login lagi saat dibuka. Anda hanya perlu login kembali jika menekan tombol keluar di bawah ini.</p>
+              </div>
+              <button type="button" onclick="handleLogout()" class="px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-bold text-xs flex items-center gap-1.5 transition shadow-xs shrink-0">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Keluar Akun</span>
+              </button>
+            </div>
           </section>
 
         </div>
@@ -685,47 +806,43 @@
     <!-- REFINED MOBILE CURVED BOTTOM NAVIGATION -->
     <div class="md:hidden fixed bottom-0 left-0 right-0 z-40">
       <div class="relative w-full h-[68px] bg-white/95 border-t border-slate-100 curved-bottom-bar flex items-center justify-around px-1 pb-[env(safe-area-inset-bottom,0px)]">
-        <!-- SVG Curved Wave Layer that slides smoothly -->
+        
+        <!-- SVG Curved Notch Layer -->
         <div id="navSvgCurve" class="absolute -top-4 left-0 w-[110px] h-6 pointer-events-none transition-transform duration-300" style="transform: translateX(10px);">
           <svg viewBox="0 0 110 24" fill="#FFFFFF" class="w-full h-full">
             <path d="M0,24 C18,24 24,20 33,12 C42,4 47,0 55,0 C63,0 68,4 77,12 C86,20 92,24 110,24 Z"></path>
           </svg>
         </div>
 
-        <!-- Floating Active Circle Indicator with Glass Ring & Gradient -->
+        <!-- Floating Active Circle Indicator -->
         <div id="navActiveIndicator" class="absolute -top-5 left-0 w-[52px] h-[52px] rounded-full bg-gradient-to-tr from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] text-white flex items-center justify-center pointer-events-none transition-transform duration-300 text-lg" style="transform: translateX(26px);">
           <i id="navActiveIcon" class="fa-solid fa-chart-pie transition-transform duration-200"></i>
         </div>
 
-        <!-- Mobile Tab 1: Dashboard -->
         <button onclick="handleMobileNavSwitch('dashboard', 0)" class="mobile-nav-item relative flex-1 flex flex-col items-center justify-center h-full py-1 transition group z-10" data-index="0">
           <i class="mobile-nav-icon fa-solid fa-chart-pie text-base transition-all duration-300 text-theme-primary"></i>
           <span class="mobile-nav-label text-[9px] mt-1 transition-all duration-300 text-theme-primary font-extrabold tracking-tight">Dashboard</span>
           <span class="mobile-nav-dot w-1 h-1 rounded-full bg-theme-primary mt-0.5 transition-all duration-300"></span>
         </button>
 
-        <!-- Mobile Tab 2: Pemasukan -->
         <button onclick="handleMobileNavSwitch('pemasukan', 1)" class="mobile-nav-item relative flex-1 flex flex-col items-center justify-center h-full py-1 transition group z-10" data-index="1">
           <i class="mobile-nav-icon fa-solid fa-circle-plus text-sm text-slate-400 group-hover:text-slate-600 transition-all duration-300"></i>
           <span class="mobile-nav-label text-[9px] mt-1 transition-all duration-300 text-slate-400 font-semibold tracking-tight">Masuk</span>
           <span class="mobile-nav-dot w-1 h-1 rounded-full bg-theme-primary mt-0.5 opacity-0 scale-0 transition-all duration-300"></span>
         </button>
 
-        <!-- Mobile Tab 3: Pengeluaran -->
         <button onclick="handleMobileNavSwitch('pengeluaran', 2)" class="mobile-nav-item relative flex-1 flex flex-col items-center justify-center h-full py-1 transition group z-10" data-index="2">
           <i class="mobile-nav-icon fa-solid fa-circle-minus text-sm text-slate-400 group-hover:text-slate-600 transition-all duration-300"></i>
           <span class="mobile-nav-label text-[9px] mt-1 transition-all duration-300 text-slate-400 font-semibold tracking-tight">Keluar</span>
           <span class="mobile-nav-dot w-1 h-1 rounded-full bg-theme-primary mt-0.5 opacity-0 scale-0 transition-all duration-300"></span>
         </button>
 
-        <!-- Mobile Tab 4: Riwayat Tabungan -->
         <button onclick="handleMobileNavSwitch('riwayat', 3)" class="mobile-nav-item relative flex-1 flex flex-col items-center justify-center h-full py-1 transition group z-10" data-index="3">
           <i class="mobile-nav-icon fa-solid fa-vault text-sm text-slate-400 group-hover:text-slate-600 transition-all duration-300"></i>
           <span class="mobile-nav-label text-[9px] mt-1 transition-all duration-300 text-slate-400 font-semibold tracking-tight">Tabungan</span>
           <span class="mobile-nav-dot w-1 h-1 rounded-full bg-theme-primary mt-0.5 opacity-0 scale-0 transition-all duration-300"></span>
         </button>
 
-        <!-- Mobile Tab 5: Master -->
         <button onclick="handleMobileNavSwitch('master', 4)" class="mobile-nav-item relative flex-1 flex flex-col items-center justify-center h-full py-1 transition group z-10" data-index="4">
           <i class="mobile-nav-icon fa-solid fa-sliders text-sm text-slate-400 group-hover:text-slate-600 transition-all duration-300"></i>
           <span class="mobile-nav-label text-[9px] mt-1 transition-all duration-300 text-slate-400 font-semibold tracking-tight">Profil</span>
@@ -736,10 +853,10 @@
 
   </div>
 
-  <!-- TOAST NOTIFICATION CONTAINER (Pengganti alert()) -->
+  <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toastContainer" class="fixed top-3 right-3 z-50 flex flex-col gap-1.5 pointer-events-none max-w-xs w-full"></div>
 
-  <!-- CUSTOM CONFIRMATION MODAL (Z-Index dinaikkan ke z-[80] agar selalu tampil di atas modal detail) -->
+  <!-- CUSTOM CONFIRMATION MODAL -->
   <div id="customConfirmModal" class="fixed inset-0 z-[80] bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-xs w-full p-5 shadow-2xl border border-slate-200 text-center space-y-3">
       <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto text-lg">
@@ -754,18 +871,16 @@
     </div>
   </div>
 
-  <!-- MODAL: LOGIN / REGISTER (Diberi class 'hidden' dari awal agar tidak muncul bayangan/flicker saat sesi aktif) -->
+  <!-- MODAL: LOGIN / REGISTER -->
   <div id="modalLoginGate" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
     <div id="loginGateCard" class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-center relative overflow-hidden">
-      
-      <!-- Logo Header -->
       <div class="w-12 h-12 rounded-2xl bg-theme-primary text-white mx-auto flex items-center justify-center text-xl shadow-md mb-2">
         <i class="fa-solid fa-vault"></i>
       </div>
       <h3 class="text-base font-black text-slate-900">KEUANGAN KELUARGA</h3>
       <p class="text-xs text-slate-400 mt-0.5">Buku Kas & Brankas Bersama Suami & Istri</p>
 
-      <!-- Auth Tabs: Sign In / Register -->
+      <!-- Auth Tabs -->
       <div class="flex p-1 bg-slate-100 rounded-xl mt-3 text-xs font-bold">
         <button type="button" id="tabBtnLogin" onclick="switchAuthMode('login')" class="flex-1 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition">
           Masuk (Sign In)
@@ -775,7 +890,7 @@
         </button>
       </div>
 
-      <!-- Kotak Peringatan Merah Saat Login Salah -->
+      <!-- Kotak Peringatan Merah Login Gagal -->
       <div id="loginErrorMessage" class="hidden mt-3 p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-[11px] font-bold flex items-center gap-2 text-left">
         <i class="fa-solid fa-circle-exclamation shrink-0"></i>
         <span id="loginErrorText">ID Pengguna atau Kata Sandi salah!</span>
@@ -783,8 +898,6 @@
 
       <!-- Auth Form -->
       <form onsubmit="handleAuthSubmit(event)" class="mt-3 space-y-3 text-left text-xs">
-        
-        <!-- Registration fields (Full name & Role) -->
         <div id="registerFieldFullName" class="hidden">
           <label class="block font-bold text-slate-700 mb-1">Nama Lengkap</label>
           <input id="authFullName" type="text" oninput="hideLoginError()" placeholder="Contoh: Bagus Pratama" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring">
@@ -795,7 +908,6 @@
           <select id="authRoleSelect" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring">
             <option value="Suami">Suami (Akses Penuh Master)</option>
             <option value="Istri">Istri (Akses Catat & Riwayat)</option>
-            <option value="Anak">Anak</option>
           </select>
         </div>
 
@@ -808,7 +920,6 @@
           <label class="block font-bold text-slate-700 mb-1">Kata Sandi (Password)</label>
           <div class="relative">
             <input id="loginPassword" type="password" oninput="hideLoginError()" placeholder="Masukkan kata sandi..." required class="w-full pl-3.5 pr-9 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring">
-            <!-- Tombol Mata untuk Show/Hide Password -->
             <button type="button" onclick="togglePasswordVisibility('loginPassword', 'eyeIconLogin')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none p-1">
               <i id="eyeIconLogin" class="fa-solid fa-eye text-xs"></i>
             </button>
@@ -825,7 +936,7 @@
 
   <!-- MODAL: Tambah Pemasukan -->
   <div id="modalAddIncome" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
         <div class="flex items-center gap-2">
           <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">
@@ -873,19 +984,19 @@
           <input id="inputIncomeNotes" type="text" placeholder="Catatan opsional..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs">
         </div>
 
-        <!-- Receipt photo upload -->
+        <!-- Receipt upload directly to Supabase Storage -->
         <div>
-          <label class="block font-bold text-slate-700 mb-1">Lampirkan Bukti / Nota (Opsional)</label>
-          <input type="file" accept="image/*" onchange="handleImageUpload(event, 'income')" class="w-full text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-xl file:border-0 file:text-[10px] file:font-bold file:bg-slate-100 file:text-slate-700">
+          <label class="block font-bold text-slate-700 mb-1">Lampirkan Bukti / Nota (Supabase Cloud Storage)</label>
+          <input type="file" id="inputIncomeReceiptFile" accept="image/*" onchange="handleReceiptFileSelection(event, 'income')" class="w-full text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-xl file:border-0 file:text-[10px] file:font-bold file:bg-slate-100 file:text-slate-700">
           <div id="previewIncomePhotoWrapper" class="mt-1 hidden relative w-16 h-16 rounded-xl overflow-hidden border border-slate-200">
             <img id="previewIncomePhoto" class="w-full h-full object-cover">
-            <button type="button" onclick="removeUploadedImage('income')" class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[9px]"><i class="fa-solid fa-xmark"></i></button>
+            <button type="button" onclick="removeSelectedReceiptFile('income')" class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[9px]"><i class="fa-solid fa-xmark"></i></button>
           </div>
         </div>
 
         <div class="flex gap-2 pt-2">
           <button type="button" onclick="closeModal('modalAddIncome')" class="flex-1 py-2 rounded-xl border border-slate-200 font-bold text-slate-600">Batal</button>
-          <button type="submit" class="flex-1 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 font-bold text-white shadow-xs">Simpan</button>
+          <button type="submit" id="btnSubmitIncome" class="flex-1 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 font-bold text-white shadow-xs">Simpan</button>
         </div>
       </form>
     </div>
@@ -893,7 +1004,7 @@
 
   <!-- MODAL: Tambah Pengeluaran -->
   <div id="modalAddExpense" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
         <div class="flex items-center gap-2">
           <div class="w-7 h-7 rounded-lg bg-orange-100 text-[#F97316] flex items-center justify-center font-bold text-xs">
@@ -927,75 +1038,21 @@
           <input id="inputExpenseNotes" type="text" placeholder="Keperluan belanja..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs">
         </div>
 
-        <!-- Receipt photo upload -->
+        <!-- Receipt upload directly to Supabase Storage -->
         <div>
-          <label class="block font-bold text-slate-700 mb-1">Lampirkan Struk / Nota (Opsional)</label>
-          <input type="file" accept="image/*" onchange="handleImageUpload(event, 'expense')" class="w-full text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-xl file:border-0 file:text-[10px] file:font-bold file:bg-slate-100 file:text-slate-700">
+          <label class="block font-bold text-slate-700 mb-1">Lampirkan Struk / Nota (Supabase Cloud Storage)</label>
+          <input type="file" id="inputExpenseReceiptFile" accept="image/*" onchange="handleReceiptFileSelection(event, 'expense')" class="w-full text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-xl file:border-0 file:text-[10px] file:font-bold file:bg-slate-100 file:text-slate-700">
           <div id="previewExpensePhotoWrapper" class="mt-1 hidden relative w-16 h-16 rounded-xl overflow-hidden border border-slate-200">
             <img id="previewExpensePhoto" class="w-full h-full object-cover">
-            <button type="button" onclick="removeUploadedImage('expense')" class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[9px]"><i class="fa-solid fa-xmark"></i></button>
+            <button type="button" onclick="removeSelectedReceiptFile('expense')" class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[9px]"><i class="fa-solid fa-xmark"></i></button>
           </div>
         </div>
 
         <div class="flex gap-2 pt-2">
           <button type="button" onclick="closeModal('modalAddExpense')" class="flex-1 py-2 rounded-xl border border-slate-200 font-bold text-slate-600">Batal</button>
-          <button type="submit" class="flex-1 py-2 rounded-xl bg-[#F97316] hover:bg-orange-600 font-bold text-white shadow-xs">Simpan</button>
+          <button type="submit" id="btnSubmitExpense" class="flex-1 py-2 rounded-xl bg-[#F97316] hover:bg-orange-600 font-bold text-white shadow-xs">Simpan</button>
         </div>
       </form>
-    </div>
-  </div>
-
-  <!-- MODAL: Set Gaji Pokok -->
-  <div id="modalSetGaji" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200">
-      <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
-        <h3 class="text-sm font-black text-slate-900">Alokasi Gaji Pokok</h3>
-        <button onclick="closeModal('modalSetGaji')" class="w-6 h-6 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center text-xs">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      <form onsubmit="handleSaveGajiPokok(event)" class="mt-3 space-y-3 text-xs">
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Nominal Gaji Pokok (Rp)</label>
-          <input id="inputGajiAmount" type="number" step="10000" min="0" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-black font-mono-num text-slate-800 text-sm focus-theme-ring">
-        </div>
-        <div class="flex gap-2 pt-1">
-          <button type="button" onclick="closeModal('modalSetGaji')" class="flex-1 py-2 rounded-xl border border-slate-200 font-bold text-slate-600">Batal</button>
-          <button type="submit" class="flex-1 py-2 rounded-xl bg-theme-primary font-bold text-white shadow-xs">Tetapkan</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL: Tutup Bulan & Tabung Otomatis -->
-  <div id="modalTutupBuku" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 text-xs">
-      <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
-        <h3 class="text-sm font-black text-slate-900">Tutup Bulan & Tabung</h3>
-        <button onclick="closeModal('modalTutupBuku')" class="w-6 h-6 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      <div class="mt-3 space-y-2">
-        <div class="bg-amber-50 p-3 rounded-xl border border-amber-200/60 space-y-1.5 text-[11px]">
-          <div class="flex justify-between">
-            <span class="text-slate-600">Total Pemasukan:</span>
-            <strong id="tutupBukuIncomeTotal" class="font-mono-num text-emerald-600">Rp 0</strong>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-slate-600">Total Pengeluaran:</span>
-            <strong id="tutupBukuExpenseTotal" class="font-mono-num text-orange-600">Rp 0</strong>
-          </div>
-          <div class="border-t border-amber-200 pt-1.5 flex justify-between font-bold">
-            <span class="text-slate-800">Surplus Ditabung:</span>
-            <strong id="tutupBukuSurplusTotal" class="font-mono-num text-amber-700">Rp 0</strong>
-          </div>
-        </div>
-        <div class="flex gap-2 pt-2">
-          <button type="button" onclick="closeModal('modalTutupBuku')" class="flex-1 py-2 rounded-xl border border-slate-200 font-bold text-slate-600">Batal</button>
-          <button type="button" onclick="executeTutupBuku()" class="flex-1 py-2 rounded-xl bg-amber-600 text-white font-bold">Konfirmasi</button>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -1025,7 +1082,7 @@
     </div>
   </div>
 
-  <!-- MODAL: Buku Detail Transaksi (Nota & Hapus) -->
+  <!-- MODAL: Buku Detail Transaksi (ON-DEMAND RECEIPT FETCH TO SAVE EGRESS) -->
   <div id="modalBukuDetail" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 text-xs space-y-3">
       <div class="flex items-center justify-between pb-2 border-b border-slate-100">
@@ -1056,10 +1113,19 @@
           <span class="text-slate-400 text-[10px] block">Catatan / Keperluan:</span>
           <p id="detailTransNotes" class="font-medium text-slate-800 text-xs mt-0.5">-</p>
         </div>
-        <!-- Receipt image display -->
+        
+        <!-- On-Demand Receipt Section with Egress Optimization -->
         <div id="detailTransPhotoSection" class="hidden border-t border-slate-100 pt-2">
-          <span class="text-slate-400 text-[10px] block mb-1">Bukti Foto / Nota:</span>
-          <img id="detailTransPhoto" class="w-full max-h-48 rounded-xl object-contain border border-slate-200 bg-slate-50">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-slate-400 text-[10px] block">Bukti Foto / Nota (Supabase Storage):</span>
+            <span class="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.2 rounded">On-Demand Egress</span>
+          </div>
+          <!-- Loading skeleton while downloading -->
+          <div id="detailTransPhotoLoading" class="w-full h-36 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 animate-pulse text-[11px] font-semibold gap-1.5">
+            <i class="fa-solid fa-circle-notch fa-spin text-sky-500"></i>
+            <span>Memuat foto nota...</span>
+          </div>
+          <img id="detailTransPhoto" class="hidden w-full max-h-48 rounded-xl object-contain border border-slate-200 bg-slate-50">
         </div>
       </div>
 
@@ -1141,16 +1207,12 @@
     /* ==========================================================================
        1. PROTEKSI CORS PROTOKOL FILE:/// (PWA MANIFEST & SERVICE WORKER)
        ========================================================================== */
-    // Hanya pasang Manifest & daftarkan Service Worker saat dijalankan di web server (http: / https:)
-    // Ini 100% menghilangkan 4 galat CORS & Frame Security di console saat file dibuka lokal via file:///
     if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
-      // Pasang Web App Manifest secara dinamis
       const manifestLink = document.createElement('link');
       manifestLink.rel = 'manifest';
       manifestLink.href = './manifest.json';
       document.head.appendChild(manifestLink);
 
-      // Daftarkan Service Worker
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('./sw.js').catch(err => {
@@ -1161,7 +1223,7 @@
     }
 
     /* ==========================================================================
-       2. SUPABASE CONFIGURATION (Project Asli Anda)
+       2. SUPABASE CONFIGURATION (Project Nyata Anda)
        ========================================================================== */
     const SUPABASE_CONFIG = {
       URL: 'https://goghrpcpkxgnperdlunv.supabase.co',
@@ -1175,13 +1237,72 @@
     let currentAuthUser = null;
     let activeRole = 'Suami';
     let authMode = 'login';
-    let currentTheme = 'putih';
+    let currentTheme = 'sky';
     let globalCardBg = 'putih';
-    let currentPeriodMonth = new Date().toISOString().slice(0, 7) + '-01';
     let donutMode = 'expense';
     let activeDetailTransaction = null;
-    let uploadedImageBase64 = { income: null, expense: null };
-    let currentMobileTabIndex = 0; // Menyimpan indeks tab mobile aktif untuk kalibrasi posisi saat rotasi/resize
+    
+    // File upload references for Supabase Storage
+    let selectedReceiptFiles = { income: null, expense: null };
+    let currentMobileTabIndex = 0;
+
+    // Konfigurasi Palet Aksen Tombol (Hanya untuk tema lokal)
+    const ACCENT_THEMES = {
+      sky: { primary: '#0EA5E9', light: '#F0F9FF', dark: '#0284C7', ring: 'rgba(14, 165, 233, 0.25)' },
+      royal: { primary: '#2563EB', light: '#EFF6FF', dark: '#1D4ED8', ring: 'rgba(37, 99, 235, 0.25)' },
+      emerald: { primary: '#10B981', light: '#ECFDF5', dark: '#059669', ring: 'rgba(16, 185, 129, 0.25)' },
+      purple: { primary: '#8B5CF6', light: '#F5F3FF', dark: '#7C3AED', ring: 'rgba(139, 92, 246, 0.25)' },
+      amber: { primary: '#F59E0B', light: '#FFFBEB', dark: '#D97706', ring: 'rgba(245, 158, 11, 0.25)' },
+      rose: { primary: '#F43F5E', light: '#FFF1F2', dark: '#E11D48', ring: 'rgba(244, 63, 94, 0.25)' }
+    };
+
+    // Fungsi atur aksen tombol: MURNI HANYA DISIMPAN DI LOKAL STORAGE PERANGKAT
+    function setAccentTheme(themeKey, notify = true) {
+      const theme = ACCENT_THEMES[themeKey] || ACCENT_THEMES.sky;
+      currentTheme = themeKey;
+      document.documentElement.style.setProperty('--primary-color', theme.primary);
+      document.documentElement.style.setProperty('--primary-light', theme.light);
+      document.documentElement.style.setProperty('--primary-dark', theme.dark);
+      document.documentElement.style.setProperty('--primary-ring', theme.ring);
+      
+      localStorage.setItem('family_finance_theme', themeKey);
+
+      document.querySelectorAll('.theme-accent-btn').forEach(btn => {
+        if (btn.getAttribute('data-val') === themeKey) {
+          btn.className = "theme-accent-btn p-1.5 rounded-xl border-2 border-theme-primary bg-theme-light flex items-center gap-1.5 text-[10px] font-extrabold text-slate-900";
+        } else {
+          btn.className = "theme-accent-btn p-1.5 rounded-xl border border-slate-200 flex items-center gap-1.5 hover:bg-slate-50 text-[10px] font-bold text-slate-700";
+        }
+      });
+
+      if (notify) showToast(`Aksen warna ${themeKey} diterapkan di HP ini!`, 'info');
+    }
+
+    // Fungsi atur latar kartu: MURNI HANYA DISIMPAN DI LOKAL STORAGE PERANGKAT
+    function setCardTheme(cardThemeKey, notify = true) {
+      globalCardBg = cardThemeKey;
+      document.body.setAttribute('data-card-theme', cardThemeKey);
+      
+      localStorage.setItem('family_finance_card_theme', cardThemeKey);
+
+      document.querySelectorAll('.theme-card-btn').forEach(btn => {
+        if (btn.getAttribute('data-val') === cardThemeKey) {
+          btn.classList.add('ring-2', 'ring-theme-primary', 'border-theme-primary');
+        } else {
+          btn.classList.remove('ring-2', 'ring-theme-primary', 'border-theme-primary');
+        }
+      });
+
+      if (notify) showToast(`Tema kartu "${cardThemeKey}" diterapkan di HP ini!`, 'info');
+    }
+
+    // Inisialisasi tema saat aplikasi pertama kali dibuka di HP ini
+    function initLocalTheme() {
+      const savedTheme = localStorage.getItem('family_finance_theme') || 'sky';
+      const savedCard = localStorage.getItem('family_finance_card_theme') || 'putih';
+      setAccentTheme(savedTheme, false);
+      setCardTheme(savedCard, false);
+    }
 
     // Standard RFC4122 UUID generator
     function generateUUID() {
@@ -1227,12 +1348,7 @@
       { id: generateUUID(), name: 'Hiburan & Liburan', type: 'expense', is_active: true }
     ];
 
-    // Data Awal Di-set Kosong (0) agar Murni Mengambil dari Supabase (Menghapus Data Dummy)
-    let monthlyBudget = {
-      salary_amount: 0,
-      is_closed: false
-    };
-
+    // Murni Mengambil dari Supabase (Data Awal Bersih Rp 0)
     let incomes = [];
     let expenses = [];
     let savingsHistory = [];
@@ -1246,7 +1362,6 @@
       return 'Rp ' + num.toLocaleString('id-ID');
     }
 
-    // Format angka cerdas agar tidak terpotong (...) di mobile (Contoh: Rp 14,5 Juta)
     function formatIDRCompact(value) {
       const num = Number(value) || 0;
       if (Math.abs(num) >= 1000000) {
@@ -1256,7 +1371,6 @@
       return 'Rp ' + num.toLocaleString('id-ID');
     }
 
-    // Floating Toast Notification
     function showToast(message, type = 'info') {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
@@ -1283,7 +1397,6 @@
       }, 3500);
     }
 
-    // Custom Modal Confirmation Dialog
     function showConfirmModal(title, message, onConfirm) {
       const modal = document.getElementById('customConfirmModal');
       document.getElementById('customConfirmTitle').innerText = title;
@@ -1307,33 +1420,59 @@
       modal.classList.remove('hidden');
     }
 
+    /* ==========================================================================
+       AUTENTIKASI & PERSISTENSI LOGIN SEKALI (PERMANENT AUTO-LOGIN)
+       ========================================================================== */
     function checkAuthStatus() {
-      const savedAuth = localStorage.getItem('family_finance_auth');
-      if (savedAuth) {
+      // 1. Periksa sesi lengkap yang tersimpan permanen di perangkat ini
+      const savedSession = localStorage.getItem('family_finance_user_session') || localStorage.getItem('family_finance_auth');
+      
+      if (savedSession) {
         try {
-          const authData = JSON.parse(savedAuth);
-          const matchedProfile = Object.values(profiles).find(p => p.username.toLowerCase() === authData.username.toLowerCase());
-          if (matchedProfile) {
-            currentAuthUser = matchedProfile;
-            activeRole = matchedProfile.role;
-            document.getElementById('modalLoginGate').classList.add('hidden');
+          const authData = JSON.parse(savedSession);
+          
+          // Jika data sesi valid (sudah login/register sebelumnya), langsung aktifkan tanpa minta login lagi!
+          if (authData && (authData.username || authData.id)) {
+            const role = authData.role || 'Suami';
+
+            // Sinkronkan objek profil aktif
+            profiles[role] = {
+              id: authData.id || generateUUID(),
+              full_name: authData.full_name || (role === 'Suami' ? 'Bagus Pratama' : 'Anindya Putri'),
+              role: role,
+              username: authData.username || (role === 'Suami' ? 'bagus' : 'anindya'),
+              password: authData.password || authData.password_hash || '123',
+              avatar_url: authData.avatar_url || (role === 'Istri' 
+                ? 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160&h=160&fit=crop' 
+                : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&h=160&fit=crop')
+            };
+
+            currentAuthUser = profiles[role];
+            activeRole = role;
+
+            // Kunci modal login tetap tertutup rapat (tidak berkedip atau memunculkan bayangan)
+            const gate = document.getElementById('modalLoginGate');
+            if (gate) gate.classList.add('hidden');
+
             updateUserUI();
-            return;
+            return true;
           }
         } catch (e) {
-          console.error("Auth read error", e);
+          console.error("Gagal membaca sesi lokal:", e);
         }
       }
-      document.getElementById('modalLoginGate').classList.remove('hidden');
+
+      // 2. Layar login HANYA dibuka jika belum pernah login sama sekali atau setelah menekan tombol logout
+      const gate = document.getElementById('modalLoginGate');
+      if (gate) gate.classList.remove('hidden');
+      return false;
     }
 
-    // Helper untuk menyembunyikan peringatan merah saat mengetik
     function hideLoginError() {
       const el = document.getElementById('loginErrorMessage');
       if (el) el.classList.add('hidden');
     }
 
-    // Helper untuk fitur mata toggle show/hide password
     function togglePasswordVisibility(inputId, iconId) {
       const input = document.getElementById(inputId);
       const icon = document.getElementById(iconId);
@@ -1401,9 +1540,11 @@
         profiles[role] = newProfile;
         currentAuthUser = newProfile;
         activeRole = role;
+
+        // SIMPAN DATA LENGKAP KE LOCAL STORAGE AGAR LOGIN HANYA SEKALI & PERMANEN
+        localStorage.setItem('family_finance_user_session', JSON.stringify(newProfile));
         localStorage.setItem('family_finance_auth', JSON.stringify({ username: u }));
 
-        // Insert directly to Supabase profiles table
         if (supabaseClient) {
           try {
             await supabaseClient.from('profiles').insert({
@@ -1422,15 +1563,13 @@
         document.getElementById('modalLoginGate').classList.add('hidden');
         updateUserUI();
         updateDashboardMetrics();
-        showToast(`Akun ${fullName} (${role}) berhasil didaftarkan!`, 'success');
+        showToast(`Akun ${fullName} (${role}) berhasil didaftarkan! Sesi Anda disimpan permanen.`, 'success');
 
       } else {
-        // Sign in check
         let matched = Object.values(profiles).find(
           prof => prof.username.toLowerCase() === u && prof.password === p
         );
 
-        // Fallback remote check to Supabase
         if (!matched && supabaseClient) {
           try {
             const { data } = await supabaseClient.from('profiles').select('*').eq('username', u).maybeSingle();
@@ -1451,7 +1590,6 @@
         }
 
         if (!matched) {
-          // Menampilkan kotak keterangan merah jika username/password tidak cocok
           const errBox = document.getElementById('loginErrorMessage');
           const errTxt = document.getElementById('loginErrorText');
           if (errBox && errTxt) {
@@ -1465,20 +1603,109 @@
         hideLoginError();
         currentAuthUser = matched;
         activeRole = matched.role;
+
+        // SIMPAN DATA LENGKAP KE LOCAL STORAGE AGAR LOGIN HANYA SEKALI & PERMANEN
+        localStorage.setItem('family_finance_user_session', JSON.stringify(matched));
         localStorage.setItem('family_finance_auth', JSON.stringify({ username: matched.username }));
 
         document.getElementById('modalLoginGate').classList.add('hidden');
         updateUserUI();
         updateDashboardMetrics();
-        showToast(`Selamat datang, ${matched.full_name}!`, 'success');
+        showToast(`Selamat datang kembali, ${matched.full_name}!`, 'success');
       }
     }
 
     function handleLogout() {
-      localStorage.removeItem('family_finance_auth');
-      currentAuthUser = null;
-      document.getElementById('modalLoginGate').classList.remove('hidden');
-      showToast('Anda telah keluar dari aplikasi.', 'info');
+      showConfirmModal(
+        'Keluar dari Akun',
+        'Apakah Anda yakin ingin keluar dari akun ini? Anda harus memasukkan ID dan kata sandi kembali untuk masuk.',
+        () => {
+          // Hapus semua token sesi login dari perangkat ini
+          localStorage.removeItem('family_finance_user_session');
+          localStorage.removeItem('family_finance_auth');
+          currentAuthUser = null;
+
+          // Kosongkan form login
+          const uInput = document.getElementById('loginUsername');
+          const pInput = document.getElementById('loginPassword');
+          if (uInput) uInput.value = '';
+          if (pInput) pInput.value = '';
+          hideLoginError();
+
+          // Tampilkan layar login
+          const gate = document.getElementById('modalLoginGate');
+          if (gate) gate.classList.remove('hidden');
+          
+          showToast('Anda telah keluar dari aplikasi.', 'info');
+        }
+      );
+    }
+
+    // Logika Siklus Gajian (Tgl 10 s/d 9 Bulan Berikutnya)
+    function getPaydayCycleRange(targetDate = new Date()) {
+      const year = targetDate.getFullYear();
+      const month = targetDate.getMonth();
+      const day = targetDate.getDate();
+
+      let cycleStart, cycleEnd;
+      if (day >= 10) {
+        cycleStart = new Date(year, month, 10);
+        cycleEnd = new Date(year, month + 1, 9, 23, 59, 59);
+      } else {
+        cycleStart = new Date(year, month - 1, 10);
+        cycleEnd = new Date(year, month, 9, 23, 59, 59);
+      }
+      return {
+        startDateStr: cycleStart.toISOString().slice(0, 10),
+        endDateStr: cycleEnd.toISOString().slice(0, 10),
+        cycleKey: `${cycleStart.getFullYear()}-${String(cycleStart.getMonth() + 1).padStart(2, '0')}`
+      };
+    }
+
+    // Eksekusi Tutup Buku Otomatis Saat Tgl 10 (Hari Gajian)
+    async function checkAndExecuteAutoTutupBuku() {
+      const today = new Date();
+      if (today.getDate() !== 10) return;
+
+      const prevMonthDate = new Date(today.getFullYear(), today.getMonth() - 1, 10);
+      const prevCycleKey = `${prevMonthDate.getFullYear()}-${String(prevMonthDate.getMonth() + 1).padStart(2, '0')}`;
+      
+      const alreadySaved = savingsHistory.some(s => s.period_month && s.period_month.includes(prevCycleKey));
+      if (alreadySaved) return;
+
+      const startPrev = new Date(today.getFullYear(), today.getMonth() - 1, 10).toISOString().slice(0, 10);
+      const endPrev = new Date(today.getFullYear(), today.getMonth(), 9).toISOString().slice(0, 10);
+
+      const cycleIncomes = incomes.filter(i => i.transaction_date >= startPrev && i.transaction_date <= endPrev);
+      const cycleExpenses = expenses.filter(e => e.transaction_date >= startPrev && e.transaction_date <= endPrev);
+
+      const totalInc = cycleIncomes.reduce((s, i) => s + Number(i.amount), 0);
+      const totalExp = cycleExpenses.reduce((s, e) => s + Number(e.amount), 0);
+      const surplus = totalInc - totalExp;
+
+      if (surplus > 0) {
+        const autoSav = {
+          id: generateUUID(),
+          period_month: `Surplus Gajian Tgl 10 (${prevCycleKey})`,
+          amount_saved: surplus,
+          notes: `Otomatis ditabung saat gajian tgl 10 (Periode ${startPrev} s/d ${endPrev})`,
+          is_deduction: false,
+          created_at: new Date().toISOString()
+        };
+
+        savingsHistory.unshift(autoSav);
+        updateDashboardMetrics();
+        renderSavingsHistory();
+        showToast(`🎉 Hari Gajian! Surplus ${formatIDR(surplus)} otomatis dipindahkan ke Brankas Tabungan.`, 'success');
+
+        if (supabaseClient) {
+          try {
+            await supabaseClient.from('savings_history').insert(autoSav);
+          } catch (err) {
+            console.warn("Auto tutup buku insert error:", err);
+          }
+        }
+      }
     }
 
     function applyDashboardFilter() {
@@ -1535,45 +1762,35 @@
       const tabunganTotal = savingsHistory
         .reduce((sum, s) => sum + (s.is_deduction ? -Number(s.amount_saved) : Number(s.amount_saved)), 0);
 
-      // Sisa Saldo Berjalan (Full Rupiah Format in Giant text)
       document.getElementById('summarySaldo').innerText = formatIDR(sisaSaldo);
-
-      // 3 Kartu Berbaris (Intelligent Compact Format 'Juta')
       document.getElementById('summaryGaji').innerText = formatIDRCompact(gajiTotal);
       document.getElementById('summaryNonGaji').innerText = formatIDRCompact(nonGajiTotal);
       document.getElementById('summaryPengeluaran').innerText = formatIDRCompact(pengeluaranTotal);
       document.getElementById('summaryExpenseCount').innerText = filteredExpenses.length;
 
-      // Update Brankas Tabungan Besar in Riwayat tab
       const riwayatTabunganEl = document.getElementById('riwayatTabunganBesar');
       if (riwayatTabunganEl) riwayatTabunganEl.innerText = formatIDR(tabunganTotal);
 
-      // Status pill badge
       const saldoStatusEl = document.getElementById('summarySaldoStatus');
       if (sisaSaldo < 0) {
-        saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-rose-500/20 text-rose-300 border border-rose-500/30";
-        saldoStatusEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Defisit Anggaran!';
+        saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-extrabold bg-rose-500/20 text-rose-300 border border-rose-500/30";
+        saldoStatusEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Defisit Kas!';
       } else {
-        saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+        saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
         saldoStatusEl.innerHTML = '<i class="fa-solid fa-shield-check"></i> Aman & Terkendali';
       }
 
-      // Member stats
       const suamiCount = [...incomes, ...expenses].filter(x => x.author_role === 'Suami').length;
       const istriCount = [...incomes, ...expenses].filter(x => x.author_role === 'Istri').length;
       document.getElementById('statsInputSuami').innerText = `${suamiCount} kali`;
       document.getElementById('statsInputIstri').innerText = `${istriCount} kali`;
 
-      // Render 2 Compact Tables
       renderDualMiniTables(filteredIncomes, filteredExpenses);
-
-      // Refresh Charts
       initLineChart(filteredExpenses);
       initDonutChart(filteredIncomes, filteredExpenses);
     }
 
     function renderDualMiniTables(incomeList, expenseList) {
-      // 1. Mini Income Table
       const incTbody = document.getElementById('dashIncomeMiniTable');
       const recentInc = [...incomeList].slice(0, 5);
       if (recentInc.length === 0) {
@@ -1591,7 +1808,6 @@
         `).join('');
       }
 
-      // 2. Mini Expense Table
       const expTbody = document.getElementById('dashExpenseMiniTable');
       const recentExp = [...expenseList].slice(0, 5);
       if (recentExp.length === 0) {
@@ -1789,6 +2005,7 @@
         return;
       }
 
+      // NOTE: Table row does NOT load photo to save Supabase egress! Only displays an icon.
       tbody.innerHTML = filtered.map(item => `
         <tr class="hover:bg-slate-50/80 transition">
           <td class="py-2 px-3 font-mono-num text-slate-600 text-[10px]">${item.transaction_date}</td>
@@ -1811,7 +2028,7 @@
           </td>
           <td class="py-2 px-3 text-center">
             <button onclick="openBukuDetailModal('${item.id}', 'income')" title="Lihat Detail & Nota" class="text-slate-400 hover:text-slate-700 p-1">
-              <i class="fa-solid fa-receipt"></i>
+              <i class="fa-solid fa-receipt ${item.photo_url ? 'text-emerald-600' : ''}"></i>
             </button>
           </td>
         </tr>
@@ -1860,6 +2077,7 @@
         return;
       }
 
+      // NOTE: Table row does NOT load photo to save Supabase egress! Only displays an icon.
       tbody.innerHTML = filtered.map(item => `
         <tr class="hover:bg-slate-50/80 transition">
           <td class="py-2 px-3 font-mono-num text-slate-600 text-[10px]">${item.transaction_date}</td>
@@ -1875,7 +2093,7 @@
           </td>
           <td class="py-2 px-3 text-center">
             <button onclick="openBukuDetailModal('${item.id}', 'expense')" title="Lihat Detail & Nota" class="text-slate-400 hover:text-slate-700 p-1">
-              <i class="fa-solid fa-receipt"></i>
+              <i class="fa-solid fa-receipt ${item.photo_url ? 'text-[#F97316]' : ''}"></i>
             </button>
           </td>
         </tr>
@@ -1945,6 +2163,11 @@
 
     function closeModal(id) {
       document.getElementById(id).classList.add('hidden');
+      // CRITICAL EGRESS SAVING: Instantly remove photo src to prevent idle memory/network consumption
+      if (id === 'modalBukuDetail') {
+        const photoImg = document.getElementById('detailTransPhoto');
+        if (photoImg) photoImg.src = '';
+      }
     }
 
     function switchView(viewName) {
@@ -1993,15 +2216,12 @@
       const bubble = document.getElementById('navActiveIndicator');
       const icon = document.getElementById('navActiveIcon');
 
-      // Menghitung titik tengah tombol presisi dari posisi nyata DOM (kebal terhadap variasi padding layar ponsel)
       if (activeBtn && navBar && bubble && notch) {
         const barRect = navBar.getBoundingClientRect();
         const btnRect = activeBtn.getBoundingClientRect();
         const targetCenterX = (btnRect.left - barRect.left) + (btnRect.width / 2);
 
-        // Geser lekukan gelombang kurva (110px -> offset 55px)
         notch.style.transform = `translateX(${targetCenterX - 55}px)`;
-        // Geser lingkaran bubble (52px -> offset 26px) tanpa tertimpa oleh CSS keyframe
         bubble.style.transform = `translateX(${targetCenterX - 26}px)`;
       }
 
@@ -2013,26 +2233,22 @@
         'fa-sliders'
       ];
       
-      // Mengubah ikon dan memicu efek pop membal hanya pada ikon di dalam lingkaran
       if (icon) {
         icon.className = `fa-solid ${icons[tabIndex]}`;
         icon.classList.remove('nav-bubble-animate');
-        void icon.offsetWidth; // Memaksa browser me-render ulang keyframe
+        void icon.offsetWidth;
         icon.classList.add('nav-bubble-animate');
       }
 
-      // Update appearance for each button (hide static icon on active tab to prevent clutter)
       document.querySelectorAll('.mobile-nav-item').forEach((btn, idx) => {
         const itemIcon = btn.querySelector('.mobile-nav-icon');
         const itemLabel = btn.querySelector('.mobile-nav-label');
         const itemDot = btn.querySelector('.mobile-nav-dot');
 
         if (idx === tabIndex) {
-          // Tab Aktif: Sembunyikan ikon statis agar digantikan oleh floating bubble
           if (itemIcon) {
             itemIcon.className = "mobile-nav-icon fa-solid " + icons[idx] + " text-base transition-all duration-300 opacity-0 -translate-y-2 scale-75 pointer-events-none";
           }
-          // Beri ruang lega untuk label di bawah bubble
           if (itemLabel) {
             itemLabel.className = "mobile-nav-label text-[10px] mt-3.5 font-extrabold tracking-tight text-theme-primary transition-all duration-300";
           }
@@ -2040,7 +2256,6 @@
             itemDot.className = "mobile-nav-dot w-1.5 h-1.5 rounded-full bg-theme-primary mt-0.5 opacity-100 scale-100 transition-all duration-300";
           }
         } else {
-          // Tab Non-aktif: Tampilkan ikon statis dan label abu-abu normal
           if (itemIcon) {
             itemIcon.className = "mobile-nav-icon fa-solid " + icons[idx] + " text-sm text-slate-400 group-hover:text-slate-600 transition-all duration-300 opacity-100 translate-y-0 scale-100";
           }
@@ -2077,7 +2292,6 @@
       document.getElementById('profileUserIstri').innerText = `ID: ${profiles['Istri'].username}`;
       document.getElementById('profileAvatarIstri').src = profiles['Istri'].avatar_url;
 
-      // Master Settings Access Rule: only Suami can edit master data
       const masterSec = document.getElementById('masterDataRestrictedSection');
       if (masterSec) {
         if (activeRole === 'Suami') {
@@ -2110,10 +2324,11 @@
       
       if (currentAuthUser && currentAuthUser.role === role) {
         currentAuthUser = profiles[role];
+        // Perbarui sesi tersimpan di HP
+        localStorage.setItem('family_finance_user_session', JSON.stringify(currentAuthUser));
         localStorage.setItem('family_finance_auth', JSON.stringify({ username: currentAuthUser.username }));
       }
 
-      // Sync to Supabase profiles
       if (supabaseClient) {
         try {
           await supabaseClient.from('profiles').update({
@@ -2133,31 +2348,66 @@
       showToast(`Profil ${role} berhasil diperbarui!`, 'success');
     }
 
-    function handleImageUpload(e, type) {
+    // Helper: Upload file ke Supabase Storage (Bucket: receipts)
+    async function uploadReceiptFileToSupabase(file) {
+      if (!file || !supabaseClient) return null;
+      try {
+        const fileExt = file.name.split('.').pop() || 'jpg';
+        const cleanName = `${Date.now()}_${generateUUID().slice(0, 8)}.${fileExt}`;
+        const filePath = `receipts/${cleanName}`;
+
+        const { data, error } = await supabaseClient.storage
+          .from('receipts')
+          .upload(filePath, file, { cacheControl: '3600', upsert: false });
+
+        if (error) {
+          console.warn("Supabase storage upload error:", error);
+          return null;
+        }
+
+        const { data: { publicUrl } } = supabaseClient.storage
+          .from('receipts')
+          .getPublicUrl(filePath);
+
+        return publicUrl;
+      } catch (err) {
+        console.warn("Storage upload exception:", err);
+        return null;
+      }
+    }
+
+    function handleReceiptFileSelection(e, type) {
       const file = e.target.files[0];
       if (!file) return;
 
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        uploadedImageBase64[type] = evt.target.result;
-        const preview = document.getElementById(type === 'income' ? 'previewIncomePhoto' : 'previewExpensePhoto');
-        const wrapper = document.getElementById(type === 'income' ? 'previewIncomePhotoWrapper' : 'previewExpensePhotoWrapper');
-        if (preview && wrapper) {
-          preview.src = evt.target.result;
-          wrapper.classList.remove('hidden');
-        }
-      };
-      reader.readAsDataURL(file);
+      selectedReceiptFiles[type] = file;
+      
+      // Tampilkan preview lokal menggunakan createObjectURL (TIDAK menyedot kuota Supabase)
+      const localPreviewUrl = URL.createObjectURL(file);
+      const preview = document.getElementById(type === 'income' ? 'previewIncomePhoto' : 'previewExpensePhoto');
+      const wrapper = document.getElementById(type === 'income' ? 'previewIncomePhotoWrapper' : 'previewExpensePhotoWrapper');
+      if (preview && wrapper) {
+        preview.src = localPreviewUrl;
+        wrapper.classList.remove('hidden');
+      }
     }
 
-    function removeUploadedImage(type) {
-      uploadedImageBase64[type] = null;
+    function removeSelectedReceiptFile(type) {
+      selectedReceiptFiles[type] = null;
+      const inputEl = document.getElementById(type === 'income' ? 'inputIncomeReceiptFile' : 'inputExpenseReceiptFile');
+      if (inputEl) inputEl.value = '';
       const wrapper = document.getElementById(type === 'income' ? 'previewIncomePhotoWrapper' : 'previewExpensePhotoWrapper');
       if (wrapper) wrapper.classList.add('hidden');
     }
 
     async function handleSaveIncome(e) {
       e.preventDefault();
+      const submitBtn = document.getElementById('btnSubmitIncome');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Mengunggah & Menyimpan...';
+      }
+
       const incomeType = document.querySelector('input[name="income_type"]:checked').value;
       const catId = document.getElementById('incomeCategorySelect').value;
       const categoryObj = categoriesMaster.find(c => c.id === catId);
@@ -2166,6 +2416,12 @@
       const notes = document.getElementById('inputIncomeNotes').value;
 
       const user = profiles[activeRole] || profiles['Suami'];
+
+      // 1. Unggah bukti ke Supabase Storage (bukan Google Drive)
+      let uploadedPhotoUrl = null;
+      if (selectedReceiptFiles.income) {
+        uploadedPhotoUrl = await uploadReceiptFileToSupabase(selectedReceiptFiles.income);
+      }
 
       const newRecord = {
         id: generateUUID(),
@@ -2178,20 +2434,24 @@
         amount: amount,
         transaction_date: transDate,
         notes: notes,
-        photo_url: uploadedImageBase64.income,
+        photo_url: uploadedPhotoUrl,
         created_at: new Date().toISOString()
       };
 
       incomes.unshift(newRecord);
       closeModal('modalAddIncome');
       e.target.reset();
-      removeUploadedImage('income');
+      removeSelectedReceiptFile('income');
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Simpan';
+      }
 
       updateDashboardMetrics();
       renderIncomeTable();
-      showToast(`Pemasukan berhasil dicatat oleh ${user.full_name}!`, 'success');
+      showToast(`Pemasukan ${formatIDR(amount)} berhasil disimpan!`, 'success');
 
-      // Sync to Supabase
       if (supabaseClient) {
         try {
           await supabaseClient.from('incomes').insert(newRecord);
@@ -2203,6 +2463,12 @@
 
     async function handleSaveExpense(e) {
       e.preventDefault();
+      const submitBtn = document.getElementById('btnSubmitExpense');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Mengunggah & Menyimpan...';
+      }
+
       const catId = document.getElementById('expenseCategorySelect').value;
       const categoryObj = categoriesMaster.find(c => c.id === catId);
       const amount = parseFloat(document.getElementById('inputExpenseAmount').value);
@@ -2210,6 +2476,12 @@
       const notes = document.getElementById('inputExpenseNotes').value;
 
       const user = profiles[activeRole] || profiles['Suami'];
+
+      // 1. Unggah bukti ke Supabase Storage (bukan Google Drive)
+      let uploadedPhotoUrl = null;
+      if (selectedReceiptFiles.expense) {
+        uploadedPhotoUrl = await uploadReceiptFileToSupabase(selectedReceiptFiles.expense);
+      }
 
       const newRecord = {
         id: generateUUID(),
@@ -2221,20 +2493,24 @@
         amount: amount,
         transaction_date: transDate,
         notes: notes,
-        photo_url: uploadedImageBase64.expense,
+        photo_url: uploadedPhotoUrl,
         created_at: new Date().toISOString()
       };
 
       expenses.unshift(newRecord);
       closeModal('modalAddExpense');
       e.target.reset();
-      removeUploadedImage('expense');
+      removeSelectedReceiptFile('expense');
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Simpan';
+      }
 
       updateDashboardMetrics();
       renderExpenseTable();
-      showToast(`Pengeluaran berhasil dicatat oleh ${user.full_name}!`, 'success');
+      showToast(`Pengeluaran ${formatIDR(amount)} berhasil dicatat!`, 'success');
 
-      // Sync to Supabase
       if (supabaseClient) {
         try {
           await supabaseClient.from('expenses').insert(newRecord);
@@ -2259,11 +2535,29 @@
 
       const photoSec = document.getElementById('detailTransPhotoSection');
       const photoImg = document.getElementById('detailTransPhoto');
+      const photoLoading = document.getElementById('detailTransPhotoLoading');
+
+      // CRITICAL EGRESS SAVING LOGIC:
+      // Foto nota dari Supabase HANYA di-download ketika modal rincian dibuka oleh pengguna!
       if (item.photo_url) {
-        photoImg.src = item.photo_url;
         photoSec.classList.remove('hidden');
+        photoLoading.classList.remove('hidden');
+        photoImg.classList.add('hidden');
+
+        photoImg.onload = () => {
+          photoLoading.classList.add('hidden');
+          photoImg.classList.remove('hidden');
+        };
+        photoImg.onerror = () => {
+          photoLoading.classList.add('hidden');
+          photoSec.classList.add('hidden');
+        };
+
+        // Pemicu unduhan gambar dari Supabase Storage
+        photoImg.src = item.photo_url;
       } else {
         photoSec.classList.add('hidden');
+        photoImg.src = '';
       }
 
       openModal('modalBukuDetail');
@@ -2271,12 +2565,10 @@
 
     function executeDeleteFromBukuDetail() {
       if (!activeDetailTransaction) return;
-      const { id, type } = activeDetailTransaction;
+      const { id, type, item } = activeDetailTransaction;
 
-      // 1. Tutup modal rincian transaksi terlebih dahulu agar tidak menumpuk dengan modal konfirmasi
       closeModal('modalBukuDetail');
 
-      // 2. Munculkan modal konfirmasi hapus secara bersih
       showConfirmModal('Hapus Transaksi', 'Apakah Anda yakin ingin menghapus catatan transaksi ini secara permanen?', async () => {
         if (type === 'income') {
           const idx = incomes.findIndex(i => i.id === id);
@@ -2295,99 +2587,19 @@
           try {
             const table = type === 'income' ? 'incomes' : 'expenses';
             await supabaseClient.from(table).delete().eq('id', id);
+
+            // Opsional: Hapus file nota dari Supabase Storage jika ada
+            if (item && item.photo_url && item.photo_url.includes('receipts/')) {
+              const fileName = item.photo_url.split('/receipts/').pop();
+              if (fileName) {
+                await supabaseClient.storage.from('receipts').remove([`receipts/${fileName}`]);
+              }
+            }
           } catch (err) {
             console.warn("Supabase delete error:", err);
           }
         }
       });
-    }
-
-    function openSetGajiModal() {
-      document.getElementById('inputGajiAmount').value = monthlyBudget.salary_amount;
-      openModal('modalSetGaji');
-    }
-
-    function handleSaveGajiPokok(e) {
-      e.preventDefault();
-      const amount = parseFloat(document.getElementById('inputGajiAmount').value);
-      monthlyBudget.salary_amount = amount;
-
-      const gajiRec = incomes.find(i => i.income_type === 'gaji');
-      if (gajiRec) {
-        gajiRec.amount = amount;
-      } else {
-        incomes.unshift({
-          id: generateUUID(),
-          user_id: profiles[activeRole].id,
-          author_name: profiles[activeRole].full_name,
-          author_role: profiles[activeRole].role,
-          category_id: null,
-          category_name: 'Gaji Kantor',
-          income_type: 'gaji',
-          amount: amount,
-          transaction_date: new Date().toLocaleDateString('en-CA'),
-          notes: 'Alokasi Gaji Pokok Terjadwal',
-          created_at: new Date().toISOString()
-        });
-      }
-
-      closeModal('modalSetGaji');
-      updateDashboardMetrics();
-      showToast(`Gaji pokok ${formatIDR(amount)} berhasil disimpan!`, 'success');
-    }
-
-    function openTutupBukuModal() {
-      const totalIncome = incomes.reduce((s, i) => s + Number(i.amount), 0);
-      const totalExpense = expenses.reduce((s, e) => s + Number(e.amount), 0);
-      const surplus = totalIncome - totalExpense;
-
-      document.getElementById('tutupBukuIncomeTotal').innerText = formatIDR(totalIncome);
-      document.getElementById('tutupBukuExpenseTotal').innerText = formatIDR(totalExpense);
-      document.getElementById('tutupBukuSurplusTotal').innerText = formatIDR(surplus);
-
-      openModal('modalTutupBuku');
-    }
-
-    async function executeTutupBuku() {
-      const totalIncome = incomes.reduce((s, i) => s + Number(i.amount), 0);
-      const totalExpense = expenses.reduce((s, e) => s + Number(e.amount), 0);
-      const surplus = totalIncome - totalExpense;
-
-      if (surplus <= 0) {
-        showToast('Tidak ada surplus positif untuk ditabung ke brankas.', 'warning');
-        closeModal('modalTutupBuku');
-        return;
-      }
-
-      const newSav = {
-        id: generateUUID(),
-        period_month: currentPeriodMonth,
-        amount_saved: surplus,
-        notes: `Surplus penutupan periode ${currentPeriodMonth}`,
-        is_deduction: false,
-        created_at: new Date().toISOString()
-      };
-
-      savingsHistory.unshift(newSav);
-      monthlyBudget.is_closed = true;
-      const badgeEl = document.getElementById('badgeBudgetStatus');
-      if (badgeEl) {
-        badgeEl.className = "px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30";
-        badgeEl.innerText = "Ditutup";
-      }
-
-      closeModal('modalTutupBuku');
-      updateDashboardMetrics();
-      renderSavingsHistory();
-      showToast(`Surplus ${formatIDR(surplus)} sukses dipindahkan ke Brankas Tabungan!`, 'success');
-
-      if (supabaseClient) {
-        try {
-          await supabaseClient.from('savings_history').insert(newSav);
-        } catch (err) {
-          console.warn("Supabase insert savings:", err);
-        }
-      }
     }
 
     function openTarikTabunganModal() {
@@ -2407,7 +2619,6 @@
 
       const user = profiles[activeRole] || profiles['Suami'];
 
-      // 1. Record deduction in savings history
       const savDeduction = {
         id: generateUUID(),
         period_month: 'Tarik Tabungan',
@@ -2418,7 +2629,6 @@
       };
       savingsHistory.unshift(savDeduction);
 
-      // 2. Add as income
       const incRecord = {
         id: generateUUID(),
         user_id: user.id,
@@ -2510,25 +2720,15 @@
       }
     }
 
-    function saveAppscriptUrlSetting() {
-      const url = document.getElementById('inputMasterAppscriptUrl').value.trim();
-      localStorage.setItem('family_finance_appscript_url', url);
-      showToast('URL Google Apps Script disimpan.', 'success');
-    }
-
-    // Helper untuk mendeteksi ketersediaan WebSocket
     function isRealtimeWebSocketAllowed() {
       try {
-        if (window.self !== window.top) {
-          return false;
-        }
+        if (window.self !== window.top) return false;
         return typeof WebSocket !== 'undefined';
       } catch (e) {
         return false;
       }
     }
 
-    // Polling dinonaktifkan: data ditarik/diperbarui HANYA saat ada notifikasi perubahan (INSERT/UPDATE/DELETE) dari Supabase Realtime
     async function initSupabase() {
       try {
         if (!window.supabase) return;
@@ -2553,44 +2753,33 @@
 
         // Ambil Data Pemasukan Awal
         const { data: incData, error: incErr } = await supabaseClient.from('incomes').select('*').order('created_at', { ascending: false });
-        if (!incErr && incData) {
-          incomes = incData;
-        }
+        if (!incErr && incData) incomes = incData;
 
         // Ambil Data Pengeluaran Awal
         const { data: expData, error: expErr } = await supabaseClient.from('expenses').select('*').order('created_at', { ascending: false });
-        if (!expErr && expData) {
-          expenses = expData;
-        }
+        if (!expErr && expData) expenses = expData;
 
         // Ambil Data Tabungan Awal
         const { data: savData, error: savErr } = await supabaseClient.from('savings_history').select('*').order('created_at', { ascending: false });
-        if (!savErr && savData) {
-          savingsHistory = savData;
-        }
+        if (!savErr && savData) savingsHistory = savData;
+
+        // Periksa apakah hari ini tgl 10 gajian untuk tutup buku otomatis
+        await checkAndExecuteAutoTutupBuku();
 
         if (!isRealtimeWebSocketAllowed()) {
-          console.info("Info: WebSocket dilewati pada pratinjau Canvas.");
           const rtBadge = document.getElementById('topBarRealtimeBadge');
-          if (rtBadge) {
-            rtBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1"></span> Cloud Siap';
-          }
+          if (rtBadge) rtBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1"></span> Cloud Siap';
           const sbLabel = document.getElementById('sidebarSyncLabel');
-          if (sbLabel) {
-            sbLabel.innerText = 'Siap (Event Realtime)';
-          }
+          if (sbLabel) sbLabel.innerText = 'Siap (Event Realtime)';
           return;
         }
 
-        // Langganan Event-Driven Realtime murni tanpa interval polling
+        // Pure Event-Driven Supabase Realtime
         try {
           realtimeChannel = supabaseClient.channel('realtime_family_finance')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'incomes' }, (payload) => {
-              // Tarik / perbarui data HANYA saat ada event perubahan di tabel incomes
               if (payload.eventType === 'INSERT') {
-                if (!incomes.some(x => x.id === payload.new.id)) {
-                  incomes.unshift(payload.new);
-                }
+                if (!incomes.some(x => x.id === payload.new.id)) incomes.unshift(payload.new);
               } else if (payload.eventType === 'DELETE') {
                 incomes = incomes.filter(e => e.id !== payload.old.id);
               } else if (payload.eventType === 'UPDATE') {
@@ -2601,11 +2790,8 @@
               renderIncomeTable();
             })
             .on('postgres_changes', { event: '*', schema: 'public', table: 'expenses' }, (payload) => {
-              // Tarik / perbarui data HANYA saat ada event perubahan di tabel expenses
               if (payload.eventType === 'INSERT') {
-                if (!expenses.some(x => x.id === payload.new.id)) {
-                  expenses.unshift(payload.new);
-                }
+                if (!expenses.some(x => x.id === payload.new.id)) expenses.unshift(payload.new);
               } else if (payload.eventType === 'DELETE') {
                 expenses = expenses.filter(e => e.id !== payload.old.id);
               } else if (payload.eventType === 'UPDATE') {
@@ -2616,11 +2802,8 @@
               renderExpenseTable();
             })
             .on('postgres_changes', { event: '*', schema: 'public', table: 'savings_history' }, (payload) => {
-              // Tarik / perbarui data HANYA saat ada event perubahan di tabel savings_history
               if (payload.eventType === 'INSERT') {
-                if (!savingsHistory.some(x => x.id === payload.new.id)) {
-                  savingsHistory.unshift(payload.new);
-                }
+                if (!savingsHistory.some(x => x.id === payload.new.id)) savingsHistory.unshift(payload.new);
               } else if (payload.eventType === 'DELETE') {
                 savingsHistory = savingsHistory.filter(e => e.id !== payload.old.id);
               } else if (payload.eventType === 'UPDATE') {
@@ -2631,7 +2814,6 @@
               renderSavingsHistory();
             })
             .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, (payload) => {
-              // Perbarui profil HANYA saat ada perubahan data di tabel profiles
               if (payload.new && (payload.new.role === 'Suami' || payload.new.role === 'Istri')) {
                 profiles[payload.new.role] = {
                   id: payload.new.id,
@@ -2647,9 +2829,7 @@
 
           realtimeChannel.subscribe((status, err) => {
             if (err) {
-              console.warn("Realtime WebSocket subscription error:", err);
-              const sbLabel = document.getElementById('sidebarSyncLabel');
-              if (sbLabel) sbLabel.innerText = 'Koneksi Terputus';
+              console.warn("Realtime subscription notice:", err);
               return;
             }
             if (status === 'SUBSCRIBED') {
@@ -2658,9 +2838,7 @@
                 rtBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-ping"></span> Realtime';
               }
               const sbLabel = document.getElementById('sidebarSyncLabel');
-              if (sbLabel) {
-                sbLabel.innerText = 'Tersambung (Realtime)';
-              }
+              if (sbLabel) sbLabel.innerText = 'Tersambung (Realtime)';
             }
           });
         } catch (wsErr) {
@@ -2673,51 +2851,33 @@
     }
 
     window.onload = async function() {
-      // Pastikan status autentikasi dicek terlebih dahulu sebelum render
+      // Inisialisasi tema lokal per perangkat (tidak menyentuh Supabase)
+      initLocalTheme();
+
       checkAuthStatus();
 
-      const now = new Date();
-      const monthNames = [
-        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-      ];
-      const periodEl = document.getElementById('currentPeriodTitle');
-      if (periodEl) periodEl.innerText = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
-
-      // 2. Inisialisasi Supabase & ambil data riil
       await initSupabase();
 
-      // 3. Render tabel dan metriks dengan data riil Supabase
       populateCategorySelectors();
       updateDashboardMetrics();
       renderIncomeTable();
       renderExpenseTable();
       renderSavingsHistory();
 
-      // Apply saved login background URL
       const savedLoginBg = localStorage.getItem('family_finance_login_bg');
       if (savedLoginBg) {
         document.getElementById('inputMasterLoginBgUrl').value = savedLoginBg;
         applyLoginBg(savedLoginBg);
       }
 
-      // Apply saved Google Apps Script URL
-      const savedAppscriptUrl = localStorage.getItem('family_finance_appscript_url');
-      if (savedAppscriptUrl) {
-        document.getElementById('inputMasterAppscriptUrl').value = savedAppscriptUrl;
-      }
-
-      // Pasang listener resize agar kurva dan lingkaran selalu terpusat saat layar dirotasi
       window.addEventListener('resize', () => {
         if (window.innerWidth < 768) {
           handleMobileNavSwitch(['dashboard', 'pemasukan', 'pengeluaran', 'riwayat', 'master'][currentMobileTabIndex], currentMobileTabIndex);
         }
       });
 
-      // Initialize mobile curved notch position
       handleMobileNavSwitch('dashboard', 0);
-
-      console.log("KEUANGAN KELUARGA successfully running.");
+      console.log("KEUANGAN KELUARGA with Supabase Storage successfully running.");
     };
   </script>
 </body>
