@@ -1338,21 +1338,21 @@
       });
     }
 
-    // Profiles with Login Credentials
+    // Profiles State (Tanpa Hardcoded Dummy)
     let profiles = {
       'Suami': {
-        id: '11111111-1111-1111-1111-111111111111',
-        full_name: 'Bagus Pratama',
+        id: null,
+        full_name: 'Suami',
         role: 'Suami',
-        username: 'bagus',
+        username: '-',
         password: '123',
         avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&h=160&fit=crop&crop=faces'
       },
       'Istri': {
-        id: '22222222-2222-2222-2222-222222222222',
-        full_name: 'Anindya Putri',
+        id: null,
+        full_name: 'Istri',
         role: 'Istri',
-        username: 'anindya',
+        username: '-',
         password: '123',
         avatar_url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160&h=160&fit=crop&crop=faces'
       }
@@ -1453,16 +1453,15 @@
         try {
           const authData = JSON.parse(savedSession);
           
-          // Jika data sesi valid (sudah login/register sebelumnya), langsung aktifkan tanpa minta login lagi!
           if (authData && (authData.username || authData.id)) {
             const role = authData.role || 'Suami';
 
             // Sinkronkan objek profil aktif
             profiles[role] = {
               id: authData.id || generateUUID(),
-              full_name: authData.full_name || (role === 'Suami' ? 'Bagus Pratama' : 'Anindya Putri'),
+              full_name: authData.full_name || role,
               role: role,
-              username: authData.username || (role === 'Suami' ? 'bagus' : 'anindya'),
+              username: authData.username || role.toLowerCase(),
               password: authData.password || authData.password_hash || '123',
               avatar_url: authData.avatar_url || (role === 'Istri' 
                 ? 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160&h=160&fit=crop' 
@@ -1472,7 +1471,6 @@
             currentAuthUser = profiles[role];
             activeRole = role;
 
-            // Kunci modal login tetap tertutup rapat (tidak berkedip atau memunculkan bayangan)
             const gate = document.getElementById('modalLoginGate');
             if (gate) gate.classList.add('hidden');
 
@@ -1484,7 +1482,7 @@
         }
       }
 
-      // 2. Layar login HANYA dibuka jika belum pernah login sama sekali atau setelah menekan tombol logout
+      // 2. Layar login dibuka jika belum pernah login
       const gate = document.getElementById('modalLoginGate');
       if (gate) gate.classList.remove('hidden');
       return false;
@@ -2785,21 +2783,57 @@
         if (!window.supabase) return;
         supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.URL, SUPABASE_CONFIG.ANON_KEY);
         
-        // Ambil Data Profil Awal
-        const { data: profData } = await supabaseClient.from('profiles').select('*');
-        if (profData && profData.length > 0) {
-          profData.forEach(p => {
-            if (p.role === 'Suami' || p.role === 'Istri') {
-              profiles[p.role] = {
-                id: p.id,
-                full_name: p.full_name,
-                role: p.role,
-                username: p.username,
-                password: p.password_hash || p.password || '123',
-                avatar_url: p.avatar_url
-              };
+        // Ambil Data Profil Nyata dari Supabase (Diurutkan dari yang terbaru)
+        const { data: profData, error: profErr } = await supabaseClient
+          .from('profiles')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (!profErr && profData && profData.length > 0) {
+          // 1. Sinkronisasi Akun Suami
+          const suamiProfiles = profData.filter(p => p.role === 'Suami');
+          const realSuami = suamiProfiles.find(p => currentAuthUser && p.username === currentAuthUser.username)
+            || suamiProfiles.find(p => p.username !== 'bagus' && p.full_name !== 'Bagus Pratama')
+            || suamiProfiles[0];
+
+          if (realSuami) {
+            profiles['Suami'] = {
+              id: realSuami.id,
+              full_name: realSuami.full_name,
+              role: 'Suami',
+              username: realSuami.username,
+              password: realSuami.password_hash || realSuami.password || '123',
+              avatar_url: realSuami.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&h=160&fit=crop'
+            };
+            if (activeRole === 'Suami') {
+              currentAuthUser = profiles['Suami'];
+              localStorage.setItem('family_finance_user_session', JSON.stringify(currentAuthUser));
             }
-          });
+          }
+
+          // 2. Sinkronisasi Akun Istri (Memprioritaskan akun nyata yang Anda buat)
+          const istriProfiles = profData.filter(p => p.role === 'Istri');
+          const realIstri = istriProfiles.find(p => currentAuthUser && p.username === currentAuthUser.username)
+            || istriProfiles.find(p => p.username !== 'anindya' && p.full_name !== 'Anindya Putri')
+            || istriProfiles[0];
+
+          if (realIstri) {
+            profiles['Istri'] = {
+              id: realIstri.id,
+              full_name: realIstri.full_name,
+              role: 'Istri',
+              username: realIstri.username,
+              password: realIstri.password_hash || realIstri.password || '123',
+              avatar_url: realIstri.avatar_url || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160&h=160&fit=crop'
+            };
+            if (activeRole === 'Istri') {
+              currentAuthUser = profiles['Istri'];
+              localStorage.setItem('family_finance_user_session', JSON.stringify(currentAuthUser));
+            }
+          }
+
+          // Segera perbarui antarmuka pengguna
+          updateUserUI();
         }
 
         // Ambil Master Kategori Nyata dari Supabase
@@ -2825,8 +2859,6 @@
         await checkAndExecuteAutoTutupBuku();
 
         if (!isRealtimeWebSocketAllowed()) {
-          const rtBadge = document.getElementById('topBarRealtimeBadge');
-          if (rtBadge) rtBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1"></span> Cloud Siap';
           const sbLabel = document.getElementById('sidebarSyncLabel');
           if (sbLabel) sbLabel.innerText = 'Siap (Event Realtime)';
           return;
@@ -2879,14 +2911,19 @@
             })
             .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, (payload) => {
               if (payload.new && (payload.new.role === 'Suami' || payload.new.role === 'Istri')) {
-                profiles[payload.new.role] = {
+                const targetRole = payload.new.role;
+                profiles[targetRole] = {
                   id: payload.new.id,
                   full_name: payload.new.full_name,
-                  role: payload.new.role,
+                  role: targetRole,
                   username: payload.new.username,
                   password: payload.new.password_hash || payload.new.password || '123',
-                  avatar_url: payload.new.avatar_url
+                  avatar_url: payload.new.avatar_url || profiles[targetRole].avatar_url
                 };
+                if (currentAuthUser && currentAuthUser.id === payload.new.id) {
+                  currentAuthUser = profiles[targetRole];
+                  localStorage.setItem('family_finance_user_session', JSON.stringify(currentAuthUser));
+                }
                 updateUserUI();
               }
             });
@@ -2897,10 +2934,6 @@
               return;
             }
             if (status === 'SUBSCRIBED') {
-              const rtBadge = document.getElementById('topBarRealtimeBadge');
-              if (rtBadge) {
-                rtBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-ping"></span> Realtime';
-              }
               const sbLabel = document.getElementById('sidebarSyncLabel');
               if (sbLabel) sbLabel.innerText = 'Tersambung (Realtime)';
             }
@@ -2915,13 +2948,14 @@
     }
 
     window.onload = async function() {
-      // Inisialisasi tema lokal per perangkat (tidak menyentuh Supabase)
+      // Inisialisasi tema lokal per perangkat
       initLocalTheme();
 
       checkAuthStatus();
 
       await initSupabase();
 
+      updateUserUI();
       populateCategorySelectors();
       updateDashboardMetrics();
       renderIncomeTable();
@@ -2941,7 +2975,7 @@
       });
 
       handleMobileNavSwitch('dashboard', 0);
-      console.log("KEUANGAN KELUARGA with Supabase Storage successfully running.");
+      console.log("KEUANGAN KELUARGA running with synchronized profiles.");
     };
   </script>
 </body>
