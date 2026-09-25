@@ -11,13 +11,13 @@
   "categories": ["finance", "productivity", "utilities"],
   "icons": [
     {
-      "src": "https://lh3.googleusercontent.com/d/1AZuzXSIPo91sA0MwPt-ApCcGVSjOZIp2",
+      "src": "https://lh3.googleusercontent.com/d/1k35DCuAVhiJx9vbuOTzRupb5bdgoT7QN",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://lh3.googleusercontent.com/d/1k35DCuAVhiJx9vbuOTzRupb5bdgoT7QN",
+      "src": "https://lh3.googleusercontent.com/d/1AZuzXSIPo91sA0MwPt-ApCcGVSjOZIp2",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
