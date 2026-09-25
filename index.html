@@ -296,23 +296,31 @@
           <!-- TAB: DASHBOARD -->
           <section id="viewDashboard" class="space-y-4">
             
-            <!-- 1. KARTU SISA SALDO BERJALAN MANDIRI DI PALING ATAS -->
-            <div class="sisa-saldo-banner relative overflow-hidden rounded-3xl p-5 md:p-6 text-white">
-              <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
-                    <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-sky-200">SISA SALDO BERJALAN</span>
-                    <span id="badgeBudgetStatus" class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white/10 text-sky-200 border border-white/15">Siklus Tgl 10 Aktif</span>
-                  </div>
-                  <!-- Giant Typography Nominal Utama -->
-                  <div id="summarySaldo" class="text-3xl sm:text-4xl md:text-5xl font-black font-mono-num text-white tracking-tight mt-1.5 leading-none">
-                    Rp 0
-                  </div>
-                  <p class="text-[11px] text-slate-300 mt-1.5">Sisa kas periode berjalan (Otomatis ditabung setiap tgl 10 gajian)</p>
+            <!-- 1. KARTU SISA SALDO BERJALAN MANDIRI DI PALING ATAS (LEBAR KE BAWAH + PRIVACY EYE) -->
+            <div class="sisa-saldo-banner relative overflow-hidden rounded-3xl p-6 sm:p-8 md:p-10 min-h-[190px] sm:min-h-[230px] md:min-h-[250px] flex flex-col justify-between text-white shadow-xl">
+              <!-- Baris Atas: Label & Tombol Mata Privasi di Ujung Kanan Atas -->
+              <div class="relative z-10 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
+                  <span class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-sky-200">SISA SALDO BERJALAN</span>
+                  <span id="badgeBudgetStatus" class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white/10 text-sky-200 border border-white/15">Siklus Tgl 10 Aktif</span>
                 </div>
+                <!-- Tombol Mata Privasi -->
+                <button type="button" onclick="togglePrivacyMode()" title="Sembunyikan / Tampilkan Nominal" class="privacy-toggle-btn w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white/10 hover:bg-white/20 active:scale-95 border border-white/20 text-white flex items-center justify-center transition shadow-xs cursor-pointer backdrop-blur-md shrink-0">
+                  <i class="privacy-icon fa-solid fa-eye text-sm sm:text-base"></i>
+                </button>
+              </div>
 
-                <!-- Status Saldo Indikator -->
+              <!-- Baris Tengah: Giant Typography Nominal Utama (Diperbesar 30%) -->
+              <div class="relative z-10 my-3 sm:my-5">
+                <div id="summarySaldo" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono-num text-white tracking-tight leading-none drop-shadow-sm">
+                  Rp 0
+                </div>
+              </div>
+
+              <!-- Baris Bawah: Deskripsi & Indikator Status Kas -->
+              <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2.5 border-t border-white/10">
+                <p class="text-[11px] sm:text-xs text-slate-300">Sisa kas periode berjalan (Otomatis ditabung setiap tgl 10 gajian)</p>
                 <div class="flex items-center gap-2 self-start sm:self-center">
                   <span id="summarySaldoStatus" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 backdrop-blur-sm">
                     <i class="fa-solid fa-shield-check"></i> Aman & Terkendali
@@ -321,31 +329,31 @@
               </div>
             </div>
 
-            <!-- 2. TIGA KARTU BERBARIS: Gaji Pokok, Non-Gaji, dan Pengeluaran -->
+            <!-- 2. TIGA KARTU BERBARIS: Gaji Pokok, Non-Gaji, dan Pengeluaran (Angka Diperbesar) -->
             <div class="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
               <!-- Gaji Pokok Card -->
-              <div class="app-card bg-white rounded-2xl p-3 md:p-4 border border-slate-200/80 shadow-xs relative overflow-hidden flex flex-col justify-between">
+              <div class="app-card bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-200/80 shadow-xs relative overflow-hidden flex flex-col justify-between min-h-[95px] sm:min-h-[115px]">
                 <div>
-                  <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-slate-400 block truncate">Gaji Pokok</span>
-                  <div id="summaryGaji" class="text-xs sm:text-lg md:text-2xl font-black text-[#22C55E] font-mono-num mt-1 truncate">Rp 0</div>
+                  <span class="text-[9px] md:text-[11px] font-bold uppercase tracking-wider text-slate-400 block truncate">Gaji Pokok</span>
+                  <div id="summaryGaji" class="text-sm sm:text-xl md:text-3xl font-black text-[#22C55E] font-mono-num mt-1 truncate">Rp 0</div>
                 </div>
                 <span class="text-[8px] md:text-[10px] text-slate-400 mt-1 block truncate">Pondasi Bulanan</span>
               </div>
 
               <!-- Non-Gaji Card -->
-              <div class="app-card bg-white rounded-2xl p-3 md:p-4 border border-slate-200/80 shadow-xs relative overflow-hidden flex flex-col justify-between">
+              <div class="app-card bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-200/80 shadow-xs relative overflow-hidden flex flex-col justify-between min-h-[95px] sm:min-h-[115px]">
                 <div>
-                  <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-slate-400 block truncate">Non-Gaji</span>
-                  <div id="summaryNonGaji" class="text-xs sm:text-lg md:text-2xl font-black text-[#10B981] font-mono-num mt-1 truncate">Rp 0</div>
+                  <span class="text-[9px] md:text-[11px] font-bold uppercase tracking-wider text-slate-400 block truncate">Non-Gaji</span>
+                  <div id="summaryNonGaji" class="text-sm sm:text-xl md:text-3xl font-black text-[#10B981] font-mono-num mt-1 truncate">Rp 0</div>
                 </div>
                 <span class="text-[8px] md:text-[10px] text-slate-400 mt-1 block truncate">Bonus & Usaha</span>
               </div>
 
               <!-- Pengeluaran Card -->
-              <div class="app-card bg-white rounded-2xl p-3 md:p-4 border border-slate-200/80 shadow-xs relative overflow-hidden flex flex-col justify-between">
+              <div class="app-card bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-200/80 shadow-xs relative overflow-hidden flex flex-col justify-between min-h-[95px] sm:min-h-[115px]">
                 <div>
-                  <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-slate-400 block truncate">Pengeluaran</span>
-                  <div id="summaryPengeluaran" class="text-xs sm:text-lg md:text-2xl font-black text-[#F97316] font-mono-num mt-1 truncate">Rp 0</div>
+                  <span class="text-[9px] md:text-[11px] font-bold uppercase tracking-wider text-slate-400 block truncate">Pengeluaran</span>
+                  <div id="summaryPengeluaran" class="text-sm sm:text-xl md:text-3xl font-black text-[#F97316] font-mono-num mt-1 truncate">Rp 0</div>
                 </div>
                 <span class="text-[8px] md:text-[10px] text-slate-400 mt-1 block truncate"><span id="summaryExpenseCount">0</span> transaksi</span>
               </div>
@@ -461,19 +469,28 @@
 
           <!-- TAB: PEMASUKAN -->
           <section id="viewPemasukan" class="space-y-4 hidden">
-            <div class="relative overflow-hidden rounded-3xl p-5 md:p-6 text-white shadow-md border border-emerald-500/30 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#059669]">
-              <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-300 animate-pulse"></span>
-                    <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-emerald-200">TOTAL PEMASUKAN</span>
-                  </div>
-                  <div id="headerTotalIncome" class="text-3xl sm:text-4xl md:text-5xl font-black font-mono-num text-white tracking-tight mt-1.5 leading-none">
-                    Rp 0
-                  </div>
-                  <p class="text-[11px] text-emerald-100 mt-1.5">Dana masuk (Gaji Pokok, Non-Gaji, & Tarik Tabungan)</p>
+            <div class="relative overflow-hidden rounded-3xl p-6 sm:p-8 md:p-10 min-h-[190px] sm:min-h-[230px] md:min-h-[250px] flex flex-col justify-between text-white shadow-xl border border-emerald-500/30 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#059669]">
+              <!-- Baris Atas: Label & Tombol Mata Privasi -->
+              <div class="relative z-10 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-300 animate-pulse"></span>
+                  <span class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-emerald-200">TOTAL PEMASUKAN</span>
                 </div>
+                <button type="button" onclick="togglePrivacyMode()" title="Sembunyikan / Tampilkan Nominal" class="privacy-toggle-btn w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white/10 hover:bg-white/20 active:scale-95 border border-white/20 text-white flex items-center justify-center transition shadow-xs cursor-pointer backdrop-blur-md shrink-0">
+                  <i class="privacy-icon fa-solid fa-eye text-sm sm:text-base"></i>
+                </button>
+              </div>
 
+              <!-- Baris Tengah: Giant Typography Nominal Pemasukan (+30%) -->
+              <div class="relative z-10 my-3 sm:my-5">
+                <div id="headerTotalIncome" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono-num text-white tracking-tight leading-none drop-shadow-sm">
+                  Rp 0
+                </div>
+              </div>
+
+              <!-- Baris Bawah: Keterangan & Tombol Tambah Pemasukan -->
+              <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2.5 border-t border-white/10">
+                <p class="text-[11px] sm:text-xs text-emerald-100">Dana masuk (Gaji Pokok, Non-Gaji, & Tarik Tabungan)</p>
                 <div class="self-start sm:self-center">
                   <button onclick="openModal('modalAddIncome')" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-white text-emerald-800 hover:bg-emerald-50 text-xs font-black shadow-md transition transform hover:-translate-y-0.5">
                     <i class="fa-solid fa-circle-plus text-emerald-600 text-sm"></i>
@@ -554,19 +571,28 @@
 
           <!-- TAB: PENGELUARAN -->
           <section id="viewPengeluaran" class="space-y-4 hidden">
-            <div class="relative overflow-hidden rounded-3xl p-5 md:p-6 text-white shadow-md border border-orange-500/30 bg-gradient-to-br from-[#7c2d12] via-[#c2410c] to-[#ea580c]">
-              <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-orange-300 animate-pulse"></span>
-                    <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-orange-200">TOTAL PENGELUARAN</span>
-                  </div>
-                  <div id="headerTotalExpense" class="text-3xl sm:text-4xl md:text-5xl font-black font-mono-num text-white tracking-tight mt-1.5 leading-none">
-                    Rp 0
-                  </div>
-                  <p class="text-[11px] text-orange-100 mt-1.5">Seluruh pos belanja operasional kas keluarga</p>
+            <div class="relative overflow-hidden rounded-3xl p-6 sm:p-8 md:p-10 min-h-[190px] sm:min-h-[230px] md:min-h-[250px] flex flex-col justify-between text-white shadow-xl border border-orange-500/30 bg-gradient-to-br from-[#7c2d12] via-[#c2410c] to-[#ea580c]">
+              <!-- Baris Atas: Label & Tombol Mata Privasi -->
+              <div class="relative z-10 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-orange-300 animate-pulse"></span>
+                  <span class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-orange-200">TOTAL PENGELUARAN</span>
                 </div>
+                <button type="button" onclick="togglePrivacyMode()" title="Sembunyikan / Tampilkan Nominal" class="privacy-toggle-btn w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white/10 hover:bg-white/20 active:scale-95 border border-white/20 text-white flex items-center justify-center transition shadow-xs cursor-pointer backdrop-blur-md shrink-0">
+                  <i class="privacy-icon fa-solid fa-eye text-sm sm:text-base"></i>
+                </button>
+              </div>
 
+              <!-- Baris Tengah: Giant Typography Nominal Pengeluaran (+30%) -->
+              <div class="relative z-10 my-3 sm:my-5">
+                <div id="headerTotalExpense" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono-num text-white tracking-tight leading-none drop-shadow-sm">
+                  Rp 0
+                </div>
+              </div>
+
+              <!-- Baris Bawah: Keterangan & Tombol Tambah Pengeluaran -->
+              <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2.5 border-t border-white/10">
+                <p class="text-[11px] sm:text-xs text-orange-100">Seluruh pos belanja operasional kas keluarga</p>
                 <div class="self-start sm:self-center">
                   <button onclick="openModal('modalAddExpense')" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-white text-orange-800 hover:bg-orange-50 text-xs font-black shadow-md transition transform hover:-translate-y-0.5">
                     <i class="fa-solid fa-circle-minus text-[#ea580c] text-sm"></i>
@@ -644,18 +670,28 @@
 
           <!-- TAB: RIWAYAT & TABUNGAN -->
           <section id="viewRiwayat" class="space-y-4 hidden">
-            <div class="relative overflow-hidden rounded-3xl p-5 md:p-6 shadow-md border border-amber-500/30 bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950 text-white">
-              <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
-                    <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-amber-300">TOTAL BRANKAS TABUNGAN KELUARGA</span>
-                  </div>
-                  <div id="riwayatTabunganBesar" class="text-3xl sm:text-4xl md:text-5xl font-black font-mono-num text-amber-300 tracking-tight mt-1.5 leading-none">
-                    Rp 0
-                  </div>
-                  <p class="text-[11px] text-slate-300 mt-1.5">Surplus otomatis tiap tanggal 10 & dana darurat keluarga</p>
+            <div class="relative overflow-hidden rounded-3xl p-6 sm:p-8 md:p-10 min-h-[190px] sm:min-h-[230px] md:min-h-[250px] flex flex-col justify-between text-white shadow-xl border border-amber-500/30 bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950">
+              <!-- Baris Atas: Label & Tombol Mata Privasi -->
+              <div class="relative z-10 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+                  <span class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-amber-300">TOTAL BRANKAS TABUNGAN KELUARGA</span>
                 </div>
+                <button type="button" onclick="togglePrivacyMode()" title="Sembunyikan / Tampilkan Nominal" class="privacy-toggle-btn w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white/10 hover:bg-white/20 active:scale-95 border border-white/20 text-white flex items-center justify-center transition shadow-xs cursor-pointer backdrop-blur-md shrink-0">
+                  <i class="privacy-icon fa-solid fa-eye text-sm sm:text-base"></i>
+                </button>
+              </div>
+
+              <!-- Baris Tengah: Giant Typography Nominal Tabungan (+30%) -->
+              <div class="relative z-10 my-3 sm:my-5">
+                <div id="riwayatTabunganBesar" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono-num text-amber-300 tracking-tight leading-none drop-shadow-sm">
+                  Rp 0
+                </div>
+              </div>
+
+              <!-- Baris Bawah: Keterangan & Tombol Tarik Tabungan -->
+              <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2.5 border-t border-white/10">
+                <p class="text-[11px] sm:text-xs text-slate-300">Surplus otomatis tiap tanggal 10 & dana darurat keluarga</p>
                 <div class="self-start sm:self-center">
                   <button onclick="openTarikTabunganModal()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 font-black text-slate-950 text-xs shadow-md transition transform hover:-translate-y-0.5">
                     <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
@@ -898,63 +934,63 @@
     </div>
   </div>
 
-  <!-- MODAL: LOGIN / REGISTER -->
+  <!-- MODAL: LOGIN / REGISTER (RAMPING PERSEGI PANJANG) -->
   <div id="modalLoginGate" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
-    <div id="loginGateCard" class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-center relative overflow-hidden">
-      <div class="w-12 h-12 rounded-2xl bg-theme-primary text-white mx-auto flex items-center justify-center text-xl shadow-md mb-2">
+    <div id="loginGateCard" class="bg-white rounded-[28px] max-w-[310px] sm:max-w-[330px] w-full p-5 sm:py-6 sm:px-6 shadow-2xl border border-slate-200/90 text-center relative overflow-hidden transition-all duration-300">
+      <div class="w-11 h-11 rounded-2xl bg-theme-primary text-white mx-auto flex items-center justify-center text-lg shadow-md mb-2">
         <i class="fa-solid fa-vault"></i>
       </div>
-      <h3 class="text-base font-black text-slate-900">KEUANGAN KELUARGA</h3>
-      <p class="text-xs text-slate-400 mt-0.5">Buku Kas & Brankas Bersama Suami & Istri</p>
+      <h3 class="text-sm font-extrabold tracking-tight text-slate-900">KEUANGAN KELUARGA</h3>
+      <p class="text-[10px] text-slate-400 mt-0.5">Buku Kas & Brankas Bersama Suami & Istri</p>
 
       <!-- Auth Tabs -->
-      <div class="flex p-1 bg-slate-100 rounded-xl mt-3 text-xs font-bold">
-        <button type="button" id="tabBtnLogin" onclick="switchAuthMode('login')" class="flex-1 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition">
-          Masuk (Sign In)
+      <div class="flex p-1 bg-slate-100 rounded-xl mt-3 text-[11px] font-bold">
+        <button type="button" id="tabBtnLogin" onclick="switchAuthMode('login')" class="flex-1 py-1 rounded-lg bg-white text-slate-900 shadow-xs transition text-center">
+          Masuk
         </button>
-        <button type="button" id="tabBtnRegister" onclick="switchAuthMode('register')" class="flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 transition">
-          Daftar Akun Baru
+        <button type="button" id="tabBtnRegister" onclick="switchAuthMode('register')" class="flex-1 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition text-center">
+          Daftar Akun
         </button>
       </div>
 
       <!-- Kotak Peringatan Merah Login Gagal -->
-      <div id="loginErrorMessage" class="hidden mt-3 p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-[11px] font-bold flex items-center gap-2 text-left">
+      <div id="loginErrorMessage" class="hidden mt-2.5 p-2 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-[10px] font-bold flex items-center gap-1.5 text-left">
         <i class="fa-solid fa-circle-exclamation shrink-0"></i>
         <span id="loginErrorText">ID Pengguna atau Kata Sandi salah!</span>
       </div>
 
       <!-- Auth Form -->
-      <form onsubmit="handleAuthSubmit(event)" class="mt-3 space-y-3 text-left text-xs">
+      <form onsubmit="handleAuthSubmit(event)" class="mt-2.5 space-y-2.5 text-left text-xs">
         <div id="registerFieldFullName" class="hidden">
-          <label class="block font-bold text-slate-700 mb-1">Nama Lengkap</label>
-          <input id="authFullName" type="text" oninput="hideLoginError()" placeholder="Contoh: Bagus Pratama" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring">
+          <label class="block font-bold text-slate-700 text-[10px] mb-0.5">Nama Lengkap</label>
+          <input id="authFullName" type="text" oninput="hideLoginError()" placeholder="Contoh: Bagus Pratama" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring text-xs">
         </div>
 
         <div id="registerFieldRole" class="hidden">
-          <label class="block font-bold text-slate-700 mb-1">Peran Anggota</label>
-          <select id="authRoleSelect" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring">
-            <option value="Suami">Suami (Akses Penuh Master)</option>
-            <option value="Istri">Istri (Akses Catat & Riwayat)</option>
+          <label class="block font-bold text-slate-700 text-[10px] mb-0.5">Peran Anggota</label>
+          <select id="authRoleSelect" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring text-xs">
+            <option value="Suami">Suami (Akses Master)</option>
+            <option value="Istri">Istri (Akses Catat)</option>
           </select>
         </div>
 
         <div>
-          <label class="block font-bold text-slate-700 mb-1">ID Pengguna (Username)</label>
-          <input id="loginUsername" type="text" oninput="hideLoginError()" placeholder="Masukkan ID/Username..." required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring">
+          <label class="block font-bold text-slate-700 text-[10px] mb-0.5">ID Pengguna (Username)</label>
+          <input id="loginUsername" type="text" oninput="hideLoginError()" placeholder="Masukkan ID/Username..." required class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring text-xs">
         </div>
 
         <div>
-          <label class="block font-bold text-slate-700 mb-1">Kata Sandi (Password)</label>
+          <label class="block font-bold text-slate-700 text-[10px] mb-0.5">Kata Sandi (Password)</label>
           <div class="relative">
-            <input id="loginPassword" type="password" oninput="hideLoginError()" placeholder="Masukkan kata sandi..." required class="w-full pl-3.5 pr-9 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring">
-            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'eyeIconLogin')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none p-1">
-              <i id="eyeIconLogin" class="fa-solid fa-eye text-xs"></i>
+            <input id="loginPassword" type="password" oninput="hideLoginError()" placeholder="Masukkan kata sandi..." required class="w-full pl-3 pr-8 py-1.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring text-xs">
+            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'eyeIconLogin')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none p-1">
+              <i id="eyeIconLogin" class="fa-solid fa-eye text-[11px]"></i>
             </button>
           </div>
         </div>
 
-        <button type="submit" id="authSubmitBtn" class="w-full py-2.5 rounded-xl bg-theme-primary font-bold text-white shadow-xs hover:opacity-95 transition mt-2 flex items-center justify-center gap-1.5">
-          <i class="fa-solid fa-right-to-bracket"></i>
+        <button type="submit" id="authSubmitBtn" class="w-full py-2 rounded-xl bg-theme-primary font-bold text-white shadow-xs hover:opacity-95 transition mt-2 flex items-center justify-center gap-1.5 text-xs">
+          <i class="fa-solid fa-right-to-bracket text-xs"></i>
           <span>Masuk Sekarang</span>
         </button>
       </form>
@@ -1225,6 +1261,58 @@
     </div>
   </div>
 
+  <!-- MODAL: Edit Kategori Master (Termasuk Status Aktif & Tombol Hapus) -->
+  <div id="modalEditCategory" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-xs w-full p-5 shadow-2xl border border-slate-200 space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="text-sm font-black text-slate-900">Ubah Kategori</h3>
+        <button onclick="closeModal('modalEditCategory')" class="w-6 h-6 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleUpdateCategory(event)" class="space-y-3 text-xs">
+        <input type="hidden" id="editCategoryId">
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Nama Kategori</label>
+          <input id="editCategoryName" type="text" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Tipe Pos</label>
+          <select id="editCategoryType" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs">
+            <option value="expense">Pengeluaran</option>
+            <option value="income">Pemasukan</option>
+          </select>
+        </div>
+
+        <!-- Informasi Status Aktif Terintegrasi di Dalam Fitur Edit -->
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+          <div>
+            <span class="font-bold text-slate-800 block text-[11px]">Status Kategori</span>
+            <span id="editCategoryStatusLabel" class="text-[10px] text-slate-400">Aktif digunakan</span>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="editCategoryIsActive" onchange="updateEditCategoryStatusLabel()" class="sr-only peer">
+            <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+          </label>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <!-- Fitur Hapus Kategori Ada di Dalam Fitur Edit -->
+          <button type="button" onclick="handleDeleteCategoryFromModal()" class="px-3 py-2 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 border border-rose-200 font-bold text-xs flex items-center gap-1.5 transition">
+            <i class="fa-regular fa-trash-can"></i>
+            <span>Hapus</span>
+          </button>
+          <button type="submit" class="flex-1 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 shadow-xs">
+            Simpan Perubahan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
     /* ==========================================================================
        1. PROTEKSI CORS PROTOKOL FILE:/// (PWA MANIFEST & SERVICE WORKER)
@@ -1267,6 +1355,31 @@
     // File upload references for Supabase Storage
     let selectedReceiptFiles = { income: null, expense: null };
     let currentMobileTabIndex = 0;
+
+    /* ==========================================================================
+       MANAJEMEN PRIVASI (SEMBUNYIKAN / TAMPILKAN NOMINAL)
+       ========================================================================== */
+    let isPrivacyMode = localStorage.getItem('family_finance_privacy_mode') === 'true';
+
+    function togglePrivacyMode() {
+      isPrivacyMode = !isPrivacyMode;
+      localStorage.setItem('family_finance_privacy_mode', isPrivacyMode);
+      updatePrivacyIcons();
+      updateDashboardMetrics();
+      renderIncomeTable();
+      renderExpenseTable();
+      renderSavingsHistory();
+    }
+
+    function updatePrivacyIcons() {
+      document.querySelectorAll('.privacy-icon').forEach(icon => {
+        if (isPrivacyMode) {
+          icon.className = 'privacy-icon fa-solid fa-eye-slash text-sm sm:text-base text-sky-200';
+        } else {
+          icon.className = 'privacy-icon fa-solid fa-eye text-sm sm:text-base text-white';
+        }
+      });
+    }
 
     /* ==========================================================================
        MANAJEMEN TEMA TAMPILAN LOKAL (MURNI LOKAL PERANGKAT TANPA SUPABASE)
@@ -1761,11 +1874,11 @@
       const { filteredIncomes, filteredExpenses } = getFilteredDashboardTransactions();
 
       const gajiTotal = filteredIncomes
-        .filter(i => i.income_type === 'gaji')
+        .filter(i => (i.income_type || i.type) === 'gaji')
         .reduce((sum, i) => sum + Number(i.amount), 0);
 
       const nonGajiTotal = filteredIncomes
-        .filter(i => i.income_type !== 'gaji')
+        .filter(i => (i.income_type || i.type) !== 'gaji')
         .reduce((sum, i) => sum + Number(i.amount), 0);
 
       const pengeluaranTotal = filteredExpenses
@@ -1777,21 +1890,21 @@
       const tabunganTotal = savingsHistory
         .reduce((sum, s) => sum + (s.is_deduction ? -Number(s.amount_saved) : Number(s.amount_saved)), 0);
 
-      document.getElementById('summarySaldo').innerText = formatIDR(sisaSaldo);
-      document.getElementById('summaryGaji').innerText = formatIDRCompact(gajiTotal);
-      document.getElementById('summaryNonGaji').innerText = formatIDRCompact(nonGajiTotal);
-      document.getElementById('summaryPengeluaran').innerText = formatIDRCompact(pengeluaranTotal);
+      document.getElementById('summarySaldo').innerText = isPrivacyMode ? 'Rp ••••••••' : formatIDR(sisaSaldo);
+      document.getElementById('summaryGaji').innerText = isPrivacyMode ? 'Rp ••••••' : formatIDRCompact(gajiTotal);
+      document.getElementById('summaryNonGaji').innerText = isPrivacyMode ? 'Rp ••••••' : formatIDRCompact(nonGajiTotal);
+      document.getElementById('summaryPengeluaran').innerText = isPrivacyMode ? 'Rp ••••••' : formatIDRCompact(pengeluaranTotal);
       document.getElementById('summaryExpenseCount').innerText = filteredExpenses.length;
 
       const riwayatTabunganEl = document.getElementById('riwayatTabunganBesar');
-      if (riwayatTabunganEl) riwayatTabunganEl.innerText = formatIDR(tabunganTotal);
+      if (riwayatTabunganEl) riwayatTabunganEl.innerText = isPrivacyMode ? 'Rp ••••••••' : formatIDR(tabunganTotal);
 
       const saldoStatusEl = document.getElementById('summarySaldoStatus');
       if (sisaSaldo < 0) {
-        saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-extrabold bg-rose-500/20 text-rose-300 border border-rose-500/30";
+        saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-rose-500/20 text-rose-300 border border-rose-500/30";
         saldoStatusEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Defisit Kas!';
       } else {
-        saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+        saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
         saldoStatusEl.innerHTML = '<i class="fa-solid fa-shield-check"></i> Aman & Terkendali';
       }
 
@@ -2008,12 +2121,12 @@
       const filteredIncomeSum = filtered.reduce((acc, item) => acc + Number(item.amount), 0);
       
       const headerTotalEl = document.getElementById('headerTotalIncome');
-      if (headerTotalEl) headerTotalEl.innerText = formatIDR(filteredIncomeSum);
+      if (headerTotalEl) headerTotalEl.innerText = isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredIncomeSum);
 
       const footerTotalEl = document.getElementById('tableFooterIncomeTotal');
-      if (footerTotalEl) footerTotalEl.innerText = formatIDR(filteredIncomeSum);
+      if (footerTotalEl) footerTotalEl.innerText = isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredIncomeSum);
 
-      document.getElementById('incomeCountBadge').innerText = `${filtered.length} Data • ${formatIDR(filteredIncomeSum)}`;
+      document.getElementById('incomeCountBadge').innerText = `${filtered.length} Data • ${isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredIncomeSum)}`;
 
       if (filtered.length === 0) {
         tbody.innerHTML = '<tr><td colspan="6" class="py-5 text-center text-slate-400 text-xs">Tidak ada data pemasukan yang cocok.</td></tr>';
@@ -2079,12 +2192,12 @@
       const filteredExpenseSum = filtered.reduce((acc, item) => acc + Number(item.amount), 0);
 
       const headerTotalEl = document.getElementById('headerTotalExpense');
-      if (headerTotalEl) headerTotalEl.innerText = formatIDR(filteredExpenseSum);
+      if (headerTotalEl) headerTotalEl.innerText = isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredExpenseSum);
 
       const footerTotalEl = document.getElementById('tableFooterExpenseTotal');
-      if (footerTotalEl) footerTotalEl.innerText = formatIDR(filteredExpenseSum);
+      if (footerTotalEl) footerTotalEl.innerText = isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredExpenseSum);
 
-      document.getElementById('expenseCountBadge').innerText = `${filtered.length} Data • ${formatIDR(filteredExpenseSum)}`;
+      document.getElementById('expenseCountBadge').innerText = `${filtered.length} Data • ${isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredExpenseSum)}`;
 
       if (filtered.length === 0) {
         tbody.innerHTML = '<tr><td colspan="6" class="py-5 text-center text-slate-400 text-xs">Tidak ada data pengeluaran yang cocok.</td></tr>';
@@ -2125,21 +2238,33 @@
       const filterExpSelect = document.getElementById('filterExpenseCategory');
       const expCats = categoriesMaster.filter(c => c.type === 'expense' && c.is_active);
 
-      expSelect.innerHTML = expCats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-      filterExpSelect.innerHTML = '<option value="all">Semua Kategori</option>' + expCats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+      if (expSelect) {
+        expSelect.innerHTML = expCats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+      }
+      if (filterExpSelect) {
+        filterExpSelect.innerHTML = '<option value="all">Semua Kategori</option>' + expCats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+      }
 
       const masterContainer = document.getElementById('masterCategoryList');
-      masterContainer.innerHTML = categoriesMaster.map(c => `
-        <div class="p-2 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between text-xs">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full ${c.type === 'income' ? 'bg-emerald-500' : 'bg-orange-500'}"></span>
-            <span class="font-bold text-slate-800 text-[11px]">${c.name}</span>
+      if (masterContainer) {
+        masterContainer.innerHTML = categoriesMaster.map(c => `
+          <div class="p-2.5 rounded-xl border border-slate-200/80 bg-slate-50/70 hover:bg-slate-50 flex items-center justify-between text-xs transition shadow-2xs">
+            <div class="flex items-center gap-2 overflow-hidden">
+              <span class="w-2.5 h-2.5 rounded-full shrink-0 ${c.type === 'income' ? 'bg-emerald-500' : 'bg-orange-500'}"></span>
+              <div class="truncate">
+                <span class="font-bold text-slate-800 text-[11px] block truncate">${c.name}</span>
+                <span class="text-[9px] ${c.is_active !== false ? 'text-emerald-600 font-semibold' : 'text-slate-400 font-medium'}">
+                  ${c.is_active !== false ? '● Aktif' : '○ Non-aktif'}
+                </span>
+              </div>
+            </div>
+            <button type="button" onclick="openEditCategoryModal('${c.id}')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 shadow-2xs flex items-center gap-1 transition shrink-0">
+              <i class="fa-solid fa-pen-to-square text-[9px] text-slate-400"></i>
+              <span>Edit</span>
+            </button>
           </div>
-          <button onclick="toggleCategoryActive('${c.id}')" class="px-2 py-0.5 rounded text-[9px] font-bold ${c.is_active ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-500'}">
-            ${c.is_active ? 'Aktif' : 'Non-aktif'}
-          </button>
-        </div>
-      `).join('');
+        `).join('');
+      }
     }
 
     function renderSavingsHistory() {
@@ -2161,7 +2286,7 @@
             </div>
           </div>
           <span class="font-bold font-mono-num ${s.is_deduction ? 'text-rose-600' : 'text-amber-600'} text-xs">
-            ${s.is_deduction ? '-' : '+'} ${formatIDR(s.amount_saved)}
+            ${s.is_deduction ? '-' : '+'} ${isPrivacyMode ? 'Rp ••••••' : formatIDR(s.amount_saved)}
           </span>
         </div>
       `).join('');
@@ -2724,8 +2849,85 @@
       showToast(`Kategori ${name} berhasil ditambahkan.`, 'success');
 
       if (supabaseClient) {
-        supabaseClient.from('categories_master').insert({ id: newCat.id, name: newCat.name, is_active: true }).catch(() => {});
+        supabaseClient.from('categories_master').insert({ id: newCat.id, name: newCat.name, type: newCat.type, is_active: true }).catch(() => {});
       }
+    }
+
+    function openEditCategoryModal(catId) {
+      const cat = categoriesMaster.find(c => c.id === catId);
+      if (!cat) return;
+
+      document.getElementById('editCategoryId').value = cat.id;
+      document.getElementById('editCategoryName').value = cat.name;
+      document.getElementById('editCategoryType').value = cat.type || 'expense';
+
+      const checkbox = document.getElementById('editCategoryIsActive');
+      checkbox.checked = cat.is_active !== false;
+      updateEditCategoryStatusLabel();
+
+      openModal('modalEditCategory');
+    }
+
+    function updateEditCategoryStatusLabel() {
+      const checkbox = document.getElementById('editCategoryIsActive');
+      const label = document.getElementById('editCategoryStatusLabel');
+      if (checkbox && label) {
+        label.innerText = checkbox.checked ? 'Kategori aktif digunakan' : 'Kategori non-aktif (disembunyikan)';
+      }
+    }
+
+    async function handleUpdateCategory(e) {
+      e.preventDefault();
+      const id = document.getElementById('editCategoryId').value;
+      const name = document.getElementById('editCategoryName').value.trim();
+      const type = document.getElementById('editCategoryType').value;
+      const isActive = document.getElementById('editCategoryIsActive').checked;
+
+      const cat = categoriesMaster.find(c => c.id === id);
+      if (!cat) return;
+
+      cat.name = name;
+      cat.type = type;
+      cat.is_active = isActive;
+
+      closeModal('modalEditCategory');
+      populateCategorySelectors();
+      updateDashboardMetrics();
+      showToast(`Kategori "${name}" berhasil diperbarui.`, 'success');
+
+      if (supabaseClient) {
+        try {
+          await supabaseClient.from('categories_master').update({
+            name: name,
+            type: type,
+            is_active: isActive
+          }).eq('id', id);
+        } catch (err) {
+          console.warn("Supabase update category error:", err);
+        }
+      }
+    }
+
+    function handleDeleteCategoryFromModal() {
+      const id = document.getElementById('editCategoryId').value;
+      const cat = categoriesMaster.find(c => c.id === id);
+      if (!cat) return;
+
+      showConfirmModal('Hapus Kategori', `Apakah Anda yakin ingin menghapus kategori "${cat.name}" secara permanen?`, async () => {
+        closeModal('modalEditCategory');
+        categoriesMaster = categoriesMaster.filter(c => c.id !== id);
+        populateCategorySelectors();
+        updateDashboardMetrics();
+        showToast(`Kategori "${cat.name}" berhasil dihapus.`, 'warning');
+
+        if (supabaseClient) {
+          try {
+            await supabaseClient.from('categories_master').delete().eq('id', id);
+          } catch (err) {
+            console.warn("Supabase delete category error:", err);
+          }
+        }
+      });
     }
 
     function toggleCategoryActive(catId) {
@@ -2946,6 +3148,9 @@
       // Inisialisasi tema lokal per perangkat
       initLocalTheme();
 
+      // Sinkronkan status ikon mata privasi
+      updatePrivacyIcons();
+
       checkAuthStatus();
 
       await initSupabase();
@@ -2970,7 +3175,7 @@
       });
 
       handleMobileNavSwitch('dashboard', 0);
-      console.log("KEUANGAN KELUARGA running with synchronized profiles.");
+      console.log("KEUANGAN KELUARGA running with enhanced privacy and enlarged banner layouts.");
     };
   </script>
 </body>
