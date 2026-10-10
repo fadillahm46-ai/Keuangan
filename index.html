@@ -90,7 +90,6 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
 
-    /* Tema Latar Kartu & Penyesuaian Teks Otomatis (Murni Lokal Perangkat - Lebih Pekat & Berkarakter) */
     [data-card-theme="putih"] {
       background-color: #f8fafc !important;
     }
@@ -224,9 +223,8 @@
 </head>
 
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen relative selection:bg-sky-500 selection:text-white pb-24 md:pb-8" data-theme="sky" data-card-theme="putih">
-  <!-- WIDGET APLIKASI KEUANGAN KELUARGA -->
+  
   <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 min-h-screen flex flex-col">
-
     <div class="flex-1 flex flex-col md:flex-row gap-4">
 
       <!-- SIDEBAR DESKTOP DENGAN INFO AKUN & LOGOUT -->
@@ -236,11 +234,11 @@
             <img id="sidebarUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&h=160&fit=crop" class="w-9 h-9 rounded-xl object-cover border border-slate-200 shrink-0" alt="Avatar">
             <div class="overflow-hidden">
               <div class="flex items-center gap-1">
-                <span id="sidebarUserName" class="text-xs font-extrabold text-slate-900 block truncate">Bagus Pratama</span>
+                <span id="sidebarUserName" class="text-xs font-extrabold text-slate-900 block truncate">Pengguna</span>
               </div>
               <div class="flex items-center gap-1">
                 <span id="sidebarUserRoleBadge" class="px-1.5 py-0.2 rounded text-[8px] font-extrabold bg-blue-100 text-blue-800">Suami</span>
-                <span id="sidebarUserIdLabel" class="text-[9px] text-slate-400 font-mono truncate">ID: bagus</span>
+                <span id="sidebarUserIdLabel" class="text-[9px] text-slate-400 font-mono truncate">ID: -</span>
               </div>
             </div>
           </div>
@@ -284,13 +282,12 @@
           </div>
           <div class="overflow-hidden">
             <span class="text-[10px] font-bold text-slate-800 block">Supabase Realtime & Storage</span>
-            <span id="sidebarSyncLabel" class="text-[9px] text-emerald-600 font-semibold block truncate">Bucket Struk Siap</span>
+            <span id="sidebarSyncLabel" class="text-[9px] text-emerald-600 font-semibold block truncate">Siap (Event Realtime)</span>
           </div>
         </div>
       </aside>
 
       <main class="flex-1 w-full flex flex-col gap-4 overflow-hidden">
-        
         <div id="viewsContainer">
           
           <!-- TAB: DASHBOARD -->
@@ -329,7 +326,7 @@
               </div>
             </div>
 
-            <!-- 2. TIGA KARTU BERBARIS: Gaji Pokok, Non-Gaji, dan Pengeluaran (Angka Diperbesar) -->
+            <!-- 2. TIGA KARTU BERBARIS: Gaji Pokok, Non-Gaji, dan Pengeluaran -->
             <div class="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
               <!-- Gaji Pokok Card -->
               <div class="app-card bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-200/80 shadow-xs relative overflow-hidden flex flex-col justify-between min-h-[95px] sm:min-h-[115px]">
@@ -430,7 +427,7 @@
                     <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[8px] tracking-wider border-b border-slate-100">
                       <tr>
                         <th class="py-1.5 px-2">Tgl</th>
-                        <th class="py-1.5 px-2">Kategori</th>
+                        <th class="py-1.5 px-2">Pos</th>
                         <th class="py-1.5 px-2">Oleh</th>
                         <th class="py-1.5 px-2 text-right">Nominal</th>
                       </tr>
@@ -682,17 +679,22 @@
                 </button>
               </div>
 
-              <!-- Baris Tengah: Giant Typography Nominal Tabungan (+30%) -->
-              <div class="relative z-10 my-3 sm:my-5">
-                <div id="riwayatTabunganBesar" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono-num text-amber-300 tracking-tight leading-none drop-shadow-sm">
+              <!-- Baris Tengah: Giant Typography Nominal Tabungan (+30%) & Tombol Koreksi Suami -->
+              <div class="relative z-10 my-3 sm:my-5 flex items-center justify-between gap-3">
+                <div id="riwayatTabunganBesar" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono-num text-amber-300 tracking-tight leading-none drop-shadow-sm truncate">
                   Rp 0
                 </div>
+                <!-- Tombol Ubah Nominal Cepat (Khusus Suami) -->
+                <button id="btnQuickEditTabunganSuami" type="button" onclick="openKoreksiTotalTabunganModal()" title="Ubah / Koreksi Total Saldo Tabungan (Khusus Suami)" class="hidden px-3 py-1.5 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 text-amber-200 border border-amber-400/40 text-xs font-bold transition flex items-center gap-1.5 backdrop-blur-sm shrink-0">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  <span class="hidden sm:inline">Ubah Nominal</span>
+                </button>
               </div>
 
               <!-- Baris Bawah: Keterangan & Tombol Tarik Tabungan -->
               <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2.5 border-t border-white/10">
                 <p class="text-[11px] sm:text-xs text-slate-300">Surplus otomatis tiap tanggal 10 & dana darurat keluarga</p>
-                <div class="self-start sm:self-center">
+                <div class="flex items-center gap-2 self-start sm:self-center">
                   <button onclick="openTarikTabunganModal()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 font-black text-slate-950 text-xs shadow-md transition transform hover:-translate-y-0.5">
                     <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
                     <span>Tarik Tabungan ke Kas</span>
@@ -703,9 +705,19 @@
 
             <!-- Riwayat Mutasi Tabungan -->
             <div class="app-card bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs space-y-3">
-              <div>
-                <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider">Mutasi Brankas Tabungan</h3>
-                <p class="text-[10px] text-slate-400">Riwayat surplus penutupan gajian & penarikan dana cadangan</p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider">Mutasi Brankas Tabungan</h3>
+                  <p class="text-[10px] text-slate-400">Riwayat surplus penutupan gajian & penarikan dana cadangan</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span id="badgeSuamiSavingsAdmin" class="hidden px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-100 text-amber-800">
+                    <i class="fa-solid fa-shield-halved mr-1"></i>Akses Edit Suami
+                  </span>
+                  <button id="btnKoreksiTabunganBottom" type="button" onclick="openKoreksiTotalTabunganModal()" class="hidden text-xs font-bold text-amber-600 hover:text-amber-800">
+                    <i class="fa-solid fa-pen-to-square mr-1"></i>Koreksi Total
+                  </button>
+                </div>
               </div>
               <div id="savingsHistoryTable" class="divide-y divide-slate-100 text-xs"></div>
             </div>
@@ -724,8 +736,8 @@
                   <div class="flex items-center gap-3">
                     <img id="profileAvatarSuami" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&h=160&fit=crop&crop=faces" class="w-12 h-12 rounded-xl object-cover border-2 border-blue-500 shadow-xs" alt="Foto Suami">
                     <div>
-                      <h3 id="profileNameSuami" class="text-sm font-extrabold text-slate-900">Bagus Pratama</h3>
-                      <p id="profileUserSuami" class="text-[11px] text-slate-500 font-mono">ID: bagus</p>
+                      <h3 id="profileNameSuami" class="text-sm font-extrabold text-slate-900">Suami</h3>
+                      <p id="profileUserSuami" class="text-[11px] text-slate-500 font-mono">ID: -</p>
                       <span class="text-[10px] text-slate-400">Total Catatan: <strong id="statsInputSuami">0</strong></span>
                     </div>
                   </div>
@@ -742,8 +754,8 @@
                   <div class="flex items-center gap-3">
                     <img id="profileAvatarIstri" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160&h=160&fit=crop&crop=faces" class="w-12 h-12 rounded-xl object-cover border-2 border-rose-500 shadow-xs" alt="Foto Istri">
                     <div>
-                      <h3 id="profileNameIstri" class="text-sm font-extrabold text-slate-900">Anindya Putri</h3>
-                      <p id="profileUserIstri" class="text-[11px] text-slate-500 font-mono">ID: anindya</p>
+                      <h3 id="profileNameIstri" class="text-sm font-extrabold text-slate-900">Istri</h3>
+                      <p id="profileUserIstri" class="text-[11px] text-slate-500 font-mono">ID: -</p>
                       <span class="text-[10px] text-slate-400">Total Catatan: <strong id="statsInputIstri">0</strong></span>
                     </div>
                   </div>
@@ -751,7 +763,7 @@
               </div>
             </div>
 
-            <!-- Pengaturan Tema & Warna Kartu (HANYA BERLAKU DI LOKAL PERANGKAT INI) -->
+            <!-- Pengaturan Tema & Warna Kartu (MURNI LOKAL PERANGKAT TANPA SUPABASE) -->
             <div class="app-card bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs space-y-3">
               <div class="flex items-center justify-between">
                 <div>
@@ -963,13 +975,13 @@
       <form onsubmit="handleAuthSubmit(event)" class="mt-2.5 space-y-2.5 text-left text-xs">
         <div id="registerFieldFullName" class="hidden">
           <label class="block font-bold text-slate-700 text-[10px] mb-0.5">Nama Lengkap</label>
-          <input id="authFullName" type="text" oninput="hideLoginError()" placeholder="Contoh: Bagus Pratama" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring text-xs">
+          <input id="authFullName" type="text" oninput="hideLoginError()" placeholder="Contoh: Fadillah Mursyid" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring text-xs">
         </div>
 
         <div id="registerFieldRole" class="hidden">
           <label class="block font-bold text-slate-700 text-[10px] mb-0.5">Peran Anggota</label>
           <select id="authRoleSelect" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus-theme-ring text-xs">
-            <option value="Suami">Suami (Akses Master)</option>
+            <option value="Suami">Suami (Akses Master & Edit)</option>
             <option value="Istri">Istri (Akses Catat)</option>
           </select>
         </div>
@@ -1140,6 +1152,95 @@
     </div>
   </div>
 
+  <!-- MODAL: KOREKSI TOTAL SALDO TABUNGAN (KHUSUS SUAMI SEBAGAI ADMIN) -->
+  <div id="modalKoreksiTotalTabungan" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 space-y-3 text-xs">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xs">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </div>
+          <h3 class="text-sm font-black text-slate-900">Ubah Saldo Tabungan</h3>
+        </div>
+        <button onclick="closeModal('modalKoreksiTotalTabungan')" class="w-6 h-6 rounded-full bg-slate-100 text-slate-400">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900">
+        <span class="text-[10px] block text-amber-700 font-semibold">Total Saldo Saat Ini:</span>
+        <strong id="koreksiCurrentTotalDisplay" class="font-mono-num text-sm text-amber-950 font-black">Rp 0</strong>
+      </div>
+
+      <form onsubmit="handleKoreksiTotalTabunganSubmit(event)" class="space-y-3">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Target Nominal Baru (Rp) *</label>
+          <input id="inputKoreksiTargetTotal" type="number" step="any" min="0" placeholder="Contoh: 15000000" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold font-mono-num text-slate-800 text-xs focus-theme-ring">
+          <p class="text-[9px] text-slate-400 mt-1">Sistem akan otomatis mencatat selisih mutasi ke Supabase agar total brankas menjadi angka di atas.</p>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Catatan Penyesuaian</label>
+          <input id="inputKoreksiNotes" type="text" placeholder="Contoh: Penyesuaian tabungan riil oleh Suami" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs">
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button type="button" onclick="closeModal('modalKoreksiTotalTabungan')" class="flex-1 py-2 rounded-xl border border-slate-200 font-bold text-slate-600">Batal</button>
+          <button type="submit" class="flex-1 py-2 rounded-xl bg-amber-500 font-bold text-slate-950 hover:bg-amber-600 shadow-xs">Simpan Penyesuaian</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT PER BARIS MUTASI TABUNGAN (KHUSUS SUAMI) -->
+  <div id="modalEditSavingsItem" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 space-y-3 text-xs">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="text-sm font-black text-slate-900">Ubah Data Mutasi</h3>
+        <button onclick="closeModal('modalEditSavingsItem')" class="w-6 h-6 rounded-full bg-slate-100 text-slate-400">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleUpdateSavingsItem(event)" class="space-y-3">
+        <input type="hidden" id="editSavingsItemId">
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Judul / Periode</label>
+          <input id="editSavingsItemPeriod" type="text" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Nominal (Rp)</label>
+          <input id="editSavingsItemAmount" type="number" step="any" min="0" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold font-mono-num text-slate-800 text-xs focus-theme-ring">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Tipe Mutasi</label>
+          <select id="editSavingsItemType" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-800 text-xs">
+            <option value="addition">Penambahan (+) / Surplus</option>
+            <option value="deduction">Pengurangan (-) / Penarikan</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Catatan / Keterangan</label>
+          <input id="editSavingsItemNotes" type="text" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs">
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button type="button" onclick="handleDeleteSavingsItemFromModal()" class="px-3 py-2 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 border border-rose-200 font-bold text-xs flex items-center gap-1.5 transition">
+            <i class="fa-regular fa-trash-can"></i>
+            <span>Hapus Baris</span>
+          </button>
+          <button type="submit" class="flex-1 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 shadow-xs">
+            Simpan Perubahan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- MODAL: Buku Detail Transaksi (ON-DEMAND RECEIPT FETCH TO SAVE EGRESS) -->
   <div id="modalBukuDetail" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 text-xs space-y-3">
@@ -1178,7 +1279,6 @@
             <span class="text-slate-400 text-[10px] block">Bukti Foto / Nota (Supabase Storage):</span>
             <span class="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.2 rounded">On-Demand Egress</span>
           </div>
-          <!-- Loading skeleton while downloading -->
           <div id="detailTransPhotoLoading" class="w-full h-36 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 animate-pulse text-[11px] font-semibold gap-1.5">
             <i class="fa-solid fa-circle-notch fa-spin text-sky-500"></i>
             <span>Memuat foto nota...</span>
@@ -1198,6 +1298,28 @@
           <i class="fa-regular fa-trash-can"></i>
           <span>Hapus</span>
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PERBESAR FOTO NOTA / LIGHTBOX FULLSCREEN -->
+  <div id="modalEnlargePhoto" class="fixed inset-0 z-[95] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-3 sm:p-5 hidden" onclick="closeModal('modalEnlargePhoto')">
+    <div class="relative max-w-4xl w-full h-full flex flex-col items-center justify-center" onclick="event.stopPropagation()">
+      <div class="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 flex items-center gap-2">
+        <a id="btnDownloadEnlargedPhoto" href="#" target="_blank" rel="noopener noreferrer" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center backdrop-blur-sm transition text-xs sm:text-sm" title="Buka Gambar Asli">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+        <button type="button" onclick="closeModal('modalEnlargePhoto')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center backdrop-blur-sm transition text-sm sm:text-base cursor-pointer" title="Tutup">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="w-full h-full flex items-center justify-center p-2">
+        <img id="enlargedPhotoImg" src="" alt="Bukti Nota Diperbesar" class="max-h-[85vh] max-w-[95vw] rounded-2xl object-contain shadow-2xl border border-white/10 transition-transform duration-300">
+      </div>
+      <div class="absolute bottom-2 text-center pointer-events-none">
+        <span class="px-3 py-1 rounded-full bg-black/60 text-white/80 text-[10px] sm:text-xs font-semibold backdrop-blur-md">
+          Ketuk luar gambar atau tombol silang untuk kembali
+        </span>
       </div>
     </div>
   </div>
@@ -1237,32 +1359,35 @@
     </div>
   </div>
 
-  <!-- MODAL: PERBESAR FOTO NOTA / LIGHTBOX FULLSCREEN -->
-  <div id="modalEnlargePhoto" class="fixed inset-0 z-[95] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-3 sm:p-5 hidden" onclick="closeModal('modalEnlargePhoto')">
-    <div class="relative max-w-4xl w-full h-full flex flex-col items-center justify-center" onclick="event.stopPropagation()">
-      <!-- Top controls -->
-      <div class="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 flex items-center gap-2">
-        <a id="btnDownloadEnlargedPhoto" href="#" target="_blank" rel="noopener noreferrer" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center backdrop-blur-sm transition text-xs sm:text-sm" title="Buka Gambar Asli">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-        <button type="button" onclick="closeModal('modalEnlargePhoto')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center backdrop-blur-sm transition text-sm sm:text-base cursor-pointer" title="Tutup">
+  <!-- MODAL: Tambah Kategori Baru -->
+  <div id="modalAddCategory" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-xs w-full p-5 shadow-2xl border border-slate-200 space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="text-sm font-black text-slate-900">Tambah Kategori Baru</h3>
+        <button onclick="closeModal('modalAddCategory')" class="w-6 h-6 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      <!-- Large Image Container -->
-      <div class="w-full h-full flex items-center justify-center p-2">
-        <img id="enlargedPhotoImg" src="" alt="Bukti Nota Diperbesar" class="max-h-[85vh] max-w-[95vw] rounded-2xl object-contain shadow-2xl border border-white/10 transition-transform duration-300">
-      </div>
-      <div class="absolute bottom-2 text-center pointer-events-none">
-        <span class="px-3 py-1 rounded-full bg-black/60 text-white/80 text-[10px] sm:text-xs font-semibold backdrop-blur-md">
-          Ketuk luar gambar atau tombol silang untuk kembali
-        </span>
-      </div>
-    </div>
-  </div>
 
-  <!-- MODAL: Edit Profil & Kredensial Login -->
-  <div id="modalEditProfile" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+      <form onsubmit="handleSaveCategory(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Nama Kategori</label>
+          <input id="inputCategoryName" type="text" placeholder="Contoh: Belanja Bulanan" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs focus-theme-ring">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Tipe Pos</label>
+          <select id="inputCategoryType" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs focus-theme-ring">
+            <option value="expense">Pengeluaran</option>
+            <option value="income">Pemasukan</option>
+          </select>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button type="button" onclick="closeModal('modalAddCategory')" class="flex-1 py-2 rounded-xl border border-slate-200 font-bold text-slate-600">Batal</button>
+          <button type="submit" class="flex-1 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 shadow-xs">Simpan</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -1415,7 +1540,7 @@
       document.documentElement.style.setProperty('--primary-dark', accent.dark);
       document.documentElement.style.setProperty('--primary-ring', accent.ring);
 
-      // Beri indikator aktif yang jelas pada tombol pilihan tema di halaman Profil
+      // Indikator aktif pada tombol pilihan tema di halaman Profil
       document.querySelectorAll('.theme-card-btn').forEach(btn => {
         const val = btn.getAttribute('data-val');
         if (val === themeName) {
@@ -1451,7 +1576,7 @@
       });
     }
 
-    // Profiles State (Tanpa Hardcoded Dummy)
+    // Profiles State
     let profiles = {
       'Suami': {
         id: null,
@@ -1473,17 +1598,16 @@
 
     // Master Categories
     let categoriesMaster = [
-      { id: generateUUID(), name: 'Gaji Kantor', type: 'income', is_active: true },
-      { id: generateUUID(), name: 'Bonus & THR', type: 'income', is_active: true },
-      { id: generateUUID(), name: 'Usaha Sampingan', type: 'income', is_active: true },
-      { id: generateUUID(), name: 'Makan & Belanja Dapur', type: 'expense', is_active: true },
-      { id: generateUUID(), name: 'Listrik, Air & WiFi', type: 'expense', is_active: true },
-      { id: generateUUID(), name: 'Transportasi & Bensin', type: 'expense', is_active: true },
-      { id: generateUUID(), name: 'Cicilan Rumah & KPR', type: 'expense', is_active: true },
-      { id: generateUUID(), name: 'Hiburan & Liburan', type: 'expense', is_active: true }
+      { id: generateUUID(), name: 'Dapur & Bahan Makanan', type: 'expense', is_active: true },
+      { id: generateUUID(), name: 'Listrik & Utilitas', type: 'expense', is_active: true },
+      { id: generateUUID(), name: 'Pendidikan Anak', type: 'expense', is_active: true },
+      { id: generateUUID(), name: 'Kesehatan & Medis', type: 'expense', is_active: true },
+      { id: generateUUID(), name: 'Transportasi & BBM', type: 'expense', is_active: true },
+      { id: generateUUID(), name: 'Belanja Rumah Tangga', type: 'expense', is_active: true },
+      { id: generateUUID(), name: 'Lain-lain / Tak Terduga', type: 'expense', is_active: true }
     ];
 
-    // Murni Mengambil dari Supabase (Data Awal Bersih Rp 0)
+    // Data Transaksi
     let incomes = [];
     let expenses = [];
     let savingsHistory = [];
@@ -1508,6 +1632,7 @@
 
     function showToast(message, type = 'info') {
       const container = document.getElementById('toastContainer');
+      if (!container) return;
       const toast = document.createElement('div');
       
       const icons = {
@@ -1559,7 +1684,7 @@
        AUTENTIKASI & PERSISTENSI LOGIN SEKALI (PERMANENT AUTO-LOGIN)
        ========================================================================== */
     function checkAuthStatus() {
-      // 1. Periksa sesi lengkap yang tersimpan permanen di perangkat ini
+      // Periksa sesi lengkap yang tersimpan permanen di perangkat ini
       const savedSession = localStorage.getItem('family_finance_user_session') || localStorage.getItem('family_finance_auth');
       
       if (savedSession) {
@@ -1569,7 +1694,6 @@
           if (authData && (authData.username || authData.id)) {
             const role = authData.role || 'Suami';
 
-            // Sinkronkan objek profil aktif
             profiles[role] = {
               id: authData.id || generateUUID(),
               full_name: authData.full_name || role,
@@ -1595,7 +1719,7 @@
         }
       }
 
-      // 2. Layar login dibuka jika belum pernah login
+      // Layar login dibuka jika belum pernah login
       const gate = document.getElementById('modalLoginGate');
       if (gate) gate.classList.remove('hidden');
       return false;
@@ -1631,14 +1755,14 @@
       const submitBtn = document.getElementById('authSubmitBtn');
 
       if (mode === 'register') {
-        btnLogin.className = "flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 transition";
-        btnReg.className = "flex-1 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition";
+        btnLogin.className = "flex-1 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition text-center";
+        btnReg.className = "flex-1 py-1 rounded-lg bg-white text-slate-900 shadow-xs transition text-center";
         fnField.classList.remove('hidden');
         roleField.classList.remove('hidden');
         submitBtn.innerHTML = '<i class="fa-solid fa-user-plus mr-1"></i> Daftar Sekarang';
       } else {
-        btnReg.className = "flex-1 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 transition";
-        btnLogin.className = "flex-1 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition";
+        btnReg.className = "flex-1 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition text-center";
+        btnLogin.className = "flex-1 py-1 rounded-lg bg-white text-slate-900 shadow-xs transition text-center";
         fnField.classList.add('hidden');
         roleField.classList.add('hidden');
         submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket mr-1"></i> Masuk Sekarang';
@@ -1674,7 +1798,7 @@
         currentAuthUser = newProfile;
         activeRole = role;
 
-        // SIMPAN DATA LENGKAP KE LOCAL STORAGE AGAR LOGIN HANYA SEKALI & PERMANEN
+        // Simpan ke local storage agar login hanya sekali
         localStorage.setItem('family_finance_user_session', JSON.stringify(newProfile));
         localStorage.setItem('family_finance_auth', JSON.stringify({ username: u }));
 
@@ -1696,11 +1820,11 @@
         document.getElementById('modalLoginGate').classList.add('hidden');
         updateUserUI();
         updateDashboardMetrics();
-        showToast(`Akun ${fullName} (${role}) berhasil didaftarkan! Sesi Anda disimpan permanen.`, 'success');
+        showToast(`Akun ${fullName} (${role}) berhasil didaftarkan! Sesi disimpan permanen.`, 'success');
 
       } else {
         let matched = Object.values(profiles).find(
-          prof => prof.username.toLowerCase() === u && prof.password === p
+          prof => prof.username && prof.username.toLowerCase() === u && prof.password === p
         );
 
         if (!matched && supabaseClient) {
@@ -1737,7 +1861,6 @@
         currentAuthUser = matched;
         activeRole = matched.role;
 
-        // SIMPAN DATA LENGKAP KE LOCAL STORAGE AGAR LOGIN HANYA SEKALI & PERMANEN
         localStorage.setItem('family_finance_user_session', JSON.stringify(matched));
         localStorage.setItem('family_finance_auth', JSON.stringify({ username: matched.username }));
 
@@ -1753,19 +1876,16 @@
         'Keluar dari Akun',
         'Apakah Anda yakin ingin keluar dari akun ini? Anda harus memasukkan ID dan kata sandi kembali untuk masuk.',
         () => {
-          // Hapus semua token sesi login dari perangkat ini
           localStorage.removeItem('family_finance_user_session');
           localStorage.removeItem('family_finance_auth');
           currentAuthUser = null;
 
-          // Kosongkan form login
           const uInput = document.getElementById('loginUsername');
           const pInput = document.getElementById('loginPassword');
           if (uInput) uInput.value = '';
           if (pInput) pInput.value = '';
           hideLoginError();
 
-          // Tampilkan layar login
           const gate = document.getElementById('modalLoginGate');
           if (gate) gate.classList.remove('hidden');
           
@@ -1774,7 +1894,7 @@
       );
     }
 
-    // Logika Siklus Gajian (Tgl 10 s/d 9 Bulan Berikutnya)
+    // Siklus Gajian (Tgl 10 s/d 9 Bulan Berikutnya)
     function getPaydayCycleRange(targetDate = new Date()) {
       const year = targetDate.getFullYear();
       const month = targetDate.getMonth();
@@ -1809,8 +1929,14 @@
       const startPrev = new Date(today.getFullYear(), today.getMonth() - 1, 10).toISOString().slice(0, 10);
       const endPrev = new Date(today.getFullYear(), today.getMonth(), 9).toISOString().slice(0, 10);
 
-      const cycleIncomes = incomes.filter(i => i.transaction_date >= startPrev && i.transaction_date <= endPrev);
-      const cycleExpenses = expenses.filter(e => e.transaction_date >= startPrev && e.transaction_date <= endPrev);
+      const cycleIncomes = incomes.filter(i => {
+        const d = i.transaction_date || i.date;
+        return d >= startPrev && d <= endPrev;
+      });
+      const cycleExpenses = expenses.filter(e => {
+        const d = e.transaction_date || e.date;
+        return d >= startPrev && d <= endPrev;
+      });
 
       const totalInc = cycleIncomes.reduce((s, i) => s + Number(i.amount), 0);
       const totalExp = cycleExpenses.reduce((s, e) => s + Number(e.amount), 0);
@@ -1858,8 +1984,9 @@
       const endDate = document.getElementById('dashEndDate')?.value || '';
 
       const filterFn = (item) => {
-        const itemDate = item.transaction_date;
-        const readableType = item.income_type === 'gaji' ? 'gaji pokok' : (item.income_type === 'tarik_tabungan' ? 'tarik tabungan' : 'non-gaji');
+        const itemDate = item.transaction_date || item.date || '';
+        const itemType = item.income_type || item.type || '';
+        const readableType = itemType === 'gaji' ? 'gaji pokok' : (itemType === 'tarik_tabungan' ? 'tarik tabungan' : 'non-gaji');
         const matchSearch = (item.notes || '').toLowerCase().includes(search) || 
                             (item.category_name || '').toLowerCase().includes(search) ||
                             (item.author_name || '').toLowerCase().includes(search) ||
@@ -1905,18 +2032,22 @@
       if (riwayatTabunganEl) riwayatTabunganEl.innerText = isPrivacyMode ? 'Rp ••••••••' : formatIDR(tabunganTotal);
 
       const saldoStatusEl = document.getElementById('summarySaldoStatus');
-      if (sisaSaldo < 0) {
-        saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-rose-500/20 text-rose-300 border border-rose-500/30";
-        saldoStatusEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Defisit Kas!';
-      } else {
-        saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
-        saldoStatusEl.innerHTML = '<i class="fa-solid fa-shield-check"></i> Aman & Terkendali';
+      if (saldoStatusEl) {
+        if (sisaSaldo < 0) {
+          saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-rose-500/20 text-rose-300 border border-rose-500/30";
+          saldoStatusEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Defisit Kas!';
+        } else {
+          saldoStatusEl.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+          saldoStatusEl.innerHTML = '<i class="fa-solid fa-shield-check"></i> Aman & Terkendali';
+        }
       }
 
       const suamiCount = [...incomes, ...expenses].filter(x => x.author_role === 'Suami').length;
       const istriCount = [...incomes, ...expenses].filter(x => x.author_role === 'Istri').length;
-      document.getElementById('statsInputSuami').innerText = `${suamiCount} kali`;
-      document.getElementById('statsInputIstri').innerText = `${istriCount} kali`;
+      const statsSuamiEl = document.getElementById('statsInputSuami');
+      const statsIstriEl = document.getElementById('statsInputIstri');
+      if (statsSuamiEl) statsSuamiEl.innerText = `${suamiCount} kali`;
+      if (statsIstriEl) statsIstriEl.innerText = `${istriCount} kali`;
 
       renderDualMiniTables(filteredIncomes, filteredExpenses);
       initLineChart(filteredExpenses);
@@ -1925,37 +2056,48 @@
 
     function renderDualMiniTables(incomeList, expenseList) {
       const incTbody = document.getElementById('dashIncomeMiniTable');
-      const recentInc = [...incomeList].slice(0, 5);
-      if (recentInc.length === 0) {
-        incTbody.innerHTML = '<tr><td colspan="4" class="py-3 text-center text-slate-400 text-[9px]">Tidak ada data pemasukan.</td></tr>';
-      } else {
-        incTbody.innerHTML = recentInc.map(i => `
-          <tr onclick="openBukuDetailModal('${i.id}', 'income')" class="hover:bg-slate-50 transition cursor-pointer">
-            <td class="py-1.5 px-2 font-mono-num text-slate-500">${i.transaction_date.slice(5)}</td>
-            <td class="py-1.5 px-2 font-semibold text-slate-800 truncate max-w-[85px]">${i.category_name}</td>
-            <td class="py-1.5 px-2">
-              <span class="px-1 py-0.2 rounded text-[8px] font-bold ${i.author_role === 'Suami' ? 'bg-blue-100 text-blue-700' : 'bg-rose-100 text-rose-700'}">${i.author_role}</span>
-            </td>
-            <td class="py-1.5 px-2 text-right font-bold font-mono-num text-emerald-600">+${formatIDR(i.amount)}</td>
-          </tr>
-        `).join('');
+      if (incTbody) {
+        const recentInc = [...incomeList].slice(0, 5);
+        if (recentInc.length === 0) {
+          incTbody.innerHTML = '<tr><td colspan="4" class="py-3 text-center text-slate-400 text-[9px]">Tidak ada data pemasukan.</td></tr>';
+        } else {
+          incTbody.innerHTML = recentInc.map(i => {
+            const d = (i.transaction_date || i.date || '').slice(5);
+            const pos = i.category_name || (i.income_type === 'gaji' ? 'Gaji Pokok' : 'Non-Gaji');
+            return `
+              <tr onclick="openBukuDetailModal('${i.id}', 'income')" class="hover:bg-slate-50 transition cursor-pointer">
+                <td class="py-1.5 px-2 font-mono-num text-slate-500">${d}</td>
+                <td class="py-1.5 px-2 font-semibold text-slate-800 truncate max-w-[85px]">${pos}</td>
+                <td class="py-1.5 px-2">
+                  <span class="px-1 py-0.2 rounded text-[8px] font-bold ${i.author_role === 'Suami' ? 'bg-blue-100 text-blue-700' : 'bg-rose-100 text-rose-700'}">${i.author_role || 'Suami'}</span>
+                </td>
+                <td class="py-1.5 px-2 text-right font-bold font-mono-num text-emerald-600">+${formatIDR(i.amount)}</td>
+              </tr>
+            `;
+          }).join('');
+        }
       }
 
       const expTbody = document.getElementById('dashExpenseMiniTable');
-      const recentExp = [...expenseList].slice(0, 5);
-      if (recentExp.length === 0) {
-        expTbody.innerHTML = '<tr><td colspan="4" class="py-3 text-center text-slate-400 text-[9px]">Tidak ada data pengeluaran.</td></tr>';
-      } else {
-        expTbody.innerHTML = recentExp.map(e => `
-          <tr onclick="openBukuDetailModal('${e.id}', 'expense')" class="hover:bg-slate-50 transition cursor-pointer">
-            <td class="py-1.5 px-2 font-mono-num text-slate-500">${e.transaction_date.slice(5)}</td>
-            <td class="py-1.5 px-2 font-semibold text-slate-800 truncate max-w-[85px]">${e.category_name}</td>
-            <td class="py-1.5 px-2">
-              <span class="px-1 py-0.2 rounded text-[8px] font-bold ${e.author_role === 'Suami' ? 'bg-blue-100 text-blue-700' : 'bg-rose-100 text-rose-700'}">${e.author_role}</span>
-            </td>
-            <td class="py-1.5 px-2 text-right font-bold font-mono-num text-orange-600">-${formatIDR(e.amount)}</td>
-          </tr>
-        `).join('');
+      if (expTbody) {
+        const recentExp = [...expenseList].slice(0, 5);
+        if (recentExp.length === 0) {
+          expTbody.innerHTML = '<tr><td colspan="4" class="py-3 text-center text-slate-400 text-[9px]">Tidak ada data pengeluaran.</td></tr>';
+        } else {
+          expTbody.innerHTML = recentExp.map(e => {
+            const d = (e.transaction_date || e.date || '').slice(5);
+            return `
+              <tr onclick="openBukuDetailModal('${e.id}', 'expense')" class="hover:bg-slate-50 transition cursor-pointer">
+                <td class="py-1.5 px-2 font-mono-num text-slate-500">${d}</td>
+                <td class="py-1.5 px-2 font-semibold text-slate-800 truncate max-w-[85px]">${e.category_name || 'Pengeluaran'}</td>
+                <td class="py-1.5 px-2">
+                  <span class="px-1 py-0.2 rounded text-[8px] font-bold ${e.author_role === 'Suami' ? 'bg-blue-100 text-blue-700' : 'bg-rose-100 text-rose-700'}">${e.author_role || 'Suami'}</span>
+                </td>
+                <td class="py-1.5 px-2 text-right font-bold font-mono-num text-orange-600">-${formatIDR(e.amount)}</td>
+              </tr>
+            `;
+          }).join('');
+        }
       }
     }
 
@@ -1969,7 +2111,9 @@
       const dailyExpenses = new Array(daysInMonth).fill(0);
 
       targetExpenses.forEach(e => {
-        const d = new Date(e.transaction_date).getDate();
+        const rawDate = e.transaction_date || e.date;
+        if (!rawDate) return;
+        const d = new Date(rawDate).getDate();
         if (d >= 1 && d <= daysInMonth) {
           dailyExpenses[d - 1] += Number(e.amount);
         }
@@ -1977,9 +2121,12 @@
 
       let maxVal = Math.max(...dailyExpenses);
       let maxDay = dailyExpenses.indexOf(maxVal) + 1;
-      document.getElementById('peakExpenseLabel').innerText = maxVal > 0 
-        ? `Puncak: Tgl ${maxDay} (${formatIDR(maxVal)})` 
-        : 'Puncak: Rp 0';
+      const peakLabel = document.getElementById('peakExpenseLabel');
+      if (peakLabel) {
+        peakLabel.innerText = maxVal > 0 
+          ? `Puncak: Tgl ${maxDay} (${formatIDR(maxVal)})` 
+          : 'Puncak: Rp 0';
+      }
 
       const gradient = ctx.createLinearGradient(0, 0, 0, 180);
       gradient.addColorStop(0, 'rgba(249, 115, 22, 0.3)');
@@ -2033,7 +2180,8 @@
       if (donutMode === 'expense') {
         const catMap = {};
         targetExpenses.forEach(e => {
-          catMap[e.category_name] = (catMap[e.category_name] || 0) + Number(e.amount);
+          const cName = e.category_name || 'Lain-lain';
+          catMap[cName] = (catMap[cName] || 0) + Number(e.amount);
           total += Number(e.amount);
         });
         labels = Object.keys(catMap);
@@ -2046,8 +2194,9 @@
       } else {
         const incMap = { 'Gaji Pokok': 0, 'Non-Gaji': 0, 'Ambil Tabungan': 0 };
         targetIncomes.forEach(i => {
-          if (i.income_type === 'gaji') incMap['Gaji Pokok'] += Number(i.amount);
-          else if (i.income_type === 'tarik_tabungan') incMap['Ambil Tabungan'] += Number(i.amount);
+          const t = i.income_type || i.type;
+          if (t === 'gaji') incMap['Gaji Pokok'] += Number(i.amount);
+          else if (t === 'tarik_tabungan') incMap['Ambil Tabungan'] += Number(i.amount);
           else incMap['Non-Gaji'] += Number(i.amount);
           total += Number(i.amount);
         });
@@ -2056,7 +2205,8 @@
         colors = ['#22C55E', '#0EA5E9', '#F59E0B'];
       }
 
-      document.getElementById('donutCenterTotal').innerText = formatIDR(total);
+      const centerTotalEl = document.getElementById('donutCenterTotal');
+      if (centerTotalEl) centerTotalEl.innerText = formatIDR(total);
 
       donutChartInstance = new Chart(ctx, {
         type: 'doughnut',
@@ -2073,12 +2223,14 @@
       });
 
       const legendContainer = document.getElementById('donutLegendList');
-      legendContainer.innerHTML = labels.map((l, idx) => `
-        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[8px] font-semibold">
-          <span class="w-1.5 h-1.5 rounded-full" style="background-color: ${colors[idx % colors.length]}"></span>
-          <span>${l}</span>
-        </span>
-      `).join('');
+      if (legendContainer) {
+        legendContainer.innerHTML = labels.map((l, idx) => `
+          <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[8px] font-semibold">
+            <span class="w-1.5 h-1.5 rounded-full" style="background-color: ${colors[idx % colors.length]}"></span>
+            <span>${l}</span>
+          </span>
+        `).join('');
+      }
     }
 
     function switchDonutChart(type) {
@@ -2087,11 +2239,11 @@
       const btnInc = document.getElementById('btnChartInc');
 
       if (type === 'expense') {
-        btnExp.className = "px-2 py-0.5 rounded bg-white text-slate-900 shadow-xs";
-        btnInc.className = "px-2 py-0.5 rounded text-slate-500";
+        if (btnExp) btnExp.className = "px-2 py-0.5 rounded bg-white text-slate-900 shadow-xs";
+        if (btnInc) btnInc.className = "px-2 py-0.5 rounded text-slate-500";
       } else {
-        btnInc.className = "px-2 py-0.5 rounded bg-white text-slate-900 shadow-xs";
-        btnExp.className = "px-2 py-0.5 rounded text-slate-500";
+        if (btnInc) btnInc.className = "px-2 py-0.5 rounded bg-white text-slate-900 shadow-xs";
+        if (btnExp) btnExp.className = "px-2 py-0.5 rounded text-slate-500";
       }
       initDonutChart();
     }
@@ -2107,6 +2259,7 @@
 
     function renderIncomeTable() {
       const tbody = document.getElementById('incomeTableBody');
+      if (!tbody) return;
       const search = (document.getElementById('searchIncomeText')?.value || '').toLowerCase();
       const startDate = document.getElementById('inputIncomeFilterStart')?.value || '';
       const endDate = document.getElementById('inputIncomeFilterEnd')?.value || '';
@@ -2114,11 +2267,12 @@
       const authorFilter = document.getElementById('filterIncomeAuthor')?.value || 'all';
 
       let filtered = incomes.filter(i => {
-        const itemDate = i.transaction_date;
+        const itemDate = i.transaction_date || i.date || '';
+        const itemType = i.income_type || i.type || 'gaji';
         const matchSearch = (i.notes || '').toLowerCase().includes(search) || (i.category_name || '').toLowerCase().includes(search);
         const matchStart = !startDate || itemDate >= startDate;
         const matchEnd = !endDate || itemDate <= endDate;
-        const matchType = typeFilter === 'all' || i.income_type === typeFilter;
+        const matchType = typeFilter === 'all' || itemType === typeFilter;
         const matchAuthor = authorFilter === 'all' || i.author_role === authorFilter;
         return matchSearch && matchStart && matchEnd && matchType && matchAuthor;
       });
@@ -2131,40 +2285,44 @@
       const footerTotalEl = document.getElementById('tableFooterIncomeTotal');
       if (footerTotalEl) footerTotalEl.innerText = isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredIncomeSum);
 
-      document.getElementById('incomeCountBadge').innerText = `${filtered.length} Data • ${isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredIncomeSum)}`;
+      const countBadge = document.getElementById('incomeCountBadge');
+      if (countBadge) countBadge.innerText = `${filtered.length} Data • ${isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredIncomeSum)}`;
 
       if (filtered.length === 0) {
         tbody.innerHTML = '<tr><td colspan="6" class="py-5 text-center text-slate-400 text-xs">Tidak ada data pemasukan yang cocok.</td></tr>';
         return;
       }
 
-      // NOTE: Table row does NOT load photo to save Supabase egress! Only displays an icon.
-      tbody.innerHTML = filtered.map(item => `
-        <tr class="hover:bg-slate-50/80 transition">
-          <td class="py-2 px-3 font-mono-num text-slate-600 text-[10px]">${item.transaction_date}</td>
-          <td class="py-2 px-3">
-            <span class="inline-flex items-center px-2 py-0.5 rounded-lg font-bold text-[10px] ${
-              item.income_type === 'gaji' ? 'bg-emerald-100 text-emerald-800' : (item.income_type === 'tarik_tabungan' ? 'bg-amber-100 text-amber-800' : 'bg-teal-100 text-teal-800')
-            }">
-              ${item.income_type === 'gaji' ? 'Gaji Pokok' : (item.income_type === 'tarik_tabungan' ? 'Tabungan' : 'Non-Gaji')}
-            </span>
-          </td>
-          <td class="py-2 px-3 text-slate-600 text-[11px]">${item.notes || '-'}</td>
-          <td class="py-2 px-3">
-            <span class="px-1.5 py-0.2 rounded-full text-[9px] font-bold ${item.author_role === 'Suami' ? 'bg-blue-50 text-blue-700' : 'bg-rose-50 text-rose-700'}">
-              ${item.author_name}
-            </span>
-          </td>
-          <td class="py-2 px-3 text-right font-bold font-mono-num text-emerald-600 text-xs">
-            + ${formatIDR(item.amount)}
-          </td>
-          <td class="py-2 px-3 text-center">
-            <button onclick="openBukuDetailModal('${item.id}', 'income')" title="Lihat Detail & Nota" class="text-slate-400 hover:text-slate-700 p-1">
-              <i class="fa-solid fa-receipt ${item.photo_url ? 'text-emerald-600' : ''}"></i>
-            </button>
-          </td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = filtered.map(item => {
+        const itemType = item.income_type || item.type || 'gaji';
+        const itemDate = item.transaction_date || item.date || '-';
+        return `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-2 px-3 font-mono-num text-slate-600 text-[10px]">${itemDate}</td>
+            <td class="py-2 px-3">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-lg font-bold text-[10px] ${
+                itemType === 'gaji' ? 'bg-emerald-100 text-emerald-800' : (itemType === 'tarik_tabungan' ? 'bg-amber-100 text-amber-800' : 'bg-teal-100 text-teal-800')
+              }">
+                ${itemType === 'gaji' ? 'Gaji Pokok' : (itemType === 'tarik_tabungan' ? 'Tabungan' : 'Non-Gaji')}
+              </span>
+            </td>
+            <td class="py-2 px-3 text-slate-600 text-[11px]">${item.notes || '-'}</td>
+            <td class="py-2 px-3">
+              <span class="px-1.5 py-0.2 rounded-full text-[9px] font-bold ${item.author_role === 'Suami' ? 'bg-blue-50 text-blue-700' : 'bg-rose-50 text-rose-700'}">
+                ${item.author_name || item.author_role || 'Keluarga'}
+              </span>
+            </td>
+            <td class="py-2 px-3 text-right font-bold font-mono-num text-emerald-600 text-xs">
+              + ${isPrivacyMode ? 'Rp ••••••' : formatIDR(item.amount)}
+            </td>
+            <td class="py-2 px-3 text-center">
+              <button onclick="openBukuDetailModal('${item.id}', 'income')" title="Lihat Detail & Nota" class="text-slate-400 hover:text-slate-700 p-1">
+                <i class="fa-solid fa-receipt ${item.photo_url ? 'text-emerald-600' : ''}"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
     }
 
     function resetExpenseFilter() {
@@ -2178,6 +2336,7 @@
 
     function renderExpenseTable() {
       const tbody = document.getElementById('expenseTableBody');
+      if (!tbody) return;
       const search = (document.getElementById('searchExpenseText')?.value || '').toLowerCase();
       const startDate = document.getElementById('inputExpenseFilterStart')?.value || '';
       const endDate = document.getElementById('inputExpenseFilterEnd')?.value || '';
@@ -2185,7 +2344,7 @@
       const authorFilter = document.getElementById('filterExpenseAuthor')?.value || 'all';
 
       let filtered = expenses.filter(e => {
-        const itemDate = e.transaction_date;
+        const itemDate = e.transaction_date || e.date || '';
         const matchSearch = (e.notes || '').toLowerCase().includes(search) || (e.category_name || '').toLowerCase().includes(search);
         const matchStart = !startDate || itemDate >= startDate;
         const matchEnd = !endDate || itemDate <= endDate;
@@ -2202,43 +2361,40 @@
       const footerTotalEl = document.getElementById('tableFooterExpenseTotal');
       if (footerTotalEl) footerTotalEl.innerText = isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredExpenseSum);
 
-      document.getElementById('expenseCountBadge').innerText = `${filtered.length} Data • ${isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredExpenseSum)}`;
+      const countBadge = document.getElementById('expenseCountBadge');
+      if (countBadge) countBadge.innerText = `${filtered.length} Data • ${isPrivacyMode ? 'Rp ••••••••' : formatIDR(filteredExpenseSum)}`;
 
       if (filtered.length === 0) {
         tbody.innerHTML = '<tr><td colspan="6" class="py-5 text-center text-slate-400 text-xs">Tidak ada data pengeluaran yang cocok.</td></tr>';
         return;
       }
 
-      // NOTE: Table row does NOT load photo to save Supabase egress! Only displays an icon.
-      tbody.innerHTML = filtered.map(item => `
-        <tr class="hover:bg-slate-50/80 transition">
-          <td class="py-2 px-3 font-mono-num text-slate-600 text-[10px]">${item.transaction_date}</td>
-          <td class="py-2 px-3 font-bold text-slate-800 text-[11px]">${item.category_name}</td>
-          <td class="py-2 px-3 text-slate-600 text-[11px]">${item.notes || '-'}</td>
-          <td class="py-2 px-3">
-            <span class="px-1.5 py-0.2 rounded-full text-[9px] font-bold ${item.author_role === 'Suami' ? 'bg-blue-50 text-blue-700' : 'bg-rose-50 text-rose-700'}">
-              ${item.author_name}
-            </span>
-          </td>
-          <td class="py-2 px-3 text-right font-bold font-mono-num text-orange-600 text-xs">
-            - ${formatIDR(item.amount)}
-          </td>
-          <td class="py-2 px-3 text-center">
-            <button onclick="openBukuDetailModal('${item.id}', 'expense')" title="Lihat Detail & Nota" class="text-slate-400 hover:text-slate-700 p-1">
-              <i class="fa-solid fa-receipt ${item.photo_url ? 'text-[#F97316]' : ''}"></i>
-            </button>
-          </td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = filtered.map(item => {
+        const itemDate = item.transaction_date || item.date || '-';
+        return `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-2 px-3 font-mono-num text-slate-600 text-[10px]">${itemDate}</td>
+            <td class="py-2 px-3 font-bold text-slate-800 text-[11px]">${item.category_name || 'Pengeluaran'}</td>
+            <td class="py-2 px-3 text-slate-600 text-[11px]">${item.notes || '-'}</td>
+            <td class="py-2 px-3">
+              <span class="px-1.5 py-0.2 rounded-full text-[9px] font-bold ${item.author_role === 'Suami' ? 'bg-blue-50 text-blue-700' : 'bg-rose-50 text-rose-700'}">
+                ${item.author_name || item.author_role || 'Keluarga'}
+              </span>
+            </td>
+            <td class="py-2 px-3 text-right font-bold font-mono-num text-orange-600 text-xs">
+              - ${isPrivacyMode ? 'Rp ••••••' : formatIDR(item.amount)}
+            </td>
+            <td class="py-2 px-3 text-center">
+              <button onclick="openBukuDetailModal('${item.id}', 'expense')" title="Lihat Detail & Nota" class="text-slate-400 hover:text-slate-700 p-1">
+                <i class="fa-solid fa-receipt ${item.photo_url ? 'text-[#F97316]' : ''}"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
     }
 
     function populateCategorySelectors() {
-      const incSelect = document.getElementById('incomeCategorySelect');
-      if (incSelect) {
-        const incCats = categoriesMaster.filter(c => c.type === 'income' && c.is_active);
-        incSelect.innerHTML = incCats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-      }
-
       const expSelect = document.getElementById('expenseCategorySelect');
       const filterExpSelect = document.getElementById('filterExpenseCategory');
       const expCats = categoriesMaster.filter(c => c.type === 'expense' && c.is_active);
@@ -2274,10 +2430,13 @@
 
     function renderSavingsHistory() {
       const container = document.getElementById('savingsHistoryTable');
+      if (!container) return;
       if (savingsHistory.length === 0) {
         container.innerHTML = '<div class="py-3 text-center text-xs text-slate-400">Belum ada riwayat penutupan tabungan.</div>';
         return;
       }
+
+      const isSuami = (activeRole === 'Suami');
 
       container.innerHTML = savingsHistory.map(s => `
         <div class="py-2.5 flex items-center justify-between text-xs border-b border-slate-100">
@@ -2290,26 +2449,45 @@
               <p class="text-[10px] text-slate-400">${s.notes || 'Surplus tabungan'}</p>
             </div>
           </div>
-          <span class="font-bold font-mono-num ${s.is_deduction ? 'text-rose-600' : 'text-amber-600'} text-xs">
-            ${s.is_deduction ? '-' : '+'} ${isPrivacyMode ? 'Rp ••••••' : formatIDR(s.amount_saved)}
-          </span>
+          <div class="flex items-center gap-2">
+            <span class="font-bold font-mono-num ${s.is_deduction ? 'text-rose-600' : 'text-amber-600'} text-xs">
+              ${s.is_deduction ? '-' : '+'} ${isPrivacyMode ? 'Rp ••••••' : formatIDR(s.amount_saved)}
+            </span>
+            ${isSuami ? `
+              <div class="flex items-center gap-1 ml-1">
+                <button type="button" onclick="openEditSavingsItemModal('${s.id}')" title="Ubah Baris Mutasi" class="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition">
+                  <i class="fa-solid fa-pen-to-square text-[11px]"></i>
+                </button>
+                <button type="button" onclick="handleDeleteSavingsItem('${s.id}')" title="Hapus Baris Mutasi" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition">
+                  <i class="fa-solid fa-trash-can text-[11px]"></i>
+                </button>
+              </div>
+            ` : ''}
+          </div>
         </div>
       `).join('');
     }
 
     function openModal(id) {
-      document.getElementById(id).classList.remove('hidden');
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.remove('hidden');
       const today = new Date().toLocaleDateString('en-CA');
       if (id === 'modalAddIncome') {
-        document.getElementById('inputIncomeDate').value = today;
+        const inp = document.getElementById('inputIncomeDate');
+        if (inp) inp.value = today;
       } else if (id === 'modalAddExpense') {
-        document.getElementById('inputExpenseDate').value = today;
+        const inp = document.getElementById('inputExpenseDate');
+        if (inp) inp.value = today;
       }
     }
 
     function closeModal(id) {
-      document.getElementById(id).classList.add('hidden');
-      // CRITICAL EGRESS SAVING: Instantly remove photo src to prevent idle memory/network consumption
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.add('hidden');
+
+      // Instant disconnect for receipt image to conserve Supabase egress bandwidth
       if (id === 'modalBukuDetail') {
         const photoImg = document.getElementById('detailTransPhoto');
         if (photoImg) photoImg.src = '';
@@ -2450,9 +2628,12 @@
       document.getElementById('profileUserIstri').innerText = `ID: ${profiles['Istri'].username}`;
       document.getElementById('profileAvatarIstri').src = profiles['Istri'].avatar_url;
 
+      // HAK AKSES KHUSUS SUAMI UNTUK PENGATURAN DAN EDIT TABUNGAN
+      const isSuami = (activeRole === 'Suami');
+
       const masterSec = document.getElementById('masterDataRestrictedSection');
       if (masterSec) {
-        if (activeRole === 'Suami') {
+        if (isSuami) {
           masterSec.classList.remove('opacity-60', 'pointer-events-none');
           document.getElementById('badgeSuamiAccess').innerText = 'Akses Suami Aktif';
         } else {
@@ -2460,6 +2641,192 @@
           document.getElementById('badgeSuamiAccess').innerText = 'Terkunci (Hanya Suami)';
         }
       }
+
+      // Tampilkan / Sembunyikan Tombol Ubah Tabungan Berdasarkan Peran
+      const quickEditBtn = document.getElementById('btnQuickEditTabunganSuami');
+      if (quickEditBtn) {
+        if (isSuami) quickEditBtn.classList.remove('hidden');
+        else quickEditBtn.classList.add('hidden');
+      }
+
+      const koreksiBottomBtn = document.getElementById('btnKoreksiTabunganBottom');
+      if (koreksiBottomBtn) {
+        if (isSuami) koreksiBottomBtn.classList.remove('hidden');
+        else koreksiBottomBtn.classList.add('hidden');
+      }
+
+      const badgeSuamiBadge = document.getElementById('badgeSuamiSavingsAdmin');
+      if (badgeSuamiBadge) {
+        if (isSuami) badgeSuamiBadge.classList.remove('hidden');
+        else badgeSuamiBadge.classList.add('hidden');
+      }
+
+      renderSavingsHistory();
+    }
+
+    /* ==========================================================================
+       MANAJEMEN KOREKSI & EDIT TABUNGAN OLEH SUAMI (ADMIN UTAMA)
+       ========================================================================== */
+    function openKoreksiTotalTabunganModal() {
+      if (activeRole !== 'Suami') {
+        showToast('Fitur ini hanya dapat diakses oleh Suami sebagai Admin Utama.', 'warning');
+        return;
+      }
+
+      const totalTabungan = savingsHistory.reduce((s, x) => s + (x.is_deduction ? -Number(x.amount_saved) : Number(x.amount_saved)), 0);
+      const displayEl = document.getElementById('koreksiCurrentTotalDisplay');
+      if (displayEl) displayEl.innerText = formatIDR(totalTabungan);
+
+      const inputTarget = document.getElementById('inputKoreksiTargetTotal');
+      if (inputTarget) inputTarget.value = totalTabungan;
+
+      openModal('modalKoreksiTotalTabungan');
+    }
+
+    async function handleKoreksiTotalTabunganSubmit(e) {
+      e.preventDefault();
+      if (activeRole !== 'Suami') {
+        showToast('Akses ditolak: Hanya Suami yang dapat mengoreksi tabungan.', 'error');
+        return;
+      }
+
+      const newTotal = parseFloat(document.getElementById('inputKoreksiTargetTotal').value);
+      if (isNaN(newTotal) || newTotal < 0) {
+        showToast('Masukkan nominal target yang valid!', 'warning');
+        return;
+      }
+
+      const notes = document.getElementById('inputKoreksiNotes').value.trim() || 'Koreksi saldo tabungan oleh Suami';
+      const currentTotal = savingsHistory.reduce((s, x) => s + (x.is_deduction ? -Number(x.amount_saved) : Number(x.amount_saved)), 0);
+      const diff = newTotal - currentTotal;
+
+      if (Math.abs(diff) < 1) {
+        showToast('Nominal target sama dengan saldo tabungan saat ini.', 'info');
+        closeModal('modalKoreksiTotalTabungan');
+        return;
+      }
+
+      const isDeduction = diff < 0;
+      const absAmount = Math.abs(diff);
+
+      const adjustmentRecord = {
+        id: generateUUID(),
+        period_month: 'Penyesuaian Saldo oleh Suami',
+        amount_saved: absAmount,
+        notes: `${notes} (${diff > 0 ? '+' : '-'}${formatIDR(absAmount)})`,
+        is_deduction: isDeduction,
+        created_at: new Date().toISOString()
+      };
+
+      savingsHistory.unshift(adjustmentRecord);
+      closeModal('modalKoreksiTotalTabungan');
+      e.target.reset();
+
+      updateDashboardMetrics();
+      renderSavingsHistory();
+      showToast(`Saldo tabungan berhasil disesuaikan menjadi ${formatIDR(newTotal)}!`, 'success');
+
+      if (supabaseClient) {
+        try {
+          await supabaseClient.from('savings_history').insert(adjustmentRecord);
+        } catch (err) {
+          console.warn("Supabase insert penyesuaian tabungan error:", err);
+        }
+      }
+    }
+
+    function openEditSavingsItemModal(id) {
+      if (activeRole !== 'Suami') {
+        showToast('Hanya Suami yang memiliki akses mengubah data mutasi.', 'warning');
+        return;
+      }
+
+      const item = savingsHistory.find(s => s.id === id);
+      if (!item) return;
+
+      document.getElementById('editSavingsItemId').value = item.id;
+      document.getElementById('editSavingsItemPeriod').value = item.period_month;
+      document.getElementById('editSavingsItemAmount').value = item.amount_saved;
+      document.getElementById('editSavingsItemType').value = item.is_deduction ? 'deduction' : 'addition';
+      document.getElementById('editSavingsItemNotes').value = item.notes || '';
+
+      openModal('modalEditSavingsItem');
+    }
+
+    async function handleUpdateSavingsItem(e) {
+      e.preventDefault();
+      if (activeRole !== 'Suami') {
+        showToast('Akses ditolak: Hanya Suami yang dapat mengubah mutasi.', 'error');
+        return;
+      }
+
+      const id = document.getElementById('editSavingsItemId').value;
+      const period = document.getElementById('editSavingsItemPeriod').value.trim();
+      const amount = parseFloat(document.getElementById('editSavingsItemAmount').value);
+      const isDeduction = document.getElementById('editSavingsItemType').value === 'deduction';
+      const notes = document.getElementById('editSavingsItemNotes').value.trim();
+
+      const item = savingsHistory.find(s => s.id === id);
+      if (!item) return;
+
+      item.period_month = period;
+      item.amount_saved = amount;
+      item.is_deduction = isDeduction;
+      item.notes = notes;
+
+      closeModal('modalEditSavingsItem');
+      updateDashboardMetrics();
+      renderSavingsHistory();
+      showToast('Data mutasi tabungan berhasil diperbarui!', 'success');
+
+      if (supabaseClient) {
+        try {
+          await supabaseClient.from('savings_history').update({
+            period_month: period,
+            amount_saved: amount,
+            is_deduction: isDeduction,
+            notes: notes
+          }).eq('id', id);
+        } catch (err) {
+          console.warn("Supabase update savings_history error:", err);
+        }
+      }
+    }
+
+    function handleDeleteSavingsItemFromModal() {
+      const id = document.getElementById('editSavingsItemId').value;
+      handleDeleteSavingsItem(id);
+    }
+
+    function handleDeleteSavingsItem(id) {
+      if (activeRole !== 'Suami') {
+        showToast('Hanya Suami yang memiliki akses menghapus data mutasi.', 'warning');
+        return;
+      }
+
+      const item = savingsHistory.find(s => s.id === id);
+      if (!item) return;
+
+      showConfirmModal(
+        'Hapus Mutasi Tabungan',
+        `Apakah Anda yakin ingin menghapus data tabungan "${item.period_month}" senilai ${formatIDR(item.amount_saved)}? Tindakan ini akan langsung memperbarui total saldo tabungan.`,
+        async () => {
+          closeModal('modalEditSavingsItem');
+          savingsHistory = savingsHistory.filter(s => s.id !== id);
+
+          updateDashboardMetrics();
+          renderSavingsHistory();
+          showToast('Mutasi tabungan berhasil dihapus!', 'warning');
+
+          if (supabaseClient) {
+            try {
+              await supabaseClient.from('savings_history').delete().eq('id', id);
+            } catch (err) {
+              console.warn("Supabase delete savings_history error:", err);
+            }
+          }
+        }
+      );
     }
 
     function editProfile(role) {
@@ -2482,7 +2849,6 @@
       
       if (currentAuthUser && currentAuthUser.role === role) {
         currentAuthUser = profiles[role];
-        // Perbarui sesi tersimpan di HP
         localStorage.setItem('family_finance_user_session', JSON.stringify(currentAuthUser));
         localStorage.setItem('family_finance_auth', JSON.stringify({ username: currentAuthUser.username }));
       }
@@ -2534,13 +2900,57 @@
       }
     }
 
-    function handleReceiptFileSelection(e, type) {
-      const file = e.target.files[0];
+    async function resilientSupabaseInsert(table, payload) {
+      if (!supabaseClient) return { error: null };
+      
+      let res = await supabaseClient.from(table).insert(payload);
+      if (!res.error) return res;
+
+      console.warn(`Direct insert failed on ${table}, attempting sanitized retry:`, res.error);
+
+      const sanitized = { ...payload };
+
+      if (res.error.message && res.error.message.includes('column') && res.error.message.includes('does not exist')) {
+        const match = res.error.message.match(/column "([^"]+)" of relation/);
+        if (match && match[1]) {
+          delete sanitized[match[1]];
+        }
+      }
+
+      if (res.error.message && (res.error.message.includes('user_id') || res.error.message.includes('foreign key') || res.error.message.includes('uuid'))) {
+        delete sanitized.user_id;
+      }
+
+      res = await supabaseClient.from(table).insert(sanitized);
+      if (!res.error) return res;
+
+      // Fallback: Gunakan payload esensial yang dijamin diterima database
+      const core = {
+        id: generateUUID(),
+        amount: payload.amount,
+        transaction_date: payload.transaction_date || payload.date || new Date().toISOString().slice(0, 10),
+        notes: payload.notes || null,
+        photo_url: payload.photo_url || null
+      };
+      if (table === 'incomes') {
+        core.income_type = payload.income_type || payload.type || 'gaji';
+        core.author_name = payload.author_name || 'Keluarga';
+        core.author_role = payload.author_role || 'Suami';
+      } else if (table === 'expenses') {
+        core.category_name = payload.category_name || 'Pengeluaran';
+        core.author_name = payload.author_name || 'Keluarga';
+        core.author_role = payload.author_role || 'Suami';
+      }
+
+      return await supabaseClient.from(table).insert(core);
+    }
+
+    function handleReceiptFileSelection(event, type) {
+      const file = event.target.files && event.target.files[0];
       if (!file) return;
 
       selectedReceiptFiles[type] = file;
       
-      // Tampilkan preview lokal menggunakan createObjectURL (TIDAK menyedot kuota Supabase)
       const localPreviewUrl = URL.createObjectURL(file);
       const preview = document.getElementById(type === 'income' ? 'previewIncomePhoto' : 'previewExpensePhoto');
       const wrapper = document.getElementById(type === 'income' ? 'previewIncomePhotoWrapper' : 'previewExpensePhotoWrapper');
@@ -2567,9 +2977,10 @@
       }
 
       try {
-        const incomeType = document.querySelector('input[name="income_type"]:checked').value;
+        const incomeTypeRadio = document.querySelector('input[name="income_type"]:checked');
+        const incomeType = incomeTypeRadio ? incomeTypeRadio.value : 'gaji';
         const amount = parseFloat(document.getElementById('inputIncomeAmount').value);
-        const transDate = document.getElementById('inputIncomeDate').value;
+        const transDate = document.getElementById('inputIncomeDate').value || new Date().toISOString().slice(0, 10);
         const notes = document.getElementById('inputIncomeNotes').value;
 
         const user = profiles[activeRole] || profiles['Suami'];
@@ -2585,22 +2996,23 @@
         const categoryName = incomeType === 'gaji' ? 'Gaji Pokok' : 'Non-Gaji';
         const newRecord = {
           id: generateUUID(),
-          user_id: validUserId,
           author_name: user ? user.full_name : 'Keluarga',
           author_role: user ? user.role : 'Suami',
-          category_id: null,
-          category_name: categoryName,
           income_type: incomeType,
+          type: incomeType,
+          category_name: categoryName,
           amount: amount,
           transaction_date: transDate,
+          date: transDate,
           notes: notes || null,
           photo_url: uploadedPhotoUrl || null
         };
+        if (validUserId) newRecord.user_id = validUserId;
 
-        // 2. Simpan ke database Supabase dan verifikasi konfirmasi balasan
+        // 2. Simpan ke database Supabase
         if (supabaseClient) {
           submitBtn.innerText = 'Menyinkronkan ke Supabase...';
-          const { error } = await supabaseClient.from('incomes').insert([newRecord]);
+          const { error } = await resilientSupabaseInsert('incomes', newRecord);
           if (error) {
             console.error("Gagal simpan pemasukan ke Supabase:", error);
             showToast(`Gagal simpan: ${error.message}`, 'error');
@@ -2614,7 +3026,10 @@
 
         // 3. Tambahkan ke memori lokal
         if (!incomes.some(x => x.id === newRecord.id)) {
-          incomes.unshift({ ...newRecord, created_at: new Date().toISOString() });
+          incomes.unshift({ 
+            ...newRecord, 
+            created_at: new Date().toISOString() 
+          });
         }
         closeModal('modalAddIncome');
         e.target.reset();
@@ -2646,7 +3061,7 @@
         const catId = document.getElementById('expenseCategorySelect').value;
         const categoryObj = categoriesMaster.find(c => c.id === catId);
         const amount = parseFloat(document.getElementById('inputExpenseAmount').value);
-        const transDate = document.getElementById('inputExpenseDate').value;
+        const transDate = document.getElementById('inputExpenseDate').value || new Date().toISOString().slice(0, 10);
         const notes = document.getElementById('inputExpenseNotes').value;
 
         const user = profiles[activeRole] || profiles['Suami'];
@@ -2661,21 +3076,22 @@
         const validUserId = toValidUUID(user ? user.id : null);
         const newRecord = {
           id: generateUUID(),
-          user_id: validUserId,
           author_name: user ? user.full_name : 'Keluarga',
           author_role: user ? user.role : 'Suami',
           category_id: catId || null,
           category_name: categoryObj ? categoryObj.name : 'Pengeluaran',
           amount: amount,
           transaction_date: transDate,
+          date: transDate,
           notes: notes || null,
           photo_url: uploadedPhotoUrl || null
         };
+        if (validUserId) newRecord.user_id = validUserId;
 
-        // 2. Simpan ke database Supabase dan verifikasi konfirmasi balasan
+        // 2. Simpan ke database Supabase
         if (supabaseClient) {
           submitBtn.innerText = 'Menyinkronkan ke Supabase...';
-          const { error } = await supabaseClient.from('expenses').insert([newRecord]);
+          const { error } = await resilientSupabaseInsert('expenses', newRecord);
           if (error) {
             console.error("Gagal simpan pengeluaran ke Supabase:", error);
             showToast(`Gagal simpan: ${error.message}`, 'error');
@@ -2716,9 +3132,9 @@
 
       activeDetailTransaction = { id, type, item };
 
-      document.getElementById('detailTransDate').innerText = item.transaction_date;
-      document.getElementById('detailTransCat').innerText = item.category_name;
-      document.getElementById('detailTransAuthor').innerText = `${item.author_name} (${item.author_role})`;
+      document.getElementById('detailTransDate').innerText = item.transaction_date || item.date || '-';
+      document.getElementById('detailTransCat').innerText = item.category_name || (type === 'income' ? 'Pemasukan' : 'Pengeluaran');
+      document.getElementById('detailTransAuthor').innerText = `${item.author_name || 'Keluarga'} (${item.author_role || 'Suami'})`;
       document.getElementById('detailTransAmount').innerText = (type === 'income' ? '+ ' : '- ') + formatIDR(item.amount);
       document.getElementById('detailTransNotes').innerText = item.notes || 'Tidak ada catatan khusus.';
 
@@ -2726,8 +3142,7 @@
       const photoImg = document.getElementById('detailTransPhoto');
       const photoLoading = document.getElementById('detailTransPhotoLoading');
 
-      // CRITICAL EGRESS SAVING LOGIC:
-      // Foto nota dari Supabase HANYA di-download ketika modal rincian dibuka oleh pengguna!
+      // Foto nota dari Supabase HANYA di-download saat modal dibuka oleh pengguna
       if (item.photo_url) {
         photoSec.classList.remove('hidden');
         photoLoading.classList.remove('hidden');
@@ -2744,7 +3159,6 @@
           photoSec.classList.add('hidden');
         };
 
-        // Pemicu unduhan gambar dari Supabase Storage
         photoImg.src = item.photo_url;
       } else {
         photoSec.classList.add('hidden');
@@ -2781,7 +3195,6 @@
             const table = type === 'income' ? 'incomes' : 'expenses';
             await supabaseClient.from(table).delete().eq('id', id);
 
-            // Opsional: Hapus file nota dari Supabase Storage jika ada
             if (item && item.photo_url && item.photo_url.includes('receipts/')) {
               const fileName = item.photo_url.split('/receipts/').pop();
               if (fileName) {
@@ -2830,8 +3243,10 @@
         category_id: null,
         category_name: 'Tarik Tabungan',
         income_type: 'tarik_tabungan',
+        type: 'tarik_tabungan',
         amount: amount,
         transaction_date: new Date().toLocaleDateString('en-CA'),
+        date: new Date().toLocaleDateString('en-CA'),
         notes: `[Dari Tabungan] ${notes}`,
         created_at: new Date().toISOString()
       };
@@ -2954,15 +3369,6 @@
       });
     }
 
-    function toggleCategoryActive(catId) {
-      const cat = categoriesMaster.find(c => c.id === catId);
-      if (cat) {
-        cat.is_active = !cat.is_active;
-        populateCategorySelectors();
-        showToast(`Status kategori ${cat.name} diperbarui.`, 'info');
-      }
-    }
-
     function saveLoginBgSetting() {
       const url = document.getElementById('inputMasterLoginBgUrl').value.trim();
       localStorage.setItem('family_finance_login_bg', url);
@@ -3004,17 +3410,15 @@
         if (!window.supabase) return;
         supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.URL, SUPABASE_CONFIG.ANON_KEY);
         
-        // Ambil Data Profil Nyata dari Supabase (Diurutkan dari yang terbaru)
+        // Ambil Data Profil Nyata dari Supabase
         const { data: profData, error: profErr } = await supabaseClient
           .from('profiles')
           .select('*')
           .order('created_at', { ascending: false });
 
         if (!profErr && profData && profData.length > 0) {
-          // 1. Sinkronisasi Akun Suami
           const suamiProfiles = profData.filter(p => p.role === 'Suami');
           const realSuami = suamiProfiles.find(p => currentAuthUser && p.username === currentAuthUser.username)
-            || suamiProfiles.find(p => p.username !== 'bagus' && p.full_name !== 'Bagus Pratama')
             || suamiProfiles[0];
 
           if (realSuami) {
@@ -3032,10 +3436,8 @@
             }
           }
 
-          // 2. Sinkronisasi Akun Istri (Memprioritaskan akun nyata yang Anda buat)
           const istriProfiles = profData.filter(p => p.role === 'Istri');
           const realIstri = istriProfiles.find(p => currentAuthUser && p.username === currentAuthUser.username)
-            || istriProfiles.find(p => p.username !== 'anindya' && p.full_name !== 'Anindya Putri')
             || istriProfiles[0];
 
           if (realIstri) {
@@ -3053,7 +3455,6 @@
             }
           }
 
-          // Segera perbarui antarmuka pengguna
           updateUserUI();
         }
 
@@ -3076,7 +3477,6 @@
         const { data: savData, error: savErr } = await supabaseClient.from('savings_history').select('*').order('created_at', { ascending: false });
         if (!savErr && savData) savingsHistory = savData;
 
-        // Periksa apakah hari ini tgl 10 gajian untuk tutup buku otomatis
         await checkAndExecuteAutoTutupBuku();
 
         if (!isRealtimeWebSocketAllowed()) {
@@ -3085,7 +3485,7 @@
           return;
         }
 
-        // Pure Event-Driven Supabase Realtime
+        // Pure Event-Driven Supabase Realtime WebSocket Listeners
         try {
           realtimeChannel = supabaseClient.channel('realtime_family_finance')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'incomes' }, (payload) => {
@@ -3199,7 +3599,7 @@
       });
 
       handleMobileNavSwitch('dashboard', 0);
-      console.log("KEUANGAN KELUARGA running with enhanced privacy and enlarged banner layouts.");
+      console.log("KEUANGAN KELUARGA running with full features and admin controls.");
     };
   </script>
 </body>
